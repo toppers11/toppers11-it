@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Choose Your Exam — Toppers11</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{--green:#10B981;--green-dark:#059669;--green-deeper:#065F46;--green-pale:#ECFDF5;--green-light:#D1FAE5;--ink:#111827;--muted:#6B7280;--border:#E5E7EB;--bg:#F0FDF4;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;display:flex;flex-direction:column;}
+.top-nav{background:#fff;border-bottom:1px solid var(--border);padding:0 1.5rem;height:60px;display:flex;align-items:center;justify-content:space-between;}
+.nav-right{display:flex;align-items:center;gap:0.75rem;}
+.user-chip{display:flex;align-items:center;gap:0.5rem;background:var(--green-pale);border:1px solid var(--green-light);border-radius:999px;padding:0.3rem 0.8rem 0.3rem 0.35rem;}
+.avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#065F46,#10B981);display:grid;place-items:center;font-size:0.7rem;font-weight:700;color:#fff;}
+.user-name{font-size:0.8rem;font-weight:600;color:var(--green-deeper);}
+.btn-logout{font-size:0.78rem;font-weight:600;color:var(--muted);background:none;border:none;cursor:pointer;padding:0.3rem 0.5rem;border-radius:6px;}
+.btn-logout:hover{color:#EF4444;}
+/* ── Profile dropdown ── */
+.user-chip-wrap{position:relative;display:flex;align-items:center;}
+.user-chip{cursor:pointer;transition:box-shadow 0.15s;}
+.user-chip:hover{box-shadow:0 2px 10px rgba(16,185,129,0.2);}
+.chevron-icon{transition:transform 0.2s;margin-left:0.25rem;}
+.user-chip-wrap.open .chevron-icon{transform:rotate(180deg);}
+.profile-dropdown{position:absolute;top:calc(100% + 10px);right:0;width:320px;background:#fff;border:1px solid var(--border);border-radius:16px;box-shadow:0 16px 48px rgba(0,0,0,0.12);z-index:1000;overflow:hidden;display:none;}
+.profile-dropdown.open{display:block;animation:dropIn 0.2s ease;}
+@keyframes dropIn{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:translateY(0);}}
+.pd-header{background:linear-gradient(135deg,#065F46,#059669);padding:1.2rem 1.4rem;display:flex;align-items:center;gap:0.9rem;}
+.pd-avatar-lg{width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,0.2);display:grid;place-items:center;font-size:1.1rem;font-weight:700;color:#fff;flex-shrink:0;border:2px solid rgba(255,255,255,0.35);}
+.pd-header-info h3{font-size:0.95rem;font-weight:700;color:#fff;margin-bottom:0.1rem;}
+.pd-header-info p{font-size:0.75rem;color:rgba(255,255,255,0.72);}
+.pd-body{padding:1rem 1.4rem 1.2rem;}
+.pd-row{display:flex;align-items:flex-start;gap:0.7rem;padding:0.5rem 0;border-bottom:1px solid var(--border);}
+.pd-row:last-child{border-bottom:none;}
+.pd-icon{width:32px;height:32px;border-radius:8px;background:var(--green-pale);display:grid;place-items:center;flex-shrink:0;margin-top:2px;}
+.pd-label{font-size:0.7rem;font-weight:600;color:var(--muted);letter-spacing:0.04em;text-transform:uppercase;margin-bottom:0.15rem;}
+.pd-value{font-size:0.84rem;font-weight:500;color:var(--ink);line-height:1.4;}
+.pd-footer{padding:0.8rem 1.4rem;border-top:1px solid var(--border);display:flex;gap:0.6rem;}
+.pd-btn-edit{flex:1;padding:0.55rem;font-size:0.78rem;font-weight:600;background:var(--green-pale);color:var(--green-deeper);border:none;border-radius:8px;cursor:pointer;transition:background 0.15s;}
+.pd-btn-edit:hover{background:var(--green-light);}
+.pd-btn-logout{flex:1;padding:0.55rem;font-size:0.78rem;font-weight:600;background:#FEF2F2;color:#991B1B;border:none;border-radius:8px;cursor:pointer;transition:background 0.15s;}
+.pd-btn-logout:hover{background:#FEE2E2;}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:9999;align-items:center;justify-content:center;padding:1rem;}
+.modal-overlay.open{display:flex;}
+.modal-box{background:#fff;border-radius:20px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;box-shadow:0 24px 64px rgba(0,0,0,0.18);}
+.modal-header{background:linear-gradient(135deg,#065F46,#059669);padding:1.4rem 1.75rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;}
+.modal-header h2{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:#fff;}
+.modal-close{background:rgba(255,255,255,0.18);border:none;color:#fff;width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:1.1rem;display:grid;place-items:center;}
+.modal-close:hover{background:rgba(255,255,255,0.28);}
+.modal-body{padding:1.5rem 1.75rem 2rem;}
+.form-group-m{margin-bottom:1rem;}
+.form-label-m{display:block;font-size:0.78rem;font-weight:600;color:var(--ink);margin-bottom:0.4rem;}
+.form-input-m,.form-select-m{width:100%;padding:0.72rem 0.9rem;border:1.5px solid var(--border);border-radius:9px;font-family:'DM Sans',sans-serif;font-size:0.875rem;color:var(--ink);background:#fff;outline:none;transition:border-color 0.15s,box-shadow 0.15s;}
+.form-input-m:focus,.form-select-m:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(16,185,129,0.1);}
+.form-select-m{appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='12' height='8' fill='none' stroke='%236B7280' stroke-width='1.5' viewBox='0 0 12 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0.9rem center;padding-right:2.2rem;}
+.form-hint-m{font-size:0.72rem;color:var(--muted);margin-top:0.3rem;}
+.phone-group-m{display:flex;}
+.phone-prefix-m{display:flex;align-items:center;padding:0.72rem 0.75rem;background:#F9FAFB;border:1.5px solid var(--border);border-right:none;border-radius:9px 0 0 9px;font-size:0.875rem;color:var(--muted);font-weight:600;white-space:nowrap;}
+.phone-group-m .form-input-m{border-radius:0 9px 9px 0;flex:1;}
+.form-row-m{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;}
+@media(max-width:480px){.form-row-m{grid-template-columns:1fr;}}
+.alert-m{padding:0.7rem 1rem;border-radius:9px;font-size:0.8rem;font-weight:500;margin-bottom:1rem;display:none;background:#FEF2F2;border:1px solid #FECACA;color:#991B1B;}
+.alert-m.show{display:block;}
+.btn-save-m{width:100%;padding:0.82rem;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:700;cursor:pointer;background:linear-gradient(135deg,#059669,#10B981);color:#fff;box-shadow:0 4px 14px rgba(16,185,129,0.3);margin-top:0.75rem;}
+.btn-save-m:hover{transform:translateY(-1px);}
+
+.hero{background:linear-gradient(135deg,#065F46,#059669 60%,#10B981);padding:2.5rem 1.5rem 2.2rem;text-align:center;}
+.hero h1{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:800;color:#fff;margin-bottom:0.4rem;}
+.hero p{font-size:0.88rem;color:rgba(255,255,255,0.78);}
+
+.wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:2.5rem 1rem;}
+.cards-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.25rem;width:100%;max-width:780px;}
+
+.exam-card{background:#fff;border:2px solid var(--border);border-radius:20px;padding:2rem 1.5rem 1.75rem;text-align:center;cursor:pointer;text-decoration:none;color:var(--ink);transition:all 0.2s;display:flex;flex-direction:column;align-items:center;gap:0.6rem;}
+.exam-card:hover{transform:translateY(-5px);}
+.exam-card.iti:hover{border-color:var(--green);box-shadow:0 12px 36px rgba(16,185,129,0.18);}
+.exam-card.ito:hover{border-color:#F59E0B;box-shadow:0 12px 36px rgba(245,158,11,0.18);}
+.exam-card.ms:hover{border-color:#3B82F6;box-shadow:0 12px 36px rgba(59,130,246,0.18);}
+
+.exam-icon{width:64px;height:64px;border-radius:16px;display:grid;place-items:center;margin-bottom:0.4rem;}
+.icon-iti{background:var(--green-pale);}
+.icon-ito{background:#FFFBEB;}
+.icon-ms{background:#EFF6FF;}
+
+.exam-card h2{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;}
+.exam-card p{font-size:0.78rem;color:var(--muted);line-height:1.5;}
+.exam-pills{display:flex;flex-wrap:wrap;justify-content:center;gap:0.35rem;margin-top:0.3rem;}
+.epill{font-size:0.65rem;font-weight:700;padding:0.2rem 0.55rem;border-radius:999px;letter-spacing:0.04em;}
+.epill-iti{background:var(--green-pale);color:var(--green-dark);}
+.epill-ito{background:#FFFBEB;color:#92400E;}
+.epill-ms{background:#EFF6FF;color:#1D4ED8;}
+.free-tag{display:inline-flex;align-items:center;gap:0.25rem;font-size:0.7rem;font-weight:700;color:var(--green-dark);margin-top:0.4rem;}
+
+.go-btn{display:inline-flex;align-items:center;gap:0.4rem;margin-top:1rem;padding:0.6rem 1.4rem;border-radius:10px;font-size:0.82rem;font-weight:700;border:none;cursor:pointer;transition:all 0.15s;}
+.go-iti{background:var(--green-pale);color:var(--green-deeper);}
+.exam-card.iti:hover .go-iti{background:var(--green);color:#fff;}
+.go-ito{background:#FFFBEB;color:#92400E;}
+.exam-card.ito:hover .go-ito{background:#F59E0B;color:#fff;}
+.go-ms{background:#EFF6FF;color:#1D4ED8;}
+.exam-card.ms:hover .go-ms{background:#3B82F6;color:#fff;}
+/* ─── LOGO ─── */
+.logo-wrap{display:flex;align-items:center;gap:0;text-decoration:none;line-height:1;}
+.logo-block{display:flex;flex-direction:column;align-items:flex-start;gap:0;}
+.logo-since{font-family:'Dancing Script','Segoe Script','Brush Script MT',cursive;font-size:0.88rem;font-weight:600;color:#1a6b42;letter-spacing:0.02em;margin-bottom:-2px;line-height:1.1;}
+.logo-main{font-family:'DM Sans','Arial Black',sans-serif;font-size:1.62rem;font-weight:800;color:#111;letter-spacing:-0.02em;line-height:1;text-transform:uppercase;}
+.logo-main span{color:#1a9e6e;}
+.logo-sub{font-size:0.52rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#111827;margin-top:1px;}
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a href="index.html" class="logo-wrap"><div class="logo-block"><span class="logo-since">Employee Choice</span><span class="logo-main">TOPPERS<span>11</span></span><span class="logo-sub">AI-Powered Test Series</span></div></a>
+  <div class="nav-right">
+    <div class="user-chip-wrap" id="user-chip-wrap">
+      <div class="user-chip" onclick="toggleProfile()" style="display:flex;align-items:center;gap:0.5rem;background:var(--green-pale);border:1px solid var(--green-light);border-radius:999px;padding:0.3rem 0.8rem 0.3rem 0.35rem;">
+        <div class="avatar" id="user-avatar">U</div>
+        <span class="user-name" id="user-name-display">User</span>
+        <svg class="chevron-icon" width="12" height="12" fill="none" stroke="#065F46" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="profile-dropdown" id="profile-dropdown">
+        <div class="pd-header">
+          <div class="pd-avatar-lg" id="pd-avatar-lg">U</div>
+          <div class="pd-header-info"><h3 id="pd-name">—</h3><p id="pd-email-hdr">—</p></div>
+        </div>
+        <div class="pd-body">
+          <div class="pd-row">
+            <div class="pd-icon"><svg width="16" height="16" fill="none" stroke="#059669" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+            <div><div class="pd-label">Email</div><div class="pd-value" id="pd-email">—</div></div>
+          </div>
+          <div class="pd-row">
+            <div class="pd-icon"><svg width="16" height="16" fill="none" stroke="#059669" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.4 3.18 2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
+            <div><div class="pd-label">Mobile</div><div class="pd-value" id="pd-mobile">—</div></div>
+          </div>
+          <div class="pd-row">
+            <div class="pd-icon"><svg width="16" height="16" fill="none" stroke="#059669" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div><div class="pd-label">Region</div><div class="pd-value" id="pd-region">—</div></div>
+          </div>
+          <div class="pd-row">
+            <div class="pd-icon"><svg width="16" height="16" fill="none" stroke="#059669" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div><div class="pd-label">Plan</div><div class="pd-value" id="pd-plan">Free (3 Tests)</div></div>
+          </div>
+        </div>
+        <div class="pd-footer">
+          <button class="pd-btn-edit" onclick="openEditModal()">✏️ Edit Profile</button>
+          <button class="pd-btn-logout" onclick="logout()">🚪 Sign Out</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Edit Profile Modal -->
+<div class="modal-overlay" id="edit-modal" onclick="if(event.target===this)closeEditModal()">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2>Edit Profile</h2>
+      <button class="modal-close" onclick="closeEditModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="alert-m" id="edit-error"></div>
+      <div class="form-row-m">
+        <div class="form-group-m">
+          <label class="form-label-m">Full Name *</label>
+          <input type="text" class="form-input-m" id="edit-name" placeholder="e.g. Rajesh Kumar"/>
+        </div>
+        <div class="form-group-m">
+          <label class="form-label-m">Email Address *</label>
+          <input type="email" class="form-input-m" id="edit-email" placeholder="you@example.com"/>
+        </div>
+      </div>
+      <div class="form-group-m">
+        <label class="form-label-m">Mobile Number <span id="mobile-update-badge" style="display:none;font-size:0.68rem;font-weight:600;color:#991B1B;background:#FEF2F2;border:1px solid #FECACA;border-radius:999px;padding:0.1rem 0.5rem;margin-left:0.3rem;">Update used — locked</span></label>
+        <div class="phone-group-m">
+          <span class="phone-prefix-m">🇮🇳 +91</span>
+          <input type="tel" class="form-input-m" id="edit-mobile" placeholder="98765 43210" maxlength="10"/>
+        </div>
+        <div class="form-hint-m" id="mobile-update-hint" style="color:#D97706;">⚠️ Mobile number can only be updated <strong>once</strong>. Choose carefully.</div>
+      </div>
+      <div class="form-group-m">
+        <label class="form-label-m">Select your Region</label>
+        <select class="form-select-m" id="edit-region">
+          <option value="">— Select Region —</option>
+          <optgroup label="🔵 North India"><option>Delhi</option><option>North West Region (NWR) – Chandigarh, Punjab, Haryana, HP, J&amp;K</option><option>UP West &amp; Uttarakhand – HQ Kanpur</option><option>UP East – HQ Lucknow</option></optgroup>
+          <optgroup label="🟠 West India"><option>Mumbai</option><option>Pune – Covers rest of Maharashtra</option><option>Gujarat – HQ Ahmedabad</option></optgroup>
+          <optgroup label="🟢 South India"><option>Tamil Nadu &amp; Puducherry – HQ Chennai</option><option>Karnataka &amp; Goa – HQ Bengaluru</option><option>Kerala – HQ Kochi</option><option>Andhra Pradesh &amp; Telangana – HQ Hyderabad</option></optgroup>
+          <optgroup label="🟡 East India"><option>West Bengal &amp; Sikkim – HQ Kolkata</option><option>North Eastern Region (NER) – Assam, Arunachal, Manipur, Meghalaya, Mizoram, Nagaland, Tripura</option><option>Odisha – HQ Bhubaneswar</option><option>Bihar &amp; Jharkhand – HQ Patna</option></optgroup>
+          <optgroup label="🔴 Central India"><option>Madhya Pradesh &amp; Chhattisgarh – HQ Bhopal</option><option>Rajasthan – HQ Jaipur</option></optgroup>
+        </select>
+      </div>
+      <div class="form-group-m">
+        <label class="form-label-m">New Password <span style="font-weight:400;color:var(--muted)">(blank = keep current)</span></label>
+        <input type="password" class="form-input-m" id="edit-pass" placeholder="Min. 8 characters"/>
+      </div>
+      <div class="form-group-m">
+        <label class="form-label-m">Confirm New Password</label>
+        <input type="password" class="form-input-m" id="edit-pass2" placeholder="Repeat new password"/>
+      </div>
+      <button class="btn-save-m" onclick="saveProfile()">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<div class="hero">
+  <h1 id="hero-title">Choose Your Exam</h1>
+  <p>Select the exam you want to practise for today</p>
+</div>
+
+<div class="wrap">
+  <div class="cards-row">
+
+    <a href="dashboard-iti.html" class="exam-card iti">
+      <div class="exam-icon icon-iti">
+        <svg width="32" height="32" fill="none" stroke="#059669" stroke-width="2" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+      </div>
+      <h2 style="color:#065F46">ITI Exam</h2>
+      <p>Income Tax Inspector — 4 subjects, 21 tests each</p>
+      <div class="exam-pills">
+        <span class="epill epill-iti">IT Law</span>
+        <span class="epill epill-iti">Book Keeping</span>
+        <span class="epill epill-iti">Allied Laws</span>
+        <span class="epill epill-iti">Office Procedure</span>
+      </div>
+      <div class="free-tag">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        1 Free PYQ Test Included
+      </div>
+      <div class="go-btn go-iti">Go to ITI Dashboard →</div>
+    </a>
+
+    <a href="dashboard-ito.html" class="exam-card ito">
+      <div class="exam-icon icon-ito">
+        <svg width="32" height="32" fill="none" stroke="#D97706" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      </div>
+      <h2 style="color:#92400E">ITO Exam</h2>
+      <p>Income Tax Officer — 4 subjects, 21 tests each</p>
+      <div class="exam-pills">
+        <span class="epill epill-ito">IT Law + Cases</span>
+        <span class="epill epill-ito">Book Keeping</span>
+        <span class="epill epill-ito">Allied Laws</span>
+        <span class="epill epill-ito">Office Procedure</span>
+      </div>
+      <div class="free-tag" style="color:#D97706">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        1 Free PYQ Test Included
+      </div>
+      <div class="go-btn go-ito">Go to ITO Dashboard →</div>
+    </a>
+
+    <a href="dashboard-ms.html" class="exam-card ms">
+      <div class="exam-icon icon-ms">
+        <svg width="32" height="32" fill="none" stroke="#2563EB" stroke-width="2" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      </div>
+      <h2 style="color:#1D4ED8">MS Exam</h2>
+      <p>Ministerial Staff — 4 papers, 21 tests each (Subjective)</p>
+      <div class="exam-pills">
+        <span class="epill epill-ms">Précis Writing</span>
+        <span class="epill epill-ms">Office Procedure</span>
+        <span class="epill epill-ms">IT Office Proc.</span>
+        <span class="epill epill-ms">IT Law (Desc.)</span>
+      </div>
+      <div class="free-tag" style="color:#2563EB">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        1 Free PYQ Test Included
+      </div>
+      <div class="go-btn go-ms">Go to MS Dashboard →</div>
+    </a>
+
+  </div>
+</div>
+
+<script>
+function getUser(){ try{ return JSON.parse(localStorage.getItem('t11_user')||'{}'); }catch(e){ return {}; } }
+function getUsers(){ try{ return JSON.parse(localStorage.getItem('t11_users')||'{}'); }catch(e){ return {}; } }
+function saveUsers(u){ localStorage.setItem('t11_users', JSON.stringify(u)); }
+function saveUser(u){ localStorage.setItem('t11_user', JSON.stringify(u)); }
+function logout(){ localStorage.removeItem('t11_user'); window.location.href='login.html'; }
+
+function toggleProfile(){
+  const wrap = document.getElementById('user-chip-wrap');
+  const dd   = document.getElementById('profile-dropdown');
+  const isOpen = dd.classList.contains('open');
+  dd.classList.toggle('open', !isOpen);
+  wrap.classList.toggle('open', !isOpen);
+}
+document.addEventListener('click', e => {
+  const wrap = document.getElementById('user-chip-wrap');
+  if(wrap && !wrap.contains(e.target)){
+    document.getElementById('profile-dropdown').classList.remove('open');
+    wrap.classList.remove('open');
+  }
+});
+
+function populateProfile(user, users){
+  const key = (user.email||'').toLowerCase();
+  const stored = users[key] || {};
+  const initials = (user.name||'U').charAt(0).toUpperCase();
+  document.getElementById('user-avatar').textContent = initials;
+  document.getElementById('user-name-display').textContent = (user.name||'User').split(' ')[0];
+  document.getElementById('pd-avatar-lg').textContent = initials;
+  document.getElementById('pd-name').textContent = user.name || '—';
+  document.getElementById('pd-email-hdr').textContent = user.email || '—';
+  document.getElementById('pd-email').textContent = user.email || '—';
+  document.getElementById('pd-mobile').textContent = stored.mobile ? '+91 '+stored.mobile : 'Not provided';
+  document.getElementById('pd-region').textContent = stored.region || 'Not selected';
+  document.getElementById('pd-plan').textContent = user.paid ? (user.plan||'Premium') : 'Free (3 Tests)';
+}
+
+function openEditModal(){
+  document.getElementById('profile-dropdown').classList.remove('open');
+  document.getElementById('user-chip-wrap').classList.remove('open');
+  const user  = getUser();
+  const users = getUsers();
+  const key   = (user?.email||'').toLowerCase();
+  const stored = users[key] || {};
+  document.getElementById('edit-name').value  = user?.name || '';
+  document.getElementById('edit-email').value = user?.email || '';
+  document.getElementById('edit-mobile').value= stored.mobile || '';
+  document.getElementById('edit-region').value= stored.region || '';
+  document.getElementById('edit-pass').value  = '';
+  document.getElementById('edit-pass2').value = '';
+  // Mobile lock
+  const locked = stored.mobileUpdateUsed === true;
+  document.getElementById('mobile-update-badge').style.display = locked ? 'inline' : 'none';
+  const hint = document.getElementById('mobile-update-hint');
+  const mInp = document.getElementById('edit-mobile');
+  if(locked){ hint.innerHTML='🔒 Mobile update already used. Contact support to change.'; hint.style.color='#991B1B'; mInp.disabled=true; mInp.style.background='#F9FAFB'; mInp.style.cursor='not-allowed'; }
+  else { hint.innerHTML='⚠️ Mobile number can only be updated <strong>once</strong>. Choose carefully.'; hint.style.color='#D97706'; mInp.disabled=false; mInp.style.background=''; mInp.style.cursor=''; }
+  document.getElementById('edit-error').classList.remove('show');
+  document.getElementById('edit-modal').classList.add('open');
+}
+function closeEditModal(){ document.getElementById('edit-modal').classList.remove('open'); }
+
+function saveProfile(){
+  const name  = document.getElementById('edit-name').value.trim();
+  const email = document.getElementById('edit-email').value.trim();
+  const mobile= document.getElementById('edit-mobile').value.trim();
+  const region= document.getElementById('edit-region').value;
+  const pass  = document.getElementById('edit-pass').value;
+  const pass2 = document.getElementById('edit-pass2').value;
+  const errEl = document.getElementById('edit-error');
+  errEl.classList.remove('show');
+  function err(m){ errEl.textContent=m; errEl.classList.add('show'); }
+  if(!name)                        { err('Full name is required.'); return; }
+  if(!email||!email.includes('@')) { err('Valid email is required.'); return; }
+  if(mobile && !/^\d{10}$/.test(mobile)){ err('Mobile must be 10 digits.'); return; }
+  if(pass && pass.length<8)        { err('New password must be at least 8 characters.'); return; }
+  if(pass && pass!==pass2)         { err('Passwords do not match.'); return; }
+  const user   = getUser();
+  const users  = getUsers();
+  const oldKey = (user?.email||'').toLowerCase();
+  const newKey = email.toLowerCase();
+  if(!users[oldKey]){ err('Session error. Please log in again.'); return; }
+  const existing = users[oldKey];
+  if(mobile && existing.mobile && existing.mobile!==mobile && existing.mobileUpdateUsed){ err('Mobile number can only be updated once.'); return; }
+  const mobileChanged = mobile && existing.mobile && existing.mobile!==mobile;
+  const record = {...existing, name, mobile, region};
+  if(mobileChanged) record.mobileUpdateUsed = true;
+  if(pass) record.pass = btoa(pass);
+  if(newKey!==oldKey){ if(users[newKey]){ err('That email is already registered.'); return; } delete users[oldKey]; }
+  users[newKey] = record;
+  saveUsers(users);
+  const updated = {...user, name, email};
+  saveUser(updated);
+  populateProfile(updated, users);
+  closeEditModal();
+  alert('✓ Profile updated successfully!');
+}
+
+window.addEventListener('DOMContentLoaded',()=>{
+  const user = getUser();
+  if(!user||!user.token){ window.location.href='login.html'; return; }
+  populateProfile(user, getUsers());
+  const name = user.name || user.email || 'User';
+  document.getElementById('hero-title').textContent = `Welcome, ${name.split(' ')[0]}! Choose Your Exam`;
+});
+</script>
+</body>
+</html>

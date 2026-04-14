@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>FAQ — Toppers11 | Frequently Asked Questions</title>
+<meta name="description" content="Answers to all your questions about Toppers11 — exam coverage, pricing, free tests, syllabus, payment, and more."/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Cormorant+Garamond:wght@600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --green:#10B981;--green-dark:#059669;--green-deeper:#065F46;
+  --green-pale:#ECFDF5;--green-light:#D1FAE5;
+  --ink:#111827;--muted:#6B7280;--border:#E5E7EB;--bg:#FAFAFA;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);}
+
+nav{position:sticky;top:0;z-index:100;background:rgba(250,250,250,0.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:1152px;margin:0 auto;padding:0 1.5rem;height:64px;display:flex;align-items:center;justify-content:space-between;}
+.nav-links{display:flex;align-items:center;gap:1.5rem;}
+.nav-link{font-size:0.82rem;font-weight:500;color:var(--muted);text-decoration:none;letter-spacing:0.04em;text-transform:uppercase;transition:color 0.15s;}
+.nav-link:hover,.nav-link.active{color:var(--green-dark);}
+.btn-primary{background:var(--green);color:#fff;font-size:0.8rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:0.55rem 1.3rem;border-radius:8px;border:none;text-decoration:none;display:inline-flex;align-items:center;gap:0.4rem;transition:all 0.2s;}
+.btn-primary:hover{background:var(--green-dark);transform:translateY(-1px);}
+
+.hero{background:linear-gradient(135deg,#065F46,#059669 55%,#10B981);padding:64px 0 56px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-60px;right:-60px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,0.06);}
+.hero-inner{max-width:860px;margin:0 auto;padding:0 1.5rem;text-align:center;position:relative;z-index:1;}
+.eyebrow{display:inline-flex;align-items:center;gap:0.4rem;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);border-radius:999px;padding:0.25rem 0.8rem;font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.9);margin-bottom:1rem;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:800;color:#fff;margin-bottom:0.8rem;}
+.hero p{font-size:0.92rem;color:rgba(255,255,255,0.78);line-height:1.7;}
+
+/* SEARCH */
+.search-wrap{max-width:520px;margin:1.8rem auto 0;position:relative;}
+.search-input{width:100%;padding:0.85rem 1rem 0.85rem 2.8rem;border:2px solid rgba(255,255,255,0.3);border-radius:12px;background:rgba(255,255,255,0.12);color:#fff;font-family:'DM Sans',sans-serif;font-size:0.9rem;outline:none;transition:border-color 0.15s;}
+.search-input::placeholder{color:rgba(255,255,255,0.5);}
+.search-input:focus{border-color:rgba(255,255,255,0.6);background:rgba(255,255,255,0.18);}
+.search-icon{position:absolute;left:0.85rem;top:50%;transform:translateY(-50%);color:rgba(255,255,255,0.6);}
+
+/* MAIN */
+.main{max-width:860px;margin:0 auto;padding:3rem 1.5rem 5rem;}
+
+/* CATEGORY TABS */
+.cat-tabs{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:2.5rem;}
+.cat-tab{padding:0.45rem 1.1rem;border-radius:999px;font-size:0.78rem;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;border:1.5px solid var(--border);background:#fff;color:var(--muted);cursor:pointer;transition:all 0.15s;}
+.cat-tab:hover{border-color:var(--green);color:var(--green);}
+.cat-tab.active{background:var(--green);color:#fff;border-color:var(--green);box-shadow:0 4px 14px rgba(16,185,129,0.28);}
+
+/* FAQ GROUPS */
+.faq-group{display:none;flex-direction:column;gap:0.75rem;}
+.faq-group.active{display:flex;}
+.faq-section-title{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:var(--ink);margin-bottom:0.25rem;padding-bottom:0.75rem;border-bottom:2px solid var(--green-light);}
+.faq-section-sub{font-size:0.82rem;color:var(--muted);margin-bottom:1.5rem;}
+
+.faq-item{background:#fff;border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:border-color 0.2s,box-shadow 0.2s;}
+.faq-item.open{border-color:var(--green-light);box-shadow:0 4px 20px rgba(16,185,129,0.1);}
+.faq-q{width:100%;background:none;border:none;padding:1.1rem 1.4rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;cursor:pointer;text-align:left;}
+.faq-q-text{font-size:0.9rem;font-weight:600;color:var(--ink);line-height:1.45;flex:1;}
+.faq-item.open .faq-q-text{color:var(--green-dark);}
+.faq-icon{width:28px;height:28px;border-radius:50%;background:var(--green-pale);border:1.5px solid var(--green-light);display:grid;place-items:center;flex-shrink:0;transition:transform 0.25s,background 0.15s;}
+.faq-item.open .faq-icon{background:var(--green);border-color:var(--green);transform:rotate(45deg);}
+.faq-icon svg{stroke:#059669;transition:stroke 0.15s;}
+.faq-item.open .faq-icon svg{stroke:#fff;}
+.faq-body{display:none;padding:0 1.4rem 1.4rem;}
+.faq-item.open .faq-body{display:block;}
+.faq-body p{font-size:0.86rem;color:#374151;line-height:1.75;}
+.faq-body p+p{margin-top:0.75rem;}
+.faq-body ul{list-style:none;display:flex;flex-direction:column;gap:0.4rem;margin-top:0.6rem;}
+.faq-body ul li{display:flex;align-items:flex-start;gap:0.6rem;font-size:0.84rem;color:#374151;line-height:1.55;}
+.faq-body ul li::before{content:'→';color:var(--green);font-weight:700;flex-shrink:0;margin-top:1px;}
+.faq-body strong{color:var(--ink);}
+.faq-body .highlight{background:var(--green-pale);border:1px solid var(--green-light);border-radius:8px;padding:0.65rem 0.9rem;margin-top:0.75rem;font-size:0.83rem;color:var(--green-deeper);}
+
+/* CTA CARD */
+.cta-card{background:linear-gradient(135deg,#064E3B,#065F46 50%,#059669);border-radius:20px;padding:2.5rem;text-align:center;margin-top:3rem;}
+.cta-card h3{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:#fff;margin-bottom:0.6rem;}
+.cta-card p{font-size:0.88rem;color:rgba(255,255,255,0.75);margin-bottom:1.5rem;}
+.cta-card .btn-white{background:#fff;color:#059669;font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;padding:0.8rem 2rem;border-radius:10px;border:none;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem;transition:all 0.2s;}
+.cta-card .btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.18);}
+
+footer{background:#fff;border-top:1px solid var(--border);padding:2rem 0;}
+.footer-inner{max-width:1152px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.footer-links{display:flex;gap:1.5rem;flex-wrap:wrap;}
+.footer-link{font-size:0.8rem;color:var(--muted);text-decoration:none;transition:color 0.15s;}
+.footer-link:hover{color:var(--green-dark);}
+/* ─── LOGO ─── */
+.logo-wrap{display:flex;align-items:center;gap:0;text-decoration:none;line-height:1;}
+.logo-block{display:flex;flex-direction:column;align-items:flex-start;gap:0;}
+.logo-since{font-family:'Dancing Script','Segoe Script','Brush Script MT',cursive;font-size:0.88rem;font-weight:600;color:#1a6b42;letter-spacing:0.02em;margin-bottom:-2px;line-height:1.1;}
+.logo-main{font-family:'DM Sans','Arial Black',sans-serif;font-size:1.62rem;font-weight:800;color:#111;letter-spacing:-0.02em;line-height:1;text-transform:uppercase;}
+.logo-main span{color:#1a9e6e;}
+.logo-sub{font-size:0.52rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#111827;margin-top:1px;}
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo-wrap"><div class="logo-block"><span class="logo-since">Employee Choice</span><span class="logo-main">TOPPERS<span>11</span></span><span class="logo-sub">AI-Powered Test Series</span></div></a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="faq.html" class="nav-link active">FAQ</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+      <a href="login.html" class="btn-primary">Start Free →</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Help Center</div>
+    <h1>Frequently Asked Questions</h1>
+    <p>Everything you need to know about Toppers11, our exam coverage, pricing, and how to get started.</p>
+    <div class="search-wrap">
+      <div class="search-icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>
+      <input type="text" class="search-input" id="search-input" placeholder="Search questions…" oninput="filterFAQ(this.value)"/>
+    </div>
+  </div>
+</section>
+
+<div class="main">
+
+  <!-- CATEGORY TABS -->
+  <div class="cat-tabs">
+    <button class="cat-tab active" onclick="switchCat('general',this)">General</button>
+    <button class="cat-tab" onclick="switchCat('exam',this)">Exam Info</button>
+    <button class="cat-tab" onclick="switchCat('syllabus',this)">Syllabus</button>
+    <button class="cat-tab" onclick="switchCat('pricing',this)">Pricing</button>
+    <button class="cat-tab" onclick="switchCat('technical',this)">Technical</button>
+  </div>
+
+  <!-- GENERAL -->
+  <div class="faq-group active" id="cat-general">
+    <div class="faq-section-title">General Questions</div>
+    <div class="faq-section-sub">Basic information about Toppers11 and who it's for.</div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">What is Toppers11?</span>
+        <span class="faq-icon"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+      </button>
+      <div class="faq-body"><p>Toppers11 is India's premier AI-powered mock test platform built exclusively for Income Tax Departmental Promotion Examinations. We cover all three exam categories — <strong>MS (Ministerial Staff/UDC)</strong>, <strong>ITI (Income Tax Inspector)</strong> and <strong>ITO (Income Tax Officer)</strong> — with paper-wise mock tests aligned to the official CBDT syllabus.</p><div class="highlight">🎯 Every question, every test, every paper is designed specifically for Income Tax Department employees preparing for promotion exams — no generic content.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">Who can use Toppers11?</span>
+        <span class="faq-icon"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+      </button>
+      <div class="faq-body"><p>Toppers11 is designed for serving Income Tax Department employees preparing for departmental promotion exams. Eligible candidates include:</p>
+        <ul>
+          <li>Tax Assistants (TA) and Senior Tax Assistants (Sr.TA) appearing for MS/ITI exams</li>
+          <li>Income Tax Inspectors (ITI) appearing for ITO exam</li>
+          <li>Steno Grade I & II (who have passed ITI exam) for ITO</li>
+          <li>Office Superintendents appearing for ITI/ITO exams</li>
+          <li>LDC/Hindi Typists appearing for MS exam</li>
+        </ul>
+        <p>As per CBDT Notification 2025, there is no age bar for ITO/ITI examinations. Maximum chances allowed: <strong>10 for all categories</strong> (including SC/ST candidates).</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">Is there a free test available?</span>
+        <span class="faq-icon"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+      </button>
+      <div class="faq-body"><p>Yes! <strong>1 free mock test</strong> is available for every new user — no credit card required, no strings attached. Simply register and take the free test to experience the Toppers11 platform quality before purchasing.</p><div class="highlight">✓ Free Test: ITI Paper 1 — Income Tax Law &amp; Computation (Sample Mock Test)<br>✓ No card required · No expiry · Try before you buy</div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">How is Toppers11 different from other exam platforms?</span>
+        <span class="faq-icon"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+      </button>
+      <div class="faq-body"><p>Toppers11 is the <strong>only platform built exclusively</strong> for Income Tax Departmental Promotion Exams. Unlike general exam platforms:</p>
+        <ul>
+          <li>Our question bank covers the specific CBDT chapter-wise weightage (not general finance/accounts)</li>
+          <li>We include previous-year departmental exam questions (2009–2024)</li>
+          <li>Our test interface replicates the official Online Mode exam UI</li>
+          <li>1/8th negative marking is implemented exactly as per the actual exam</li>
+          <li>Allied Laws coverage is specific to the Income Tax context (Transfer of Property, RTI, etc.)</li>
+          <li>Office Procedure tests cover actual Service Rules (FR, SR, CCS rules) used in the department</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXAM INFO -->
+  <div class="faq-group" id="cat-exam">
+    <div class="faq-section-title">Exam Information</div>
+    <div class="faq-section-sub">Details about the departmental examination pattern, dates and eligibility.</div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">When is the Departmental Examination 2025 scheduled?</span>
+        <span class="faq-icon"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+      </button>
+      <div class="faq-body"><p>As per CBDT Notification II dated 14.05.2025, the ITO/ITI Departmental Examination 2025 is scheduled as follows:</p>
+        <ul>
+          <li><strong>Paper 1</strong> (IT Law &amp; Computation): Monday, 08.09.2025</li>
+          <li><strong>Paper 2</strong> (Adv. Accountancy / Book Keeping): Tuesday, 09.09.2025</li>
+          <li><strong>Paper 3</strong> (Allied Laws): Wednesday, 10.09.2025</li>
+          <li><strong>Paper 4</strong> (Combined Practical / Office Procedure): Thursday, 11.09.2025</li>
+        </ul>
+        <p>Application window: <strong>23 May 2025 to 23 June 2025</strong> at www.incometaxindia.gov.in.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">What is the exam mode — online or offline?</span>
+        <span class="faq-icon"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+      </button>
+      <div class="faq-body"><p>The Departmental Examination 2025 for ITO and ITI is held in <strong>Online Mode</strong> (Computer-Based Test), as per the Amended Departmental Examination Rules 2009 (effective from 2023 examination onwards). The only exception is:</p>
+        <ul>
+          <li><strong>ITO Paper 4</strong> (Income Tax &amp; Accountancy — Combined Practical) — This is conducted in <strong>Offline/Subjective mode</strong>, with answers written in a physical booklet provided by the department. Books allowed: IT Act &amp; Rules, CBDT Publications, Ready Reckoner.</li>
+          <li><strong>MS Paper 2</strong> (Office Procedure) — Also conducted with books allowed.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">What is the negative marking scheme?</span>
+        <span class="faq-icon"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+      </button>
+      <div class="faq-body"><p>For all objective papers: <strong>1/8th mark (0.125)</strong> is deducted for every incorrect answer. This applies to ITI, ITO and MS objective papers.</p><div class="highlight">📊 Score Formula: (Correct × 1) − (Wrong × 0.125) = Final Score<br>Skipped questions carry zero marks — no deduction.</div><p>Toppers11 implements this exact scheme in all our mock tests so you get accurate score predictions.</p></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">How many chances are available for the exam?</span>
+        <span class="faq-icon"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+      </button>
+      <div class="faq-body"><p>As per the CBDT Notification 2025, the maximum number of chances for appearing in the departmental examination is <strong>limited to 10 for all categories</strong> of candidates, including SC/ST candidates availing betterment chance.</p><p>Important: Candidates who have already qualified a paper/examination are <strong>not eligible to re-appear in that paper</strong>, except for betterment candidates who have qualified the entire examination as a reserved category candidate.</p></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">What are the papers and marks for ITI exam?</span>
+        <span class="faq-icon"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+      </button>
+      <div class="faq-body">
+        <ul>
+          <li><strong>Paper 1:</strong> Income Tax Law &amp; Computation — 150 MCQs, 150 Marks, 3 Hours (Objective, without books)</li>
+          <li><strong>Paper 2:</strong> Book Keeping (Accounts) — 100 MCQs, 100 Marks, 2 Hours</li>
+          <li><strong>Paper 3:</strong> Allied Laws — 100 MCQs, 100 Marks, 2 Hours</li>
+          <li><strong>Paper 4:</strong> Office Procedure — 100 MCQs, 100 Marks, 2 Hours</li>
+        </ul>
+        <p>All papers are objective type (MCQ) without books, except where mentioned. Negative marking 1/8th applies to all.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">What are the papers and marks for ITO exam?</span>
+        <span class="faq-icon"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+      </button>
+      <div class="faq-body">
+        <ul>
+          <li><strong>Paper 1:</strong> Income Tax Law &amp; Computation (including Case Laws) — 100 MCQs, 100 Marks, 2 Hours</li>
+          <li><strong>Paper 2:</strong> Advanced Accountancy — 100 MCQs, 100 Marks, 2 Hours</li>
+          <li><strong>Paper 3:</strong> Allied Laws — 100 MCQs, 100 Marks, 2 Hours</li>
+          <li><strong>Paper 4:</strong> Income Tax &amp; Accountancy (Combined Practical) — Subjective, 100 Marks, 3 Hours (With IT Act &amp; Rules)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- SYLLABUS -->
+  <div class="faq-group" id="cat-syllabus">
+    <div class="faq-section-title">Syllabus &amp; Topics</div>
+    <div class="faq-section-sub">Chapter-wise breakdowns for each paper across MS, ITI and ITO exams.</div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">What topics are covered in ITI Paper 1 — Income Tax Law &amp; Computation?</span>
+        <span class="faq-icon"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+      </button>
+      <div class="faq-body">
+        <p><strong>Part A (Approx. 55 Marks):</strong></p>
+        <ul>
+          <li>General Terminologies, Tax Rates, Surcharge and Cess</li>
+          <li>Income under head Salary</li>
+          <li>Income under head House Property</li>
+          <li>Income under head PGBP (Profit &amp; Gain from Business/Profession)</li>
+          <li>Income under head Capital Gain</li>
+          <li>Income under head Other Sources (IOS)</li>
+          <li>Deductions under Section 80</li>
+          <li>Advance Tax, Interest u/s 234A/B/C</li>
+          <li>Set-off and Carry Forward of Losses</li>
+          <li>TDS and TCS</li>
+          <li>Taxability of Partnership Firm and Partners</li>
+          <li>Miscellaneous: Clubbing, Cash Limits (S-68/69/269), Trust Provisions, S-14A, MAT/AMT, Agriculture Income, Residential Status, Deemed Income</li>
+          <li>Black Money, Benami and Wealth Act</li>
+        </ul>
+        <p><strong>Part B (Approx. 45 Marks):</strong> Assessment Procedures, Penalties, Settlement Commission, Appeals &amp; Revisions, Advance Rulings, Search &amp; Seizure, Refunds, Tax Recovery, Transfer Pricing, Other Topics.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">What is covered in ITI/ITO Paper 3 — Allied Laws?</span>
+        <span class="faq-icon"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+      </button>
+      <div class="faq-body">
+        <p><strong>ITI Allied Laws (100 Marks):</strong></p>
+        <ul>
+          <li>Transfer of Property Act (~13 marks)</li>
+          <li>Right to Information Act, 2005 (~15 marks)</li>
+          <li>Civil Procedure Code (~13 marks)</li>
+          <li>The Indian Registration Act, 1908 (~12 marks)</li>
+          <li>The Indian Trust Act, 1882 (~13 marks)</li>
+          <li>The Indian Succession Act, 1925 (~20 marks)</li>
+          <li>Hindu Law (~14 marks)</li>
+        </ul>
+        <p><strong>ITO Allied Laws (100 Marks):</strong> Transfer of Property Act, RTI Act 2005, Civil Procedure Code, Indian Contract Act, Companies Act 2013, Indian Partnership Act 1932, IT Act 2008, Hindu Law.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">What is covered in ITI Paper 4 — Office Procedure?</span>
+        <span class="faq-icon"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+      </button>
+      <div class="faq-body">
+        <p><strong>Part A — Income Tax (50 Marks):</strong> Appeal, CAP, Search &amp; Seizure, Assessment Procedures, Notices, Collection &amp; Recovery, Refunds, Periodical Reports, CBDT Instructions, Reopening of Assessments, Time Limitations, Write-off of Taxes.</p>
+        <p><strong>Part B — Service Rules (50 Marks):</strong> Fundamental Rules (definitions, pay, leave, joining time), Supplementary Rules (Medical Certificate, TA, Service Records), CCS (Conduct) Rules 1964, Delegation of Financial Powers Rules 1958, Pension/Gratuity, GPF Rules, CCS (R.O.P.) Rules, General Financial Rules.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">What is covered in ITO Paper 2 — Advanced Accountancy?</span>
+        <span class="faq-icon"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+      </button>
+      <div class="faq-body">
+        <ul>
+          <li>Accounting Cycle — Journal, Ledger, Trial Balance, Financial Statements (~10 marks)</li>
+          <li>Partnership — Admission, Retirement, Death, Dissolution (~16 marks)</li>
+          <li>Joint Venture (~4 marks), Consignment (~3 marks)</li>
+          <li>Company Accounts (~6 marks)</li>
+          <li>Accounting Standards: AS-1,2,3,7,9,10,11,14,19 (~23 marks)</li>
+          <li>Depreciation and Hire Purchase (~10 marks)</li>
+          <li>Subsidiary Books, BRS, Errors &amp; Rectification, Bills Transactions</li>
+          <li>Miscellaneous Theory (CSR, Analysis &amp; Interpretation of Financials)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">Does the ITO Paper 1 include Case Laws? Which ones?</span>
+        <span class="faq-icon"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+      </button>
+      <div class="faq-body"><p>Yes. ITO Paper 1 carries approximately <strong>15 marks for Case Laws</strong>. The official list (illustrative, subject to modification) includes landmark Supreme Court decisions such as:</p>
+        <ul>
+          <li>Chelapalli Sugars Ltd. Vs. CIT — 98 ITR 167 (SC)</li>
+          <li>Mc. Dowell and Co. Ltd. Vs. Commercial Tax Officer — 154 ITR 148 (SC)</li>
+          <li>CIT Vs. Kelvinator of India Ltd. [2010] — 320 ITR 0561 (SC)</li>
+          <li>T.R.F. Ltd. Vs. CIT [2010] — 323 ITR 0397 (SC)</li>
+          <li>Goetze (India) Vs. CIT — 284 ITR 323 (SC)</li>
+          <li>And 10 more listed in the official syllabus</li>
+        </ul>
+        <div class="highlight">The case list may be modified/enlarged from year to year. Candidates are informed in advance of changes via CBDT circulars.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRICING -->
+  <div class="faq-group" id="cat-pricing">
+    <div class="faq-section-title">Pricing &amp; Plans</div>
+    <div class="faq-section-sub">Everything about free tests, subscription plans, payments and refunds.</div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">How much does Toppers11 cost?</span>
+        <span class="faq-icon"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+      </button>
+      <div class="faq-body">
+        <ul>
+          <li><strong>Free Trial:</strong> ₹0 — 1 free mock test for every new user, no card required</li>
+          <li><strong>Single Paper:</strong> ₹195 per paper — Full mock test series for 1 paper (all tests unlocked for 1 year)</li>
+          <li><strong>Complete Bunch:</strong> ₹555 — All papers for one exam category (MS, ITI or ITO) for 1 year</li>
+        </ul>
+        <div class="highlight">💡 The Complete Bunch saves you ₹225 compared to buying 4 papers individually (4 × ₹195 = ₹780 vs ₹555).</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">How long is the access valid?</span>
+        <span class="faq-icon"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+      </button>
+      <div class="faq-body"><p>All paid plans — both Single Paper and Complete Bunch — come with <strong>1 year of access</strong> from the date of purchase. This covers the 2025 departmental examination cycle.</p></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">What payment methods are accepted?</span>
+        <span class="faq-icon"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+      </button>
+      <div class="faq-body"><p>Payments are processed securely via <strong>Razorpay</strong>. All major payment methods are accepted:</p>
+        <ul>
+          <li>UPI (Google Pay, PhonePe, BHIM, Paytm etc.)</li>
+          <li>Debit Card &amp; Credit Card (Visa, Mastercard, RuPay)</li>
+          <li>Net Banking (all major banks)</li>
+          <li>Wallets</li>
+        </ul>
+        <div class="highlight">🔒 All transactions are secured by SSL encryption. Your card details are never stored on our servers.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">Is there a refund policy?</span>
+        <span class="faq-icon"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+      </button>
+      <div class="faq-body"><p>Given the digital nature of our product, we offer a <strong>7-day refund</strong> if you have not accessed more than 2 tests in the purchased plan. Contact us at support via the Contact page within 7 days of purchase with your registered email and payment ID.</p><p>We encourage all users to take advantage of the <strong>free test first</strong> to evaluate the platform quality before purchasing.</p></div>
+    </div>
+  </div>
+
+  <!-- TECHNICAL -->
+  <div class="faq-group" id="cat-technical">
+    <div class="faq-section-title">Technical &amp; Platform</div>
+    <div class="faq-section-sub">How the test platform works and troubleshooting tips.</div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">Can I use Toppers11 on my mobile phone?</span>
+        <span class="faq-icon"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+      </button>
+      <div class="faq-body"><p>Yes, Toppers11 is fully mobile-responsive. The test interface works on smartphones, tablets, and desktops. For the best experience during timed mock tests, we recommend using a laptop or desktop — similar to the actual online exam environment.</p></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">What features does the test player include?</span>
+        <span class="faq-icon"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+      </button>
+      <div class="faq-body">
+        <ul>
+          <li>Section-wise navigation (switch between sections anytime)</li>
+          <li>Colour-coded question palette (Not Visited, Answered, Not Answered, Marked for Review, Answered &amp; Marked for Review)</li>
+          <li>Mark for Review function (just like the actual exam)</li>
+          <li>Countdown timer with visual warnings (last 10 min &amp; 5 min)</li>
+          <li>Auto-submit on timer expiry</li>
+          <li>Detailed result screen with correct/wrong/skipped counts</li>
+          <li>Full solutions panel with correct answer highlighted</li>
+          <li>Filter solutions by correct/wrong/skipped</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">What happens if my internet disconnects during a test?</span>
+        <span class="faq-icon"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+      </button>
+      <div class="faq-body"><p>Your answers are saved locally in your browser as you go. If you lose connection, do not close the browser tab. Reconnect your internet and refresh the page — your progress should be preserved. However, the timer continues running in the background, so reconnect quickly. We recommend a stable internet connection for all test sessions.</p></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">Can I retake a test after submitting?</span>
+        <span class="faq-icon"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+      </button>
+      <div class="faq-body"><p>Yes. Each mock test in your plan can be taken multiple times within your 1-year access period. Your latest attempt's result will be shown. We recommend reviewing solutions thoroughly after each attempt before retaking.</p></div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-card">
+    <h3>Still have questions?</h3>
+    <p>Our support team is happy to help. Contact us via WhatsApp or email and we'll get back to you within 24 hours.</p>
+    <a href="contact.html" class="btn-white">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      Contact Support
+    </a>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <a href="index.html" class="logo-wrap"><div class="logo-block"><span class="logo-since">Employee Choice</span><span class="logo-main">TOPPERS<span>11</span></span><span class="logo-sub">AI-Powered Test Series</span></div></a>
+    <div class="footer-links">
+      <a href="about.html" class="footer-link">About Us</a>
+      <a href="faq.html" class="footer-link">FAQ</a>
+      <a href="contact.html" class="footer-link">Contact</a>
+      <a href="sitemap.html" class="footer-link">Sitemap</a>
+      <a href="privacy.html" class="footer-link">Privacy Policy</a>
+      <a href="terms.html" class="footer-link">Terms of Use</a>
+    </div>
+    <div style="font-size:0.75rem;color:#9CA3AF;">© 2025 Toppers11. Not affiliated with the Income Tax Department of India.</div>
+  </div>
+</footer>
+
+<script>
+function toggle(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if(!isOpen) item.classList.add('open');
+}
+function switchCat(cat, btn) {
+  document.querySelectorAll('.faq-group').forEach(g => g.classList.remove('active'));
+  document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('cat-'+cat).classList.add('active');
+  btn.classList.add('active');
+}
+function filterFAQ(q) {
+  q = q.toLowerCase().trim();
+  if(!q) {
+    document.querySelectorAll('.faq-item').forEach(i => i.style.display='');
+    return;
+  }
+  // Show all groups when searching
+  document.querySelectorAll('.faq-group').forEach(g => g.classList.add('active'));
+  document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const text = item.textContent.toLowerCase();
+    item.style.display = text.includes(q) ? '' : 'none';
+  });
+}
+</script>
+</body>
+</html>

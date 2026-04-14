@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Toppers11 — Login / Register</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --green:#10B981;--green-dark:#059669;--green-deeper:#065F46;
+  --green-pale:#ECFDF5;--green-light:#D1FAE5;
+  --ink:#111827;--muted:#6B7280;--border:#E5E7EB;--bg:#F0FDF4;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;display:flex;flex-direction:column;}
+.top-nav{background:#fff;border-bottom:1px solid var(--border);padding:0 1.5rem;height:60px;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:200;}
+.nav-home{font-size:0.8rem;font-weight:500;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:0.3rem;}
+.nav-home:hover{color:var(--green-dark);}
+
+/* USER CHIP */
+.user-chip-wrap{position:relative;display:none;align-items:center;gap:0.5rem;}
+.user-chip-wrap.visible{display:flex;}
+.user-chip{display:flex;align-items:center;gap:0.5rem;background:var(--green-pale);border:1px solid var(--green-light);border-radius:999px;padding:0.3rem 0.8rem 0.3rem 0.35rem;cursor:pointer;transition:box-shadow 0.15s;}
+.user-chip:hover{box-shadow:0 2px 10px rgba(16,185,129,0.2);}
+.avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#065F46,#10B981);display:grid;place-items:center;font-size:0.7rem;font-weight:700;color:#fff;flex-shrink:0;}
+.user-name-chip{font-size:0.8rem;font-weight:600;color:var(--green-deeper);}
+.chevron-icon{transition:transform 0.2s;}
+.user-chip-wrap.open .chevron-icon{transform:rotate(180deg);}
+
+/* PROFILE DROPDOWN */
+.profile-dropdown{position:absolute;top:calc(100% + 10px);right:0;width:340px;background:#fff;border:1px solid var(--border);border-radius:16px;box-shadow:0 16px 48px rgba(0,0,0,0.12);z-index:1000;overflow:hidden;display:none;}
+.profile-dropdown.open{display:block;animation:dropIn 0.2s ease;}
+@keyframes dropIn{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:translateY(0);}}
+.pd-header{background:linear-gradient(135deg,#065F46,#059669);padding:1.2rem 1.4rem;display:flex;align-items:center;gap:0.9rem;}
+.pd-avatar-lg{width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,0.2);display:grid;place-items:center;font-size:1.1rem;font-weight:700;color:#fff;flex-shrink:0;border:2px solid rgba(255,255,255,0.35);}
+.pd-header-info h3{font-size:0.95rem;font-weight:700;color:#fff;margin-bottom:0.1rem;}
+.pd-header-info p{font-size:0.75rem;color:rgba(255,255,255,0.72);}
+.pd-body{padding:1rem 1.4rem 1.2rem;}
+.pd-row{display:flex;align-items:flex-start;gap:0.7rem;padding:0.5rem 0;border-bottom:1px solid var(--border);}
+.pd-row:last-child{border-bottom:none;}
+.pd-icon{width:32px;height:32px;border-radius:8px;background:var(--green-pale);display:grid;place-items:center;flex-shrink:0;margin-top:2px;}
+.pd-label{font-size:0.7rem;font-weight:600;color:var(--muted);letter-spacing:0.04em;text-transform:uppercase;margin-bottom:0.15rem;}
+.pd-value{font-size:0.84rem;font-weight:500;color:var(--ink);line-height:1.4;}
+.pd-footer{padding:0.8rem 1.4rem;border-top:1px solid var(--border);display:flex;gap:0.6rem;}
+.pd-btn-edit{flex:1;padding:0.55rem;font-size:0.78rem;font-weight:600;background:var(--green-pale);color:var(--green-deeper);border:none;border-radius:8px;cursor:pointer;transition:background 0.15s;}
+.pd-btn-edit:hover{background:var(--green-light);}
+.pd-btn-logout{flex:1;padding:0.55rem;font-size:0.78rem;font-weight:600;background:#FEF2F2;color:#991B1B;border:none;border-radius:8px;cursor:pointer;transition:background 0.15s;}
+.pd-btn-logout:hover{background:#FEE2E2;}
+
+/* EDIT MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:500;align-items:center;justify-content:center;padding:1rem;}
+.modal-overlay.open{display:flex;}
+.modal-box{background:#fff;border-radius:20px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;box-shadow:0 24px 64px rgba(0,0,0,0.18);}
+.modal-header{background:linear-gradient(135deg,#065F46,#059669);padding:1.4rem 1.75rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;}
+.modal-header h2{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:#fff;}
+.modal-close{background:rgba(255,255,255,0.18);border:none;color:#fff;width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:1.1rem;display:grid;place-items:center;}
+.modal-close:hover{background:rgba(255,255,255,0.28);}
+.modal-body{padding:1.5rem 1.75rem 2rem;}
+
+/* AUTH */
+.auth-wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:2rem 1rem;}
+.auth-card{background:#fff;border-radius:20px;border:1px solid var(--border);box-shadow:0 8px 40px rgba(0,0,0,0.08);width:100%;max-width:490px;overflow:hidden;}
+.auth-header{background:linear-gradient(135deg,#065F46,#059669 55%,#10B981);padding:2rem 2rem 1.75rem;text-align:center;}
+.auth-header h1{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:800;color:#fff;margin-bottom:0.3rem;}
+.auth-header p{font-size:0.82rem;color:rgba(255,255,255,0.78);margin-bottom:0.9rem;}
+.free-pills{display:flex;justify-content:center;gap:0.4rem;flex-wrap:wrap;}
+.free-pill{display:inline-flex;align-items:center;gap:0.3rem;background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.3);border-radius:999px;padding:0.22rem 0.7rem;font-size:0.68rem;font-weight:700;color:#fff;letter-spacing:0.04em;}
+.auth-tabs{display:flex;border-bottom:1px solid var(--border);}
+.auth-tab{flex:1;padding:0.85rem;font-size:0.85rem;font-weight:600;text-align:center;cursor:pointer;border:none;background:none;color:var(--muted);border-bottom:3px solid transparent;transition:all 0.15s;}
+.auth-tab.active{color:var(--green-dark);border-bottom-color:var(--green);}
+.auth-body{padding:1.75rem 2rem 2rem;}
+.free-notice{background:var(--green-pale);border:1px solid #A7F3D0;border-radius:10px;padding:0.85rem 1rem;margin-bottom:1.2rem;font-size:0.8rem;color:var(--green-deeper);line-height:1.6;}
+.free-notice strong{display:block;margin-bottom:0.15rem;font-size:0.83rem;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;}
+@media(max-width:480px){.form-row{grid-template-columns:1fr;}}
+.form-group{margin-bottom:1rem;}
+.form-label{display:block;font-size:0.78rem;font-weight:600;color:var(--ink);margin-bottom:0.4rem;}
+.form-input,.form-select{width:100%;padding:0.72rem 0.9rem;border:1.5px solid var(--border);border-radius:9px;font-family:'DM Sans',sans-serif;font-size:0.875rem;color:var(--ink);background:#fff;outline:none;transition:border-color 0.15s,box-shadow 0.15s;}
+.form-input:focus,.form-select:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(16,185,129,0.1);}
+.form-select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='12' height='8' fill='none' stroke='%236B7280' stroke-width='1.5' viewBox='0 0 12 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0.9rem center;padding-right:2.2rem;}
+.form-hint{font-size:0.72rem;color:var(--muted);margin-top:0.3rem;}
+.phone-group{display:flex;}
+.phone-prefix{display:flex;align-items:center;padding:0.72rem 0.75rem;background:#F9FAFB;border:1.5px solid var(--border);border-right:none;border-radius:9px 0 0 9px;font-size:0.875rem;color:var(--muted);font-weight:600;white-space:nowrap;}
+.phone-group .form-input{border-radius:0 9px 9px 0;flex:1;}
+.btn-primary{width:100%;padding:0.82rem;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:700;letter-spacing:0.03em;cursor:pointer;transition:all 0.2s;background:linear-gradient(135deg,#059669,#10B981);color:#fff;box-shadow:0 4px 14px rgba(16,185,129,0.3);margin-top:0.4rem;}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(16,185,129,0.4);}
+.btn-primary:disabled{opacity:0.5;cursor:not-allowed;transform:none;box-shadow:none;}
+.btn-outline{width:100%;padding:0.78rem;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.875rem;font-weight:600;cursor:pointer;background:#fff;color:var(--ink);transition:all 0.15s;}
+.btn-outline:hover{border-color:var(--green);color:var(--green-dark);}
+.divider{display:flex;align-items:center;gap:0.75rem;margin:1.1rem 0;color:var(--muted);font-size:0.75rem;}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border);}
+.alert{padding:0.7rem 1rem;border-radius:9px;font-size:0.8rem;font-weight:500;margin-bottom:1rem;display:none;}
+.alert.show{display:block;}
+.alert-error{background:#FEF2F2;border:1px solid #FECACA;color:#991B1B;}
+.spinner{display:inline-block;width:15px;height:15px;border:2px solid rgba(255,255,255,0.35);border-top-color:#fff;border-radius:50%;animation:spin 0.6s linear infinite;vertical-align:middle;}
+@keyframes spin{to{transform:rotate(360deg);}}
+#success-panel{display:none;text-align:center;padding:2.5rem 2rem;}
+.success-icon{width:68px;height:68px;background:var(--green-pale);border-radius:50%;display:grid;place-items:center;margin:0 auto 1rem;animation:popIn 0.4s cubic-bezier(0.34,1.56,0.64,1);}
+@keyframes popIn{from{transform:scale(0.5);opacity:0;}to{transform:scale(1);opacity:1;}}
+#success-panel h2{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;margin-bottom:0.5rem;}
+#success-panel p{font-size:0.85rem;color:var(--muted);margin-bottom:1.5rem;line-height:1.6;}
+.btn-go-dash{display:inline-flex;align-items:center;gap:0.5rem;background:linear-gradient(135deg,#059669,#10B981);color:#fff;font-size:0.9rem;font-weight:700;letter-spacing:0.03em;padding:0.82rem 2rem;border-radius:10px;border:none;cursor:pointer;box-shadow:0 4px 14px rgba(16,185,129,0.3);transition:all 0.2s;text-decoration:none;}
+.btn-go-dash:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(16,185,129,0.4);}
+.auth-footer{text-align:center;padding:1rem 2rem 1.5rem;font-size:0.75rem;color:var(--muted);}
+.auth-footer a{color:var(--green-dark);font-weight:600;text-decoration:none;}
+.already-logged{flex:1;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.2rem;padding:3rem 1.5rem;text-align:center;}
+.already-logged p{font-size:1.05rem;font-weight:600;color:var(--green-deeper);}
+/* ─── LOGO ─── */
+.logo-wrap{display:flex;align-items:center;gap:0;text-decoration:none;line-height:1;}
+.logo-block{display:flex;flex-direction:column;align-items:flex-start;gap:0;}
+.logo-since{font-family:'Dancing Script','Segoe Script','Brush Script MT',cursive;font-size:0.88rem;font-weight:600;color:#1a6b42;letter-spacing:0.02em;margin-bottom:-2px;line-height:1.1;}
+.logo-main{font-family:'DM Sans','Arial Black',sans-serif;font-size:1.62rem;font-weight:800;color:#111;letter-spacing:-0.02em;line-height:1;text-transform:uppercase;}
+.logo-main span{color:#1a9e6e;}
+.logo-sub{font-size:0.52rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#111827;margin-top:1px;}
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a href="index.html" class="logo-wrap"><div class="logo-block"><span class="logo-since">Employee Choice</span><span class="logo-main">TOPPERS<span>11</span></span><span class="logo-sub">AI-Powered Test Series</span></div></a>
+
+  <div class="user-chip-wrap" id="user-chip-wrap">
+    <div class="user-chip" onclick="toggleProfile()">
+      <div class="avatar" id="nav-avatar">U</div>
+      <span class="user-name-chip" id="nav-user-name">User</span>
+      <svg class="chevron-icon" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="profile-dropdown" id="profile-dropdown">
+      <div class="pd-header">
+        <div class="pd-avatar-lg" id="pd-avatar-lg">U</div>
+        <div class="pd-header-info">
+          <h3 id="pd-name">—</h3>
+          <p id="pd-email-hdr">—</p>
+        </div>
+      </div>
+      <div class="pd-body">
+        <div class="pd-row">
+          <div class="pd-icon"><svg width="16" height="16" fill="none" stroke="#059669" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <div><div class="pd-label">Email</div><div class="pd-value" id="pd-email">—</div></div>
+        </div>
+        <div class="pd-row">
+          <div class="pd-icon"><svg width="16" height="16" fill="none" stroke="#059669" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 1h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></div>
+          <div><div class="pd-label">Mobile</div><div class="pd-value" id="pd-mobile">—</div></div>
+        </div>
+        <div class="pd-row">
+          <div class="pd-icon"><svg width="16" height="16" fill="none" stroke="#059669" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="pd-label">Region</div><div class="pd-value" id="pd-region">—</div></div>
+        </div>
+        <div class="pd-row">
+          <div class="pd-icon"><svg width="16" height="16" fill="none" stroke="#059669" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+          <div><div class="pd-label">Member Since</div><div class="pd-value" id="pd-since">—</div></div>
+        </div>
+        <div class="pd-row">
+          <div class="pd-icon"><svg width="16" height="16" fill="none" stroke="#059669" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div><div class="pd-label">Plan</div><div class="pd-value" id="pd-plan">Free (3 Tests)</div></div>
+        </div>
+      </div>
+      <div class="pd-footer">
+        <button class="pd-btn-edit" onclick="openEditModal()">✏️ Edit Profile</button>
+        <button class="pd-btn-logout" onclick="logout()">🚪 Sign Out</button>
+      </div>
+    </div>
+  </div>
+
+  <a href="index.html" class="nav-home" id="nav-home-link">
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    Back to Home
+  </a>
+</nav>
+
+<!-- Edit Profile Modal -->
+<div class="modal-overlay" id="edit-modal" onclick="closeEditIfOutside(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2>Edit Profile</h2>
+      <button class="modal-close" onclick="closeEditModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="alert alert-error" id="edit-error"></div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Full Name *</label>
+          <input type="text" class="form-input" id="edit-name" placeholder="e.g. Rajesh Kumar"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address *</label>
+          <input type="email" class="form-input" id="edit-email" placeholder="you@example.com"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Mobile Number <span id="mobile-update-badge" style="display:none;font-size:0.68rem;font-weight:600;color:#991B1B;background:#FEF2F2;border:1px solid #FECACA;border-radius:999px;padding:0.1rem 0.5rem;margin-left:0.3rem;">Update used — locked</span></label>
+        <div class="phone-group">
+          <span class="phone-prefix">🇮🇳 +91</span>
+          <input type="tel" class="form-input" id="edit-mobile" placeholder="98765 43210" maxlength="10"/>
+        </div>
+        <div class="form-hint" id="mobile-update-hint" style="color:#D97706;">⚠️ Mobile number can only be updated <strong>once</strong>. Choose carefully.</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Select your Region</label>
+        <select class="form-select" id="edit-region">
+          <option value="">— Select Region —</option>
+          <optgroup label="🔵 North India">
+            <option>Delhi</option>
+            <option>North West Region (NWR) – Chandigarh, Punjab, Haryana, HP, J&amp;K</option>
+            <option>UP West &amp; Uttarakhand – HQ Kanpur</option>
+            <option>UP East – HQ Lucknow</option>
+          </optgroup>
+          <optgroup label="🟠 West India">
+            <option>Mumbai</option>
+            <option>Pune – Covers rest of Maharashtra</option>
+            <option>Gujarat – HQ Ahmedabad</option>
+          </optgroup>
+          <optgroup label="🟢 South India">
+            <option>Tamil Nadu &amp; Puducherry – HQ Chennai</option>
+            <option>Karnataka &amp; Goa – HQ Bengaluru</option>
+            <option>Kerala – HQ Kochi</option>
+            <option>Andhra Pradesh &amp; Telangana – HQ Hyderabad</option>
+          </optgroup>
+          <optgroup label="🟡 East India">
+            <option>West Bengal &amp; Sikkim – HQ Kolkata</option>
+            <option>North Eastern Region (NER) – Assam, Arunachal, Manipur, Meghalaya, Mizoram, Nagaland, Tripura</option>
+            <option>Odisha – HQ Bhubaneswar</option>
+            <option>Bihar &amp; Jharkhand – HQ Patna</option>
+          </optgroup>
+          <optgroup label="🔴 Central India">
+            <option>Madhya Pradesh &amp; Chhattisgarh – HQ Bhopal</option>
+            <option>Rajasthan – HQ Jaipur</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">New Password <span style="font-weight:400;color:var(--muted)">(blank = keep current)</span></label>
+        <input type="password" class="form-input" id="edit-pass" placeholder="Min. 8 characters"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Confirm New Password</label>
+        <input type="password" class="form-input" id="edit-pass2" placeholder="Repeat new password"/>
+      </div>
+      <button class="btn-primary" onclick="saveProfile()" style="margin-top:0.75rem;">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<div class="auth-wrap" id="auth-wrap">
+  <div class="auth-card">
+    <div class="auth-header">
+      <h1>Welcome to Toppers11</h1>
+      <p>India's #1 Mock Test Series for Income Tax Departmental Exams</p>
+      <div class="free-pills">
+        <span class="free-pill">✓ 1 Free ITI Test</span>
+        <span class="free-pill">✓ 1 Free ITO Test</span>
+        <span class="free-pill">✓ 1 Free MS Test</span>
+      </div>
+    </div>
+
+    <div class="auth-tabs" id="auth-tabs">
+      <button class="auth-tab active" id="tab-login" onclick="switchTab('login')">Log In</button>
+      <button class="auth-tab" id="tab-register" onclick="switchTab('register')">Register</button>
+    </div>
+
+    <!-- LOGIN -->
+    <div id="login-panel" class="auth-body">
+      <div class="free-notice">
+        <strong>🎉 3 Free Tests — No Payment Needed!</strong>
+        After login you'll get 1 free test each for ITI, ITO and MS — no card required.
+      </div>
+      <div class="alert alert-error" id="login-error"></div>
+      <!-- Honeypot field — hidden from real users, catches bots -->
+      <div style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;" aria-hidden="true" tabindex="-1">
+        <label for="hp-website">Website</label>
+        <input type="text" id="hp-website" name="website" autocomplete="off" tabindex="-1" value=""/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Mobile No / Email ID</label>
+        <input type="text" class="form-input" id="login-email" placeholder="10-digit mobile or you@example.com" onkeydown="if(event.key==='Enter')doLogin()" autocomplete="username"/>
+        <div class="form-hint">You can log in with either your registered mobile number or email address.</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-input" id="login-pass" placeholder="Enter your password" onkeydown="if(event.key==='Enter')doLogin()"/>
+      </div>
+      <button class="btn-primary" id="login-btn" onclick="doLogin()">Log In &amp; Go to Dashboard →</button>
+      <div class="divider">or</div>
+      <button class="btn-outline" onclick="switchTab('register')">New here? Create Free Account</button>
+    </div>
+
+    <!-- REGISTER -->
+    <div id="register-panel" class="auth-body" style="display:none;">
+      <div class="free-notice">
+        <strong>🎉 Register free — 3 tests unlocked instantly!</strong>
+        1 free test each for ITI, ITO and MS. The remaining 20 tests per exam require payment.
+      </div>
+      <div class="alert alert-error" id="reg-error"></div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Full Name *</label>
+          <input type="text" class="form-input" id="reg-name" placeholder="e.g. Rajesh Kumar"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address *</label>
+          <input type="email" class="form-input" id="reg-email" placeholder="you@example.com"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Mobile Number *</label>
+        <div class="phone-group">
+          <span class="phone-prefix">🇮🇳 +91</span>
+          <input type="tel" class="form-input" id="reg-mobile" placeholder="98765 43210" maxlength="10"/>
+        </div>
+        <div class="form-hint">10-digit mobile (WhatsApp preferred for faster support).</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Select your Region *</label>
+        <select class="form-select" id="reg-region">
+          <option value="">— Select Region —</option>
+          <optgroup label="🔵 North India">
+            <option>Delhi</option>
+            <option>North West Region (NWR) – Chandigarh, Punjab, Haryana, HP, J&amp;K</option>
+            <option>UP West &amp; Uttarakhand – HQ Kanpur</option>
+            <option>UP East – HQ Lucknow</option>
+          </optgroup>
+          <optgroup label="🟠 West India">
+            <option>Mumbai</option>
+            <option>Pune – Covers rest of Maharashtra</option>
+            <option>Gujarat – HQ Ahmedabad</option>
+          </optgroup>
+          <optgroup label="🟢 South India">
+            <option>Tamil Nadu &amp; Puducherry – HQ Chennai</option>
+            <option>Karnataka &amp; Goa – HQ Bengaluru</option>
+            <option>Kerala – HQ Kochi</option>
+            <option>Andhra Pradesh &amp; Telangana – HQ Hyderabad</option>
+          </optgroup>
+          <optgroup label="🟡 East India">
+            <option>West Bengal &amp; Sikkim – HQ Kolkata</option>
+            <option>North Eastern Region (NER) – Assam, Arunachal, Manipur, Meghalaya, Mizoram, Nagaland, Tripura</option>
+            <option>Odisha – HQ Bhubaneswar</option>
+            <option>Bihar &amp; Jharkhand – HQ Patna</option>
+          </optgroup>
+          <optgroup label="🔴 Central India">
+            <option>Madhya Pradesh &amp; Chhattisgarh – HQ Bhopal</option>
+            <option>Rajasthan – HQ Jaipur</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Password *</label>
+          <input type="password" class="form-input" id="reg-pass" placeholder="Min. 8 characters"/>
+          <div class="form-hint">Letters, numbers &amp; symbols.</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Confirm Password *</label>
+          <input type="password" class="form-input" id="reg-pass2" placeholder="Repeat password"/>
+        </div>
+      </div>
+      <button class="btn-primary" id="reg-btn" onclick="doRegister()">Create Account &amp; Start Free →</button>
+      <div class="divider">or</div>
+      <button class="btn-outline" onclick="switchTab('login')">Already have an account? Log In</button>
+    </div>
+
+    <!-- SUCCESS -->
+    <div id="success-panel">
+      <div class="success-icon">
+        <svg width="34" height="34" fill="none" stroke="#10B981" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h2 id="success-title">You're in! 🎉</h2>
+      <p id="success-msg">Redirecting to your dashboard…</p>
+      <a href="exam-select.html" class="btn-go-dash">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        Go to My Dashboard
+      </a>
+    </div>
+
+    <div class="auth-footer" id="auth-footer">
+      By continuing, you agree to our <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a>.
+    </div>
+  </div>
+</div>
+
+<script>
+
+// ── Supabase ──────────────────────────────────────────────────────────────
+const SUPABASE_URL      = 'YOUR_SUPABASE_URL';
+const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+
+async function sbInsert(table, row) {
+  try {
+    const res = await fetch(SUPABASE_URL + '/rest/v1/' + table, {
+      method : 'POST',
+      headers: {
+        'Content-Type' : 'application/json',
+        'apikey'       : SUPABASE_ANON_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+        'Prefer'       : 'return=minimal'
+      },
+      body: JSON.stringify(row)
+    });
+    if (!res.ok) console.warn('Supabase error:', res.status);
+  } catch(e) { console.warn('Supabase unreachable:', e); }
+}
+// ─────────────────────────────────────────────────────────────────────────────
+function saveUser(u){ localStorage.setItem('t11_user', JSON.stringify(u)); }
+function loadUser(){ try{ return JSON.parse(localStorage.getItem('t11_user')); }catch(e){ return null; } }
+function getUsers(){ try{ return JSON.parse(localStorage.getItem('t11_registered_users') || '{}'); }catch(e){ return {}; } }
+function saveUsers(obj){ localStorage.setItem('t11_registered_users', JSON.stringify(obj)); }
+
+function showError(id, msg){ const el=document.getElementById(id); if(el){el.textContent=msg;el.classList.add('show');} }
+function clearErrors(){ document.querySelectorAll('.alert-error').forEach(e=>{e.classList.remove('show');e.textContent='';}); }
+
+function switchTab(tab){
+  clearErrors();
+  document.getElementById('tab-login').classList.toggle('active', tab==='login');
+  document.getElementById('tab-register').classList.toggle('active', tab==='register');
+  document.getElementById('login-panel').style.display = tab==='login' ? '' : 'none';
+  document.getElementById('register-panel').style.display = tab==='register' ? '' : 'none';
+}
+
+function showSuccess(name, isNew){
+  document.getElementById('auth-tabs').style.display='none';
+  document.getElementById('login-panel').style.display='none';
+  document.getElementById('register-panel').style.display='none';
+  document.getElementById('auth-footer').style.display='none';
+  document.getElementById('success-title').textContent = isNew ? `Welcome, ${name}! 🎉` : `Welcome back, ${name}!`;
+  document.getElementById('success-msg').textContent = isNew
+    ? 'Account created! 3 free tests are ready — 1 each for ITI, ITO and MS.'
+    : 'Logged in successfully. Heading to your dashboard now…';
+  document.getElementById('success-panel').style.display='';
+  setTimeout(()=>{ window.location.href='exam-select.html'; }, 1600);
+}
+
+/* Profile dropdown */
+function toggleProfile(){
+  const wrap = document.getElementById('user-chip-wrap');
+  const dd   = document.getElementById('profile-dropdown');
+  const isOpen = dd.classList.contains('open');
+  dd.classList.toggle('open', !isOpen);
+  wrap.classList.toggle('open', !isOpen);
+}
+document.addEventListener('click', e => {
+  const wrap = document.getElementById('user-chip-wrap');
+  if(wrap && !wrap.contains(e.target)){
+    document.getElementById('profile-dropdown').classList.remove('open');
+    wrap.classList.remove('open');
+  }
+});
+
+function populateProfile(user, users){
+  const key = (user.email||'').toLowerCase();
+  const stored = users[key] || {};
+  const initials = (user.name||'U').charAt(0).toUpperCase();
+  document.getElementById('nav-avatar').textContent = initials;
+  document.getElementById('nav-user-name').textContent = (user.name||'User').split(' ')[0];
+  document.getElementById('pd-avatar-lg').textContent = initials;
+  document.getElementById('pd-name').textContent = user.name || '—';
+  document.getElementById('pd-email-hdr').textContent = user.email || '—';
+  document.getElementById('pd-email').textContent = user.email || '—';
+  document.getElementById('pd-mobile').textContent = stored.mobile ? '+91 ' + stored.mobile : 'Not provided';
+  document.getElementById('pd-region').textContent = stored.region || 'Not selected';
+  document.getElementById('pd-since').textContent = stored.registeredAt
+    ? new Date(stored.registeredAt).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})
+    : '—';
+  document.getElementById('pd-plan').textContent = user.paid ? (user.plan || 'Premium') : 'Free (3 Tests)';
+}
+
+/* Edit modal */
+function openEditModal(){
+  document.getElementById('profile-dropdown').classList.remove('open');
+  document.getElementById('user-chip-wrap').classList.remove('open');
+  const user  = loadUser();
+  const users = getUsers();
+  const key   = (user?.email||'').toLowerCase();
+  const stored = users[key] || {};
+  document.getElementById('edit-name').value   = user?.name || '';
+  document.getElementById('edit-email').value  = user?.email || '';
+  document.getElementById('edit-mobile').value = stored.mobile || '';
+  document.getElementById('edit-region').value = stored.region || '';
+  // Mobile update limit UI
+  const mobileLocked = stored.mobileUpdateUsed === true;
+  const mobileBadge = document.getElementById('mobile-update-badge');
+  const mobileHint  = document.getElementById('mobile-update-hint');
+  const mobileInput = document.getElementById('edit-mobile');
+  if(mobileLocked){
+    mobileBadge.style.display = 'inline';
+    mobileHint.innerHTML = '🔒 Mobile number update already used. Contact support to change.';
+    mobileHint.style.color = '#991B1B';
+    mobileInput.disabled = true;
+    mobileInput.style.background = '#F9FAFB';
+    mobileInput.style.cursor = 'not-allowed';
+  } else {
+    mobileBadge.style.display = 'none';
+    mobileHint.innerHTML = '⚠️ Mobile number can only be updated <strong>once</strong>. Choose carefully.';
+    mobileHint.style.color = '#D97706';
+    mobileInput.disabled = false;
+    mobileInput.style.background = '';
+    mobileInput.style.cursor = '';
+  }
+  document.getElementById('edit-pass').value   = '';
+  document.getElementById('edit-pass2').value  = '';
+  document.getElementById('edit-modal').classList.add('open');
+}
+function closeEditModal(){ document.getElementById('edit-modal').classList.remove('open'); clearErrors(); }
+function closeEditIfOutside(e){ if(e.target===document.getElementById('edit-modal')) closeEditModal(); }
+
+function saveProfile(){
+  clearErrors();
+  const name   = document.getElementById('edit-name').value.trim();
+  const email  = document.getElementById('edit-email').value.trim();
+  const mobile = document.getElementById('edit-mobile').value.trim();
+  const region = document.getElementById('edit-region').value;
+  const pass   = document.getElementById('edit-pass').value;
+  const pass2  = document.getElementById('edit-pass2').value;
+  if(!name)              { showError('edit-error','Full name is required.'); return; }
+  if(!email||!email.includes('@')){ showError('edit-error','Valid email is required.'); return; }
+  if(mobile && !/^\d{10}$/.test(mobile)){ showError('edit-error','Mobile must be 10 digits.'); return; }
+  if(pass && pass.length<8){ showError('edit-error','New password must be at least 8 characters.'); return; }
+  if(pass && pass!==pass2){ showError('edit-error','Passwords do not match.'); return; }
+  const user   = loadUser();
+  const users  = getUsers();
+  const oldKey = (user?.email||'').toLowerCase();
+  const newKey = email.toLowerCase();
+  if(!users[oldKey]){ showError('edit-error','Session error. Please log in again.'); return; }
+  // Enforce 1 mobile number change limit
+  const existingRecord = users[oldKey];
+  if(mobile && existingRecord.mobile && existingRecord.mobile !== mobile){
+    if(existingRecord.mobileUpdateUsed){
+      showError('edit-error','Mobile number can only be updated once. Your mobile number cannot be changed again.');
+      return;
+    }
+  }
+  const mobileChanged = mobile && existingRecord.mobile && existingRecord.mobile !== mobile;
+  const record = {...existingRecord, name, mobile, region};
+  if(mobileChanged) record.mobileUpdateUsed = true;
+  if(pass) record.pass = btoa(pass);
+  if(newKey !== oldKey){
+    if(users[newKey]){ showError('edit-error','That email is already registered.'); return; }
+    delete users[oldKey];
+  }
+  users[newKey] = record;
+  saveUsers(users);
+  const updatedUser = {...user, name, email};
+  saveUser(updatedUser);
+  populateProfile(updatedUser, users);
+  closeEditModal();
+  alert('✓ Profile updated successfully!');
+}
+
+function logout(){ localStorage.removeItem('t11_user'); window.location.href='login.html'; }
+
+function doLogin(){
+  clearErrors();
+  // Honeypot check — bots fill hidden fields, real users don't
+  if(document.getElementById('hp-website') && document.getElementById('hp-website').value !== ''){
+    // Silently pretend to succeed to confuse bots
+    const btn = document.getElementById('login-btn');
+    btn.disabled=true; btn.innerHTML='<span class="spinner"></span> Logging in…';
+    setTimeout(()=>{ btn.disabled=false; btn.innerHTML='Log In &amp; Go to Dashboard →'; showError('login-error','Login failed. Please try again.'); }, 2000);
+    return;
+  }
+  const identifier = document.getElementById('login-email').value.trim();
+  const pass  = document.getElementById('login-pass').value;
+  if(!identifier){ showError('login-error','Please enter your mobile number or email address.'); return; }
+  if(!pass) { showError('login-error','Please enter your password.'); return; }
+  const btn = document.getElementById('login-btn');
+  btn.disabled=true; btn.innerHTML='<span class="spinner"></span> Logging in…';
+  try{
+    const users = getUsers();
+    // Try email lookup first, then mobile number lookup
+    const isMobile = /^\d{10}$/.test(identifier);
+    let matchedKey = null;
+    if(isMobile){
+      // Search all accounts for matching mobile
+      matchedKey = Object.keys(users).find(k => users[k].mobile === identifier) || null;
+    } else {
+      matchedKey = identifier.toLowerCase();
+    }
+    if(!matchedKey || !users[matchedKey]) throw new Error(isMobile ? 'No account found with this mobile number. Please register first.' : 'No account found with this email. Please register first.');
+    if(users[matchedKey].pass !== btoa(pass)) throw new Error('Incorrect password. Please try again.');
+    const rec = users[matchedKey];
+    saveUser({ email:matchedKey, name:rec.name, token:'local_'+Date.now(), paid:rec.paid||false, plan:rec.plan||null });
+    showSuccess(rec.name.split(' ')[0], false);
+    setTimeout(function(){ window.location.href = 'exam-select.html'; }, 1500);
+  }catch(e){
+    showError('login-error', e.message||'Login failed.');
+    btn.disabled=false; btn.innerHTML='Log In &amp; Go to Dashboard →';
+  }
+}
+
+function doRegister(){
+  clearErrors();
+  const name   = document.getElementById('reg-name').value.trim();
+  const email  = document.getElementById('reg-email').value.trim();
+  const mobile = document.getElementById('reg-mobile').value.trim();
+  const region = document.getElementById('reg-region').value;
+  const pass   = document.getElementById('reg-pass').value;
+  const pass2  = document.getElementById('reg-pass2').value;
+  if(!name)                       { showError('reg-error','Please enter your full name.'); return; }
+  if(!email||!email.includes('@')){ showError('reg-error','Please enter a valid email address.'); return; }
+  if(!mobile)                     { showError('reg-error','Please enter your mobile number.'); return; }
+  if(!/^\d{10}$/.test(mobile))   { showError('reg-error','Mobile must be exactly 10 digits.'); return; }
+  if(!region)                     { showError('reg-error','Please select your region.'); return; }
+  if(pass.length<8)               { showError('reg-error','Password must be at least 8 characters.'); return; }
+  if(pass!==pass2)                { showError('reg-error','Passwords do not match.'); return; }
+  const btn = document.getElementById('reg-btn');
+  btn.disabled=true; btn.innerHTML='<span class="spinner"></span> Creating account…';
+  try{
+    const users = getUsers();
+    const key = email.toLowerCase();
+    if(users[key]) throw new Error('An account with this email already exists. Please log in.');
+    const registeredAt = new Date().toISOString();
+    users[key]={ name, pass:btoa(pass), mobile, region, paid:false, plan:null, registeredAt };
+    saveUsers(users);
+    // Record all registration details in Supabase
+    sbInsert('users', {
+      email        : key,
+      full_name    : name,
+      mobile       : mobile,
+      region       : region,
+      paid         : false,
+      plan         : null,
+      registered_at: registeredAt,
+      source       : 'web_registration'
+    });
+    saveUser({ email, name, token:'local_'+Date.now(), paid:false, plan:null });
+    showSuccess(name.split(' ')[0], true);
+    // Auto-redirect to dashboard after brief success flash
+    setTimeout(function(){ window.location.href = 'exam-select.html'; }, 1800);
+  }catch(e){
+    showError('reg-error', e.message||'Registration failed.');
+    btn.disabled=false; btn.innerHTML='Create Account &amp; Start Free →';
+  }
+}
+
+window.addEventListener('DOMContentLoaded',()=>{
+  const user = loadUser();
+  if(user && user.token){
+    // Already logged in — redirect immediately, no intermediate page
+    window.location.replace('exam-select.html');
+    return;
+  }
+  document.getElementById('user-chip-wrap').style.display='none';
+  const p = new URLSearchParams(window.location.search);
+  if(p.get('tab')==='register') switchTab('register');
+});
+</script>
+</body>
+</html>
