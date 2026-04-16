@@ -1174,40 +1174,72 @@ window.addEventListener('DOMContentLoaded', async () => {
   QUESTIONS = shuffleWithSeed(localBank, META.seed).slice(0, META.qs);
 
   // ── Try Supabase override if configured ──
-  // Resolve the Supabase exam UUID for this bank key
+  // We fetch by test_id (e.g. 'iti-p1-pyq25') so each test card gets
+  // exactly its own questions, not all questions for the whole exam.
+  // Fallback: if no test_id rows exist yet, we also try exam_id so
+  // older uploads without the column still work.
   const examUuid = EXAM_UUID[META.bank] || EXAM_UUID[META.subjBank] || null;
+  const testId   = id;   // the URL ?id= value, e.g. 'iti-p1-pyq25'
 
-  if(SUPABASE_URL && SUPABASE_URL !== 'YOUR_SUPABASE_URL' && SUPABASE_ANON && examUuid){
+  if(SUPABASE_URL && SUPABASE_URL !== 'YOUR_SUPABASE_URL' && SUPABASE_ANON){
     const startBtn = document.getElementById('btn-start-test');
     const origLabel = startBtn.textContent;
     startBtn.disabled = true;
     startBtn.textContent = 'Loading questions…';
     try {
-      const url = `${SUPABASE_URL}/rest/v1/questions`
-        + `?exam_id=eq.${encodeURIComponent(examUuid)}`
+      // ── Primary: fetch by test_id (specific test card) ──────────────
+      const urlByTestId = `${SUPABASE_URL}/rest/v1/questions`
+        + `?test_id=eq.${encodeURIComponent(testId)}`
         + `&order=q_number.asc`
-        + `&limit=1000`;   // fetch all questions — no artificial cap
-      const res = await fetch(url, {
+        + `&limit=1000`;
+      const resByTestId = await fetch(urlByTestId, {
         headers: {
           'apikey': SUPABASE_ANON,
           'Authorization': 'Bearer ' + SUPABASE_ANON,
           'Content-Type': 'application/json',
         }
       });
-      if(res.ok){
-        const rows = await res.json();
-        if(Array.isArray(rows) && rows.length > 0){
-          // Use all DB questions (no artificial slice cap)
-          QUESTIONS = rows.map(r => ({
-            q:     r.question_text,
-            opts:  [r.option_a, r.option_b, r.option_c, r.option_d],
-            ans:   r.correct_option,   // 0–3
-            marks: r.marks  || null,
-            hint:  r.hint   || null,
-          }));
+
+      let rows = [];
+      if(resByTestId.ok){
+        const data = await resByTestId.json();
+        if(Array.isArray(data) && data.length > 0){
+          rows = data;
         }
-        // else: silently keep local bank questions
       }
+
+      // ── Fallback: fetch by exam_id (legacy rows without test_id) ────
+      if(rows.length === 0 && examUuid){
+        const urlByExamId = `${SUPABASE_URL}/rest/v1/questions`
+          + `?exam_id=eq.${encodeURIComponent(examUuid)}`
+          + `&order=q_number.asc`
+          + `&limit=1000`;
+        const resByExamId = await fetch(urlByExamId, {
+          headers: {
+            'apikey': SUPABASE_ANON,
+            'Authorization': 'Bearer ' + SUPABASE_ANON,
+            'Content-Type': 'application/json',
+          }
+        });
+        if(resByExamId.ok){
+          const data = await resByExamId.json();
+          if(Array.isArray(data) && data.length > 0){
+            rows = data;
+            console.info('test-engine: loaded via exam_id fallback — run the UPDATE SQL to tag rows with test_id.');
+          }
+        }
+      }
+
+      if(rows.length > 0){
+        QUESTIONS = rows.map(r => ({
+          q:     r.question_text,
+          opts:  [r.option_a, r.option_b, r.option_c, r.option_d],
+          ans:   r.correct_option,   // 0–3
+          marks: r.marks  || null,
+          hint:  r.hint   || null,
+        }));
+      }
+      // else: silently keep local bank questions
     } catch(e){
       // Network error — silently keep local bank questions
       console.warn('Supabase fetch failed, using local bank:', e.message);
