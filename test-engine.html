@@ -1462,7 +1462,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         }));
         // Shuffle the full pool with this card's seed, then take META.qs questions.
         // Each series card (pyq25, s01, s02…) gets a different but repeatable subset.
-        QUESTIONS = shuffleWithSeed(allQ, META.seed).slice(0, META.qs);
+        QUESTIONS = shuffleWithSeed(allQ, META.seed);
         console.info('test-engine: using ' + QUESTIONS.length + ' of ' + allQ.length + ' questions (seed=' + META.seed + ', target=' + META.qs + ')');
       }
       // else: silently keep local bank questions already set above
