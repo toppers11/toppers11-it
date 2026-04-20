@@ -1438,21 +1438,12 @@ window.addEventListener('DOMContentLoaded', async () => {
         }
       }
 
-      // ── Fallback: fetch ALL rows from table (no filter) ─────────────
+      // ── Fallback: if exam_id returned nothing, use local bank ───────
+      // NOTE: We intentionally do NOT fall back to an unfiltered full-table
+      // fetch, because that would return ALL questions from the table
+      // (across every exam/paper) instead of just the ones for this test.
       if(rows.length === 0){
-        const url = `${SUPABASE_URL}/rest/v1/${tableName}`
-          + `?order=q_number.asc`
-          + `&limit=2000`;
-        const res = await fetch(url, { headers: sbHeaders });
-        if(res.ok){
-          const data = await res.json();
-          if(Array.isArray(data) && data.length > 0){
-            rows = data;
-            console.info('test-engine: ' + data.length + ' questions loaded from ' + tableName + ' (full table fetch).');
-          } else {
-            console.warn('test-engine: full table fetch also 0 rows. Using local bank.');
-          }
-        }
+        console.warn('test-engine: exam_id query returned 0 rows for table=' + tableName + '. Falling back to local bank.');
       }
 
       if(rows.length > 0){
@@ -1475,7 +1466,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         // Shuffle the full pool with this card's seed, then take META.qs questions.
         // Each series card (pyq25, s01, s02…) gets a different but repeatable subset.
         // Shuffle then SLICE to exactly META.qs so all Supabase questions load correctly
-        QUESTIONS = shuffleWithSeed(dbQuestions, META.seed);
+        QUESTIONS = shuffleWithSeed(dbQuestions, META.seed).slice(0, META.qs);
         console.info('test-engine: using ' + QUESTIONS.length + ' of ' + dbQuestions.length + ' questions (seed=' + META.seed + ', target=' + META.qs + ')');
       }
       // else: keep local bank questions already set above
