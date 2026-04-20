@@ -1039,6 +1039,18 @@ const EXAM_UUID = {
   // 'ito-p1': 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
 };
 
+// ── SUPABASE TABLE MAP ──────────────────────────────────────
+// Maps each bank key → the actual Supabase table name.
+// Add an entry here whenever you create a new questions table.
+// ───────────────────────────────────────────────────────────
+const SUPABASE_TABLE = {
+  'iti-p1': 'iti_paper1_questions',
+  // 'iti-p2': 'iti_paper2_questions',
+  // 'iti-p3': 'iti_paper3_questions',
+  // 'iti-p4': 'iti_paper4_questions',
+  // 'ito-p1': 'ito_paper1_questions',
+};
+
 // ═══════════════════════════════════════════════════════════
 // SERIES CONFIG  — paper specs match official ITI syllabus:
 //   Paper I   : 150 MCQs · 180 min (3 hrs) · IT Law & Computation
@@ -1380,14 +1392,14 @@ window.addEventListener('DOMContentLoaded', async () => {
   // ── Build questions from LOCAL bank first ──
   const bankKey = META.subjBank || META.bank;
   const localBank = QB[bankKey] || QB[META.bank] || [];
-  // Use all available local questions as fallback
-  QUESTIONS = shuffleWithSeed(localBank, META.seed);
+  // Cap to META.qs — if bank has fewer, use all available
+  QUESTIONS = shuffleWithSeed(dbQuestions, META.seed);
 
   // ── Try Supabase override if configured ──
   // Fetches ALL questions for the exam by exam_id, then shuffles with the
-  // Fetches ALL questions for the exam by exam_id, shuffles with the
-  // test-card seed. Uses ALL returned rows (no hard slice) so any
-  // question count (40, 100, 150...) works automatically.
+  // test-card seed and slices to META.qs — so each test card gets a unique
+  // deterministic subset of the full question pool (e.g. 150 of 150).
+  // Fallback: tries test_id column if exam_id returns nothing.
   const examUuid = EXAM_UUID[META.bank] || EXAM_UUID[META.subjBank] || null;
   const testId   = id;   // the URL ?id= value, e.g. 'iti-p1-pyq25'
 
@@ -1405,9 +1417,13 @@ window.addEventListener('DOMContentLoaded', async () => {
 
       let rows = [];
 
+      // Resolve the correct table for this bank (e.g. 'iti_paper1_questions')
+      const tableName = (SUPABASE_TABLE && (SUPABASE_TABLE[META.bank] || SUPABASE_TABLE[META.subjBank])) || 'questions';
+      console.info('test-engine: querying table=' + tableName);
+
       // ── Primary: fetch ALL questions by exam_id ───────────────────────
       if(examUuid){
-        const url = `${SUPABASE_URL}/rest/v1/questions`
+        const url = `${SUPABASE_URL}/rest/v1/${tableName}`
           + `?exam_id=eq.${encodeURIComponent(examUuid)}`
           + `&order=q_number.asc`
           + `&limit=2000`;
@@ -1416,29 +1432,28 @@ window.addEventListener('DOMContentLoaded', async () => {
           const data = await res.json();
           if(Array.isArray(data) && data.length > 0){
             rows = data;
-            console.info('test-engine: ' + data.length + ' questions loaded via exam_id.');
+            console.info('test-engine: ' + data.length + ' questions loaded from ' + tableName + ' via exam_id.');
           } else {
-            console.warn('test-engine: exam_id query returned 0 rows. uuid=' + examUuid);
+            console.warn('test-engine: exam_id query returned 0 rows. table=' + tableName + ' uuid=' + examUuid);
           }
         } else {
-          console.warn('test-engine: exam_id fetch HTTP ' + res.status);
+          console.warn('test-engine: exam_id fetch HTTP ' + res.status + ' on table=' + tableName);
         }
       }
 
-      // ── Fallback: fetch by test_id column ────────────────────────────
+      // ── Fallback: fetch ALL rows from table (no filter) ─────────────
       if(rows.length === 0){
-        const url = `${SUPABASE_URL}/rest/v1/questions`
-          + `?test_id=eq.${encodeURIComponent(testId)}`
-          + `&order=q_number.asc`
+        const url = `${SUPABASE_URL}/rest/v1/${tableName}`
+          + `?order=q_number.asc`
           + `&limit=2000`;
         const res = await fetch(url, { headers: sbHeaders });
         if(res.ok){
           const data = await res.json();
           if(Array.isArray(data) && data.length > 0){
             rows = data;
-            console.info('test-engine: ' + data.length + ' questions loaded via test_id fallback.');
+            console.info('test-engine: ' + data.length + ' questions loaded from ' + tableName + ' (full table fetch).');
           } else {
-            console.warn('test-engine: test_id fallback also 0 rows. Using local bank.');
+            console.warn('test-engine: full table fetch also 0 rows. Using local bank.');
           }
         }
       }
@@ -1460,10 +1475,10 @@ window.addEventListener('DOMContentLoaded', async () => {
           exp_hi:  r.explanation_hindi   || '',
           topic:   r.topic || '',
         }));
-        // Shuffle with this card's seed for variety; use ALL rows.
-        // TOTAL is set from actual DB count so any question count works.
+        // Shuffle the full pool with this card's seed, then take META.qs questions.
+        // Each series card (pyq25, s01, s02…) gets a different but repeatable subset.
         QUESTIONS = shuffleWithSeed(dbQuestions, META.seed);
-        console.info('test-engine: ' + QUESTIONS.length + ' questions ready from Supabase (seed=' + META.seed + ')');
+        console.info('test-engine: using ' + QUESTIONS.length + ' of ' + dbQuestions.length + ' questions (seed=' + META.seed + ', target=' + META.qs + ')');
       }
       // else: silently keep local bank questions already set above
     } catch(e){
