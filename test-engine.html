@@ -572,20 +572,17 @@ body{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-se
     }
   });
 
-  // ── Window blur — secondary defence ──
-  // Snipping Tool, ShareX, Lightshot etc. steal focus from the browser window.
-  // We show the curtain the moment focus leaves, holding it for 2.5 s.
-  // This covers Alt+PrintScreen and most third-party snip tools.
+  // ── Window blur — only show curtain briefly; don't lock the page on normal alt-tab ──
   let blurTimeout;
   window.addEventListener('blur', () => {
     clearTimeout(blurTimeout);
-    showCurtain(0);
-    // Auto-hide after 3 s in case blur was just a benign alt-tab
-    blurTimeout = setTimeout(hideCurtain, 3000);
+    // Show curtain for 1.2 s only — enough to black out a snip capture
+    // but short enough that normal tab-switches don't leave the page stuck dark
+    showCurtain(1200);
   });
   window.addEventListener('focus', () => {
     clearTimeout(blurTimeout);
-    setTimeout(hideCurtain, 600);
+    setTimeout(hideCurtain, 400);
   });
 
   // ── Pointer lock / fullscreen change can indicate capture tools ──
@@ -1477,30 +1474,41 @@ window.addEventListener('DOMContentLoaded', async () => {
         }));
         // Shuffle the full pool with this card's seed, then take META.qs questions.
         // Each series card (pyq25, s01, s02…) gets a different but repeatable subset.
-        QUESTIONS = shuffleWithSeed(dbQuestions, META.seed);
+        // Shuffle then SLICE to exactly META.qs so all Supabase questions load correctly
+        QUESTIONS = shuffleWithSeed(dbQuestions, META.seed).slice(0, META.qs);
         console.info('test-engine: using ' + QUESTIONS.length + ' of ' + dbQuestions.length + ' questions (seed=' + META.seed + ', target=' + META.qs + ')');
       }
-      // else: silently keep local bank questions already set above
+      // else: keep local bank questions already set above
     } catch(e){
       console.warn('Supabase fetch failed, using local bank:', e.message);
     } finally {
+      // TOTAL must be set HERE — after the async fetch completes — not outside the block
+      TOTAL = QUESTIONS.length;
+      if(TOTAL === 0){
+        alert('No questions available for this test yet. Coming soon!');
+        history.back();
+        return;
+      }
+      answers = new Array(TOTAL).fill(-1);
+      visited = new Array(TOTAL).fill(false);
+      marked  = new Array(TOTAL).fill(false);
+
       startBtn.disabled = false;
       startBtn.textContent = origLabel;
       document.getElementById('agree-box').dispatchEvent(new Event('change'));
-      // Reflect actual loaded count in the instructions page detail cell
       const qCountCell = document.querySelector('#inst-details-grid .detail-cell .detail-val');
       if(qCountCell) qCountCell.textContent = QUESTIONS.length;
     }
+    return; // prevent duplicate init below
   }
 
+  // Supabase not configured — finalise with local bank immediately
   TOTAL = QUESTIONS.length;
-
   if(TOTAL === 0){
     alert('No questions available for this test yet. Coming soon!');
     history.back();
     return;
   }
-
   answers = new Array(TOTAL).fill(-1);
   visited = new Array(TOTAL).fill(false);
   marked  = new Array(TOTAL).fill(false);
