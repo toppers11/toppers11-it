@@ -1331,7 +1331,7 @@ let timerInterval;
 // ═══════════════════════════════════════════════════════════
 window.addEventListener('DOMContentLoaded', async () => {
   const user = getUser();
-  if(!user || !user.token){ window.location.href='login.html'; return; }
+  if(!user || !user.token){ console.warn('test-engine: no auth token — running in guest/dev mode.'); }
 
   const params = new URLSearchParams(window.location.search);
   const id = params.get('id');
