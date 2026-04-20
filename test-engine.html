@@ -1392,8 +1392,8 @@ window.addEventListener('DOMContentLoaded', async () => {
   // ── Build questions from LOCAL bank first ──
   const bankKey = META.subjBank || META.bank;
   const localBank = QB[bankKey] || QB[META.bank] || [];
-  // Cap to META.qs — if bank has fewer, use all available
-  QUESTIONS = shuffleWithSeed(dbQuestions, META.seed);
+  // Shuffle local bank with seed and cap to META.qs — used as fallback if Supabase returns nothing
+  QUESTIONS = shuffleWithSeed(localBank, META.seed).slice(0, META.qs);
 
   // ── Try Supabase override if configured ──
   // Fetches ALL questions for the exam by exam_id, then shuffles with the
