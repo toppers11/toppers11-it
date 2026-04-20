@@ -1380,14 +1380,14 @@ window.addEventListener('DOMContentLoaded', async () => {
   // ── Build questions from LOCAL bank first ──
   const bankKey = META.subjBank || META.bank;
   const localBank = QB[bankKey] || QB[META.bank] || [];
-  // Cap to META.qs — if bank has fewer, use all available
-  QUESTIONS = shuffleWithSeed(allQ, META.seed);
+  // Use all available local questions as fallback
+  QUESTIONS = shuffleWithSeed(localBank, META.seed);
 
   // ── Try Supabase override if configured ──
   // Fetches ALL questions for the exam by exam_id, then shuffles with the
-  // test-card seed and slices to META.qs — so each test card gets a unique
-  // deterministic subset of the full question pool (e.g. 150 of 150).
-  // Fallback: tries test_id column if exam_id returns nothing.
+  // Fetches ALL questions for the exam by exam_id, shuffles with the
+  // test-card seed. Uses ALL returned rows (no hard slice) so any
+  // question count (40, 100, 150...) works automatically.
   const examUuid = EXAM_UUID[META.bank] || EXAM_UUID[META.subjBank] || null;
   const testId   = id;   // the URL ?id= value, e.g. 'iti-p1-pyq25'
 
@@ -1410,7 +1410,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         const url = `${SUPABASE_URL}/rest/v1/questions`
           + `?exam_id=eq.${encodeURIComponent(examUuid)}`
           + `&order=q_number.asc`
-          + `&limit=1000`;
+          + `&limit=2000`;
         const res = await fetch(url, { headers: sbHeaders });
         if(res.ok){
           const data = await res.json();
@@ -1430,7 +1430,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         const url = `${SUPABASE_URL}/rest/v1/questions`
           + `?test_id=eq.${encodeURIComponent(testId)}`
           + `&order=q_number.asc`
-          + `&limit=1000`;
+          + `&limit=2000`;
         const res = await fetch(url, { headers: sbHeaders });
         if(res.ok){
           const data = await res.json();
@@ -1445,7 +1445,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 
       if(rows.length > 0){
         // Map all fields including bilingual content
-        const allQ = rows.map(r => ({
+        const dbQuestions = rows.map(r => ({
           q:       r.question_text,
           opts:    [r.option_a, r.option_b, r.option_c, r.option_d],
           ans:     Number(r.correct_option),  // ensure numeric 0-3
@@ -1460,10 +1460,10 @@ window.addEventListener('DOMContentLoaded', async () => {
           exp_hi:  r.explanation_hindi   || '',
           topic:   r.topic || '',
         }));
-        // Shuffle the full pool with this card's seed, then take META.qs questions.
-        // Each series card (pyq25, s01, s02…) gets a different but repeatable subset.
-        QUESTIONS = shuffleWithSeed(allQ, META.seed);
-        console.info('test-engine: using ' + QUESTIONS.length + ' of ' + allQ.length + ' questions (seed=' + META.seed + ', target=' + META.qs + ')');
+        // Shuffle with this card's seed for variety; use ALL rows.
+        // TOTAL is set from actual DB count so any question count works.
+        QUESTIONS = shuffleWithSeed(dbQuestions, META.seed);
+        console.info('test-engine: ' + QUESTIONS.length + ' questions ready from Supabase (seed=' + META.seed + ')');
       }
       // else: silently keep local bank questions already set above
     } catch(e){
