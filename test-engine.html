@@ -1475,7 +1475,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         // Shuffle the full pool with this card's seed, then take META.qs questions.
         // Each series card (pyq25, s01, s02…) gets a different but repeatable subset.
         // Shuffle then SLICE to exactly META.qs so all Supabase questions load correctly
-        QUESTIONS = shuffleWithSeed(dbQuestions, META.seed).slice(0, META.qs);
+        QUESTIONS = shuffleWithSeed(dbQuestions, META.seed);
         console.info('test-engine: using ' + QUESTIONS.length + ' of ' + dbQuestions.length + ' questions (seed=' + META.seed + ', target=' + META.qs + ')');
       }
       // else: keep local bank questions already set above
