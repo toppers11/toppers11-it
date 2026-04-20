@@ -560,32 +560,34 @@ body{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-se
     }
   }, true); // capture phase for earliest interception
 
-  // ── Page Visibility API — primary defence against Win+Shift+S / Snipping Tool ──
-  // When the snipping tool overlay activates, the browser page becomes hidden.
-  // We blank the page the MOMENT visibility is lost, so the captured region shows black.
+  // ── Page Visibility API — defence against Win+Shift+S / Snipping Tool ──
+  // Curtain always auto-hides after 3 s so mobile screenshot / app-switch
+  // never leaves the page permanently dark.
   document.addEventListener('visibilitychange', () => {
     if(document.hidden){
-      showCurtain(0); // show immediately, no auto-hide
+      showCurtain(3000); // max 3 s, then always restores
     } else {
-      // Page is visible again — hide curtain after short delay to allow refocus animation
       setTimeout(hideCurtain, 600);
     }
   });
 
-  // ── Window blur — only show curtain briefly; don't lock the page on normal alt-tab ──
+  // ── Window blur — only show curtain briefly ──
   let blurTimeout;
   window.addEventListener('blur', () => {
     clearTimeout(blurTimeout);
-    // Show curtain for 1.2 s only — enough to black out a snip capture
-    // but short enough that normal tab-switches don't leave the page stuck dark
-    showCurtain(1200);
+    showCurtain(1500); // 1.5 s max
   });
   window.addEventListener('focus', () => {
     clearTimeout(blurTimeout);
     setTimeout(hideCurtain, 400);
   });
 
-  // ── Pointer lock / fullscreen change can indicate capture tools ──
+  // ── Safety net: force-clear curtain every 4 s if page is visible & focused ──
+  setInterval(() => {
+    if(!document.hidden && document.hasFocus()) hideCurtain();
+  }, 4000);
+
+  // ── Fullscreen change ──
   document.addEventListener('fullscreenchange', () => {
     if(!document.fullscreenElement) showCurtain(1500);
   });
@@ -1438,12 +1440,21 @@ window.addEventListener('DOMContentLoaded', async () => {
         }
       }
 
-      // ── Fallback: if exam_id returned nothing, use local bank ───────
-      // NOTE: We intentionally do NOT fall back to an unfiltered full-table
-      // fetch, because that would return ALL questions from the table
-      // (across every exam/paper) instead of just the ones for this test.
+      // ── Fallback: fetch ALL rows from table (no filter) ─────────────
       if(rows.length === 0){
-        console.warn('test-engine: exam_id query returned 0 rows for table=' + tableName + '. Falling back to local bank.');
+        const url = `${SUPABASE_URL}/rest/v1/${tableName}`
+          + `?order=q_number.asc`
+          + `&limit=2000`;
+        const res = await fetch(url, { headers: sbHeaders });
+        if(res.ok){
+          const data = await res.json();
+          if(Array.isArray(data) && data.length > 0){
+            rows = data;
+            console.info('test-engine: ' + data.length + ' questions loaded from ' + tableName + ' (full table fetch).');
+          } else {
+            console.warn('test-engine: full table fetch also 0 rows. Using local bank.');
+          }
+        }
       }
 
       if(rows.length > 0){
