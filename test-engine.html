@@ -217,10 +217,10 @@ body{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-se
 .topbar-logo{text-decoration:none;display:inline-flex;}
 
 /* ══ LANGUAGE TOGGLE ══ */
-.lang-toggle-wrap{display:none;}
-.lang-btn{padding:0.38rem 0.9rem;font-size:0.78rem;font-weight:700;border:none;background:transparent;cursor:pointer;color:var(--muted);transition:all 0.15s;letter-spacing:0.03em;font-family:'DM Sans',sans-serif;}
-.lang-btn.active{background:var(--green);color:#fff;}
-.lang-btn:first-child{border-right:1px solid var(--green-light);}
+.lang-toggle-wrap{display:flex;align-items:center;background:#F0FDF4;border:1.5px solid var(--green-light);border-radius:999px;overflow:hidden;padding:2px;}
+.lang-btn{padding:0.32rem 0.85rem;font-size:0.78rem;font-weight:700;border:none;background:transparent;cursor:pointer;color:var(--muted);transition:all 0.18s;letter-spacing:0.04em;font-family:'DM Sans',sans-serif;border-radius:999px;}
+.lang-btn.active{background:var(--green);color:#fff;box-shadow:0 2px 6px rgba(16,185,129,0.3);}
+.lang-btn:hover:not(.active){background:var(--green-light);color:var(--green-dark);}
 .q-hindi{font-size:0.9rem;color:#4B5563;line-height:1.75;margin-top:0.6rem;padding-top:0.6rem;border-top:1px dashed #D1D5DB;font-family:'Noto Sans Devanagari',sans-serif;display:none;}
 .lang-hi .q-hindi{display:block;}
 .opt-text-hi{display:none;font-size:0.82rem;color:#6B7280;font-family:'Noto Sans Devanagari',sans-serif;margin-top:0.2rem;line-height:1.6;}
@@ -268,8 +268,8 @@ body{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-se
       <div class="inst-lang-row">
           <span class="inst-lang-label">🌐 Question Language / प्रश्न भाषा</span>
           <div class="lang-toggle-wrap" id="inst-lang-toggle">
-            <button class="lang-btn active" id="lang-btn-en" onclick="setLang('en')">English</button>
-            <button class="lang-btn" id="lang-btn-hi" onclick="setLang('hi')">हिंदी</button>
+            <button class="lang-btn active" id="il-btn-en" onclick="setLang('en')">English</button>
+            <button class="lang-btn" id="il-btn-hi" onclick="setLang('hi')">हिंदी</button>
           </div>
         </div>
       <div class="inst-bdy">
@@ -1512,16 +1512,11 @@ let currentLang = 'en';  // 'en' | 'hi'
 
 function setLang(lang) {
   currentLang = lang;
-  // Update all toggle buttons
-  ['inst-lang-toggle','test-lang-toggle','result-lang-toggle'].forEach(wrId => {
-    const wr = document.getElementById(wrId);
-    if (!wr) return;
-    wr.querySelectorAll('.lang-btn').forEach(btn => {
-      btn.classList.toggle('active',
-        (lang === 'en' && btn.id.includes('en')) ||
-        (lang === 'hi' && btn.id.includes('hi'))
-      );
-    });
+  // Update all toggle buttons in every lang-toggle-wrap
+  document.querySelectorAll('.lang-toggle-wrap .lang-btn').forEach(btn => {
+    const isEn = btn.textContent.trim() === 'English' || btn.textContent.trim() === 'EN';
+    const isHi = btn.textContent.trim() === 'हिंदी' || btn.textContent.trim() === 'हि';
+    btn.classList.toggle('active', (lang === 'en' && isEn) || (lang === 'hi' && isHi));
   });
   // Toggle body class for CSS-driven switching
   document.body.classList.toggle('lang-hi', lang === 'hi');
