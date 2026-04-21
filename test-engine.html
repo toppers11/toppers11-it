@@ -1420,42 +1420,31 @@ window.addEventListener('DOMContentLoaded', async () => {
       const tableName = (SUPABASE_TABLE && (SUPABASE_TABLE[META.bank] || SUPABASE_TABLE[META.subjBank])) || 'questions';
       console.info('test-engine: querying table=' + tableName);
 
-      // ── Primary: fetch ALL questions by exam_id ───────────────────────
+      // ── Fetch questions filtered by exam_id ──────────────────────────
       if(examUuid){
         const url = `${SUPABASE_URL}/rest/v1/${tableName}`
           + `?exam_id=eq.${encodeURIComponent(examUuid)}`
           + `&order=q_number.asc`
           + `&limit=2000`;
         const res = await fetch(url, { headers: sbHeaders });
+        const resText = await res.text();
         if(res.ok){
-          const data = await res.json();
+          const data = JSON.parse(resText);
           if(Array.isArray(data) && data.length > 0){
             rows = data;
-            console.info('test-engine: ' + data.length + ' questions loaded from ' + tableName + ' via exam_id.');
+            console.info('test-engine: SUCCESS - ' + data.length + ' questions loaded from ' + tableName);
           } else {
-            console.warn('test-engine: exam_id query returned 0 rows. table=' + tableName + ' uuid=' + examUuid);
+            console.warn('test-engine: 0 rows returned. Raw:', resText.slice(0,200));
+            console.warn('LIKELY FIX: Run in Supabase SQL Editor:');
+            console.warn('  CREATE POLICY "anon read" ON ' + tableName + ' FOR SELECT TO anon USING (true);');
           }
         } else {
-          console.warn('test-engine: exam_id fetch HTTP ' + res.status + ' on table=' + tableName);
+          console.error('test-engine: HTTP ' + res.status + ' error. Body:', resText.slice(0,300));
         }
+      } else {
+        console.warn('test-engine: No UUID in EXAM_UUID for bank=' + META.bank);
       }
-
-      // ── Fallback: fetch ALL rows from table (no filter) ─────────────
-      if(rows.length === 0){
-        const url = `${SUPABASE_URL}/rest/v1/${tableName}`
-          + `?order=q_number.asc`
-          + `&limit=2000`;
-        const res = await fetch(url, { headers: sbHeaders });
-        if(res.ok){
-          const data = await res.json();
-          if(Array.isArray(data) && data.length > 0){
-            rows = data;
-            console.info('test-engine: ' + data.length + ' questions loaded from ' + tableName + ' (full table fetch).');
-          } else {
-            console.warn('test-engine: full table fetch also 0 rows. Using local bank.');
-          }
-        }
-      }
+      // No unfiltered fallback — avoids dumping all questions
 
       if(rows.length > 0){
         // Map all fields including bilingual content
