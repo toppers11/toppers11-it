@@ -595,444 +595,25 @@ body{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-se
 })();
 
 // ═══════════════════════════════════════════════════════════
-// QUESTION BANKS
-// ═══════════════════════════════════════════════════════════
-
-const BILINGUAL_CSV_ITI_P1 = `q_number,question_text,option_a,option_b,option_c,option_d,correct_option,topic,difficulty,exam_id,question_hindi,explanation_english,explanation_hindi
-1,Income accrued outside India and received outside India is taxable in case of:,Resident and ordinary resident (ROR) only,Resident but not ordinary resident (RNOR) only,Non-resident only,"ROR, RNOR and Non-Resident",0,Residential Status,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Income accrued outside India and received outside India is taxable in case of:,Detailed legal explanation in English for Residential Status based on Section provisions.,आवासीय स्थिति के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-2,Which statement is correct in respect of residential status of a company?,A company can only be resident,A company can only be non-resident,A company can be either resident or non-resident,All above are not correct,2,Residential Status,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Which statement is correct in respect of residential status of a company?,Detailed legal explanation in English for Residential Status based on Section provisions.,आवासीय स्थिति के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-3,"Under Section 12, voluntary contributions received by a charitable trust are treated as:",Business income,Capital receipts,Income from other sources,Income from property held under trust,3,Charitable Trust,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: Under Section 12, voluntary contributions received by a charitable trust are treated as:",Detailed legal explanation in English for Charitable Trust based on Section provisions.,धर्मार्थ ट्रस्ट के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-4,Which among the following does not constitute a transfer of a capital asset?,"The sale, exchange or relinquishment of an asset",Maturity or redemption of zero coupon bond,The compulsory acquisition of the capital asset under any law,Conversion of preference share of a company into equity share of that company,3,Capital Gains,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Which among the following does not constitute a transfer of a capital asset?,Detailed legal explanation in English for Capital Gains based on Section provisions.,पूंजीगत लाभ के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-5,"As per Explanation 3 of Section 2(22), a person shall be deemed to have substantial interest in a concern if beneficially entitled to not less than _____% of income:",20%,25%,10%,15%,0,Deemed Dividend,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: As per Explanation 3 of Section 2(22), a person shall be deemed to have substantial interest in a concern if beneficially entitled to not less than _____% of income:",Detailed legal explanation in English for Deemed Dividend based on Section provisions.,माना गया लाभांश के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-6,"Inspector of Income Tax has been defined under the Income-tax Act, 1961 under:",Sub-section (28A) of Section 2,Sub-section (29) of Section 2,Sub-section (28) of Section 2,Sub-section (19) of Section 2,0,Definitions,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: Inspector of Income Tax has been defined under the Income-tax Act, 1961 under:",Detailed legal explanation in English for Definitions based on Section provisions.,Definitions के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-7,"If Principal Commissioner notices specified violations under section 10(23C)(iv), he shall pass cancellation order within:",Six months from end of quarter in which first notice is issued,Six months from end of month in which first notice is issued,Six months from end of quarter in which violation was noticed,Six months from end of month in which violation was noticed,3,Charitable Trust,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: If Principal Commissioner notices specified violations under section 10(23C)(iv), he shall pass cancellation order within:",Detailed legal explanation in English for Charitable Trust based on Section provisions.,धर्मार्थ ट्रस्ट के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-8,Which of the following is NOT a determinant of residential status for a company?,Place of Effective Management (POEM),Place of Incorporation,Place where the Board of Directors meets,Citizenship of the shareholders,3,Residential Status,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Which of the following is NOT a determinant of residential status for a company?,Detailed legal explanation in English for Residential Status based on Section provisions.,आवासीय स्थिति के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-9,Which of the following is NOT considered 'Income Deemed to Accrue or Arise in India'?,Income from a business connection in India,Interest paid by an Indian company to a non-resident,Foreign salary paid to an Indian resident for services outside India,Capital gains from transfer of assets located in India,2,Income Accrual,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Which of the following is NOT considered 'Income Deemed to Accrue or Arise in India'?,Detailed legal explanation in English for Income Accrual based on Section provisions.,Income Accrual के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-10,Which of the following is NOT taxable for a Non-Resident (NR) in India?,Salary received in India,Business profits from an Indian branch office,Interest on NRE account,Income from property located in India,2,Non-Resident Taxation,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Which of the following is NOT taxable for a Non-Resident (NR) in India?,Detailed legal explanation in English for Non-Resident Taxation based on Section provisions.,Non-Resident Taxation के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-11,Mr. Suresh holds 12% in XYZ Pvt Ltd and 25% in ABC Pvt Ltd. Which loan advancement would NOT constitute deemed dividend u/s 2(22)(e)?,Loan by ABC Pvt Ltd to XYZ Pvt Ltd,Loan by XYZ Pvt Ltd to ABC Pvt Ltd,Loan by ABC Pvt Ltd to Mr. Suresh,Loans by both ABC & XYZ to Mr. Suresh,3,Deemed Dividend,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Mr. Suresh holds 12% in XYZ Pvt Ltd and 25% in ABC Pvt Ltd. Which loan advancement would NOT constitute deemed dividend u/s 2(22)(e)?,Detailed legal explanation in English for Deemed Dividend based on Section provisions.,माना गया लाभांश के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-12,"As per Section 9B(1), which constitutes the 'specified entity'?",Only AOP and Cooperative Society,Only Firm and Cooperative Society,"Only AOP, Firm and Body of individuals not being a company or co-op society",Neither of the above,2,Firm Dissolution,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: As per Section 9B(1), which constitutes the 'specified entity'?",Detailed legal explanation in English for Firm Dissolution based on Section provisions.,Firm Dissolution के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-13,Which of the following is deemed to be received income?,Salary credited to employee's account,Dividend declared but not received,Interest credited to a recognised provident fund,Income earned abroad,2,Income Receipt,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Which of the following is deemed to be received income?,Detailed legal explanation in English for Income Receipt based on Section provisions.,Income Receipt के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-14,Which of the following is fully exempt under Section 10?,Gratuity received by a government employee,Pension received after retirement,Bonus received during employment,Capital gains from house property,0,Exemptions,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Which of the following is fully exempt under Section 10?,Detailed legal explanation in English for Exemptions based on Section provisions.,Exemptions के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-15,Income from property held for charitable purposes is exempt if:,85% of the income is applied for the said purpose,50% of the income is applied,100% of the income is applied,No exemption is available,0,Charitable Trust,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Income from property held for charitable purposes is exempt if:,Detailed legal explanation in English for Charitable Trust based on Section provisions.,धर्मार्थ ट्रस्ट के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-16,Exemption under Sections 11 and 12 is not available if:,Trust is formed for charitable purposes,Income is used for personal benefit of trustees,Income is accumulated for future use,Income is applied for educational purposes,1,Charitable Trust,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Exemption under Sections 11 and 12 is not available if:,Detailed legal explanation in English for Charitable Trust based on Section provisions.,धर्मार्थ ट्रस्ट के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-17,A public charitable trust has gross income of Rs.16 lakhs and applied Rs.11.60 lakhs. What is the taxable income for AY 2024-25?,"Rs. 2,00,000",Nil,"Rs. 4,40,000","Rs. 6,00,000",1,Charitable Trust,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: A public charitable trust has gross income of Rs.16 lakhs and applied Rs.11.60 lakhs. What is the taxable income for AY 2024-25?,Detailed legal explanation in English for Charitable Trust based on Section provisions.,धर्मार्थ ट्रस्ट के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-18,What is the basic exemption limit in NEW TAX REGIME for individual below 60 years for AY 2025-26?,Rs. 2.5 lakh,Rs. 3 lakh,Rs. 5 lakh,Rs. 7 lakh,1,Tax Rates,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: What is the basic exemption limit in NEW TAX REGIME for individual below 60 years for AY 2025-26?,Detailed legal explanation in English for Tax Rates based on Section provisions.,Tax Rates के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-19,"ABC Ltd pays royalty to Mr. John (non-resident, USA) for software. Will the royalty income be taxable in India?","Yes, since it is deemed to accrue or arise in India","No, as it is directly credited to a foreign bank","Yes, if Mr. John visits India","No, since it is earned outside India",0,Non-Resident Taxation,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: ABC Ltd pays royalty to Mr. John (non-resident, USA) for software. Will the royalty income be taxable in India?",Detailed legal explanation in English for Non-Resident Taxation based on Section provisions.,Non-Resident Taxation के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-20,A registered political party receives voluntary contributions of Rs.1 crore and files return u/s 139(4B). What is the tax treatment?,Fully taxable,Exempt if the party files its return of income,Exempt only up to Rs. 50 lakh,Taxable if contribution exceeds Rs. 1 crore,1,Exemptions,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: A registered political party receives voluntary contributions of Rs.1 crore and files return u/s 139(4B). What is the tax treatment?,Detailed legal explanation in English for Exemptions based on Section provisions.,Exemptions के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-21,"While computing income u/s 28, which statement is INCORRECT in light of Section 36(1)?",Insurance premium for stocks risk is allowable,Cash premium for employee health insurance is allowable,Interest on capital borrowed including pre-use period is allowable,Both (b) and (c),3,Business Income,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: While computing income u/s 28, which statement is INCORRECT in light of Section 36(1)?",Detailed legal explanation in English for Business Income based on Section provisions.,Business Income के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-22,"Greenfields Cooperative Society earns profits and capital gains. Under Income Tax Act, it will be treated as:",An individual,A firm,A Company,A person,3,Definitions,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: Greenfields Cooperative Society earns profits and capital gains. Under Income Tax Act, it will be treated as:",Detailed legal explanation in English for Definitions based on Section provisions.,Definitions के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-23,Which components of Ms. Sneha's income will be considered 'Income' under Section 2(24)?,Basic Salary and Commission only,Interest from Bank FD and Lottery Winnings only,All of the above,None of the above,2,Definitions,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Which components of Ms. Sneha's income will be considered 'Income' under Section 2(24)?,Detailed legal explanation in English for Definitions based on Section provisions.,Definitions के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-24,XYZ Ltd is registered in India and wholly owned by government. How will it be classified under Income Tax Act?,Domestic Company,Foreign Company,Public Sector Undertaking (PSU),Partnership Firm,0,Definitions,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: XYZ Ltd is registered in India and wholly owned by government. How will it be classified under Income Tax Act?,Detailed legal explanation in English for Definitions based on Section provisions.,Definitions के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-25,Which of the following is NOT available as deduction u/s 16 while computing income under Salaries?,Standard Deduction,Property Tax,Entertainment Allowance,Professional Tax,1,Salaries,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Which of the following is NOT available as deduction u/s 16 while computing income under Salaries?,Detailed legal explanation in English for Salaries based on Section provisions.,Salaries के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-26,Which statements are true about amount not deductible u/s 25 for 'Income from House Property'?,(i) only,(ii) only,(i) and (ii) only,"All of (i), (ii) and (iii)",2,House Property,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Which statements are true about amount not deductible u/s 25 for 'Income from House Property'?,Detailed legal explanation in English for House Property based on Section provisions.,House Property के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-27,Allowable depreciation u/s 32(1)(ii) and additional depreciation u/s 32(1)(iia) on Plant and Machinery are respectively:,10% and 20%,15% and 20%,25% and 40%,15% and 30%,1,Depreciation,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Allowable depreciation u/s 32(1)(ii) and additional depreciation u/s 32(1)(iia) on Plant and Machinery are respectively:,Detailed legal explanation in English for Depreciation based on Section provisions.,Depreciation के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-28,What is the deduction allowable u/s 25A on arrears of rent received by X?,30% of the arrears of rent received,25% of the arrears of rent/unrealised rent,Maximum of Rs.1 lakh not exceeding aggregate rent,Maximum of Rs.1.5 lakh not exceeding aggregate rent,0,House Property,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: What is the deduction allowable u/s 25A on arrears of rent received by X?,Detailed legal explanation in English for House Property based on Section provisions.,House Property के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-29,Who would be deemed owner of house property u/s 27?,Individual transferring property to spouse without consideration,Holder of an impartible estate,Person retaining possession under Section 53A of Transfer of Property Act,All of the above,3,House Property,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Who would be deemed owner of house property u/s 27?,Detailed legal explanation in English for House Property based on Section provisions.,House Property के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-30,Annual accretion to balance in recognised provident fund chargeable to tax is taxable as:,Salary under section 17(1),Perquisites,Allowances,Profit in lieu of salary,0,Salaries,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Annual accretion to balance in recognised provident fund chargeable to tax is taxable as:,Detailed legal explanation in English for Salaries based on Section provisions.,Salaries के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-31,Which expenditure on business premises does NOT qualify for deduction u/s 30?,Municipal taxes paid,Insurance premium against risk of damage,Replacement of electrical panels,Restoration and extension of reception area,3,Business Income,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Which expenditure on business premises does NOT qualify for deduction u/s 30?,Detailed legal explanation in English for Business Income based on Section provisions.,Business Income के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-32,Definition of 'actual cost' can be found under which provision?,Section 43(1),Section 2(43),Section 2(42),None of the above,0,Depreciation,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Definition of 'actual cost' can be found under which provision?,Detailed legal explanation in English for Depreciation based on Section provisions.,Depreciation के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-33,"As per Section 50C, if Stamp Valuation Authority value is lower than Valuation Officer's value, total consideration shall be:",Value ascertained through valuation officer,Value adopted by the assessee,Higher of valuation officer's value or stamp valuation authority's value,Value adopted by stamp valuation authority,2,Capital Gains,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: As per Section 50C, if Stamp Valuation Authority value is lower than Valuation Officer's value, total consideration shall be:",Detailed legal explanation in English for Capital Gains based on Section provisions.,पूंजीगत लाभ के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-34,Which statement is incorrect regarding capital gains calculation in context of slump sale u/s 50B?,Profits shall be deemed income of the year of transfer,Net worth deemed as cost of acquisition for sections 48 and 49,Net worth must be certified as per Accountant's Report,Change in asset value due to revaluation shall be included in net worth,3,Capital Gains,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Which statement is incorrect regarding capital gains calculation in context of slump sale u/s 50B?,Detailed legal explanation in English for Capital Gains based on Section provisions.,पूंजीगत लाभ के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-35,"If an individual's income includes income of three minor children u/s 64(1A) r.w.s 10(32), the exemption in respect of all minor children is:","Rs. 2,500/-","Rs. 1,500/-","Rs. 3,000/-","Rs. 5,000/-",0,Clubbing of Income,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: If an individual's income includes income of three minor children u/s 64(1A) r.w.s 10(32), the exemption in respect of all minor children is:",Detailed legal explanation in English for Clubbing of Income based on Section provisions.,Clubbing of Income के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-36,"When a capital asset is acquired through gift or will, cost of acquisition shall be:",Cost for which previous owner acquired it,Cost of improvement borne by previous owner,Cost of improvement borne by the assessee,All the above put together,3,Capital Gains,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: When a capital asset is acquired through gift or will, cost of acquisition shall be:",Detailed legal explanation in English for Capital Gains based on Section provisions.,पूंजीगत लाभ के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-37,Which transaction shall NOT be regarded as transfer as per Section 47?,Transfers in amalgamation where amalgamated company is a Foreign Company,"Transfer of capital asset under a gift, will or irrevocable trust",Extinguishment of rights in respect of capital,Compulsory acquisition under any law,1,Capital Gains,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Which transaction shall NOT be regarded as transfer as per Section 47?,Detailed legal explanation in English for Capital Gains based on Section provisions.,पूंजीगत लाभ के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-38,Who is required to get accounts audited u/s 44AB (not covered by Proviso)?,Person carrying on business with total sales exceeding Rs.1 crore,Person with sales exceeding Rs.1 crore who declared profit u/s 44AD(1),Person carrying out profession with gross receipts exceeding Rs.40 lakhs,None of the above,0,Tax Audit,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Who is required to get accounts audited u/s 44AB (not covered by Proviso)?,Detailed legal explanation in English for Tax Audit based on Section provisions.,Tax Audit के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-39,"As per Capital Gains Account Scheme, unutilised capital gain should be deposited before:",Due date of furnishing return u/s 139(1),End of assessment year in which capital gain arose,End of 2 years from date of transfer,End of financial year in which capital gain arose,0,Capital Gains,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: As per Capital Gains Account Scheme, unutilised capital gain should be deposited before:",Detailed legal explanation in English for Capital Gains based on Section provisions.,पूंजीगत लाभ के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-40,Which section specifies that Long-Term Capital Gain from transfer of agricultural land is exempt u/s 45 if another piece of land is acquired?,Section 54A,Section 54B,Section 54F,Section 54C,1,Capital Gains,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Which section specifies that Long-Term Capital Gain from transfer of agricultural land is exempt u/s 45 if another piece of land is acquired?,Detailed legal explanation in English for Capital Gains based on Section provisions.,पूंजीगत लाभ के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-41,"X converts land into stock-in-trade on 31.3.2017 (FMV Rs.2,15,000) and sells for Rs.6,00,000 on 20.6.2023. Determine assessable profits for AY 2024-25.","STCG Rs.1,15,000 & business income Rs.3,85,000","LTCG Rs.1,11,063 & business income Rs.3,85,000","LTCG Rs.4,62,992 & no business income","STCG Rs.5,00,000 & no business income",1,Capital Gains,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: X converts land into stock-in-trade on 31.3.2017 (FMV Rs.2,15,000) and sells for Rs.6,00,000 on 20.6.2023. Determine assessable profits for AY 2024-25.",Detailed legal explanation in English for Capital Gains based on Section provisions.,पूंजीगत लाभ के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-42,For which cases is benefit of indexation NOT available for long term capital asset?,"(i), (ii) & (iii)","(ii), (iii) & (iv)","(i), (ii) & (iv)",All of the above,1,Capital Gains,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: For which cases is benefit of indexation NOT available for long term capital asset?,Detailed legal explanation in English for Capital Gains based on Section provisions.,पूंजीगत लाभ के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-43,"As per Explanation to Section 50AA, 'Specified Mutual Fund' means not more than _____ of total proceeds is invested in equity shares of domestic companies:",30%,35%,40%,50%,1,Capital Gains,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: As per Explanation to Section 50AA, 'Specified Mutual Fund' means not more than _____ of total proceeds is invested in equity shares of domestic companies:",Detailed legal explanation in English for Capital Gains based on Section provisions.,पूंजीगत लाभ के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-44,Which condition is NOT correct to get benefit of exemption u/s 54D?,"Taxpayer may be individual, HUF, firm, company or any other person",The asset shall be long-term capital asset only,Capital gain arises on compulsory acquisition of land/building of industrial undertaking,Newly acquired land/building should be used for shifting or re-establishing the undertaking,1,Capital Gains,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Which condition is NOT correct to get benefit of exemption u/s 54D?,Detailed legal explanation in English for Capital Gains based on Section provisions.,पूंजीगत लाभ के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-45,Provisions of Section 54B are applicable where land was used for agriculture in the ______ years immediately preceding the date of transfer:,One,Two,Three,Four,1,Capital Gains,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Provisions of Section 54B are applicable where land was used for agriculture in the ______ years immediately preceding the date of transfer:,Detailed legal explanation in English for Capital Gains based on Section provisions.,पूंजीगत लाभ के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-46,Which of the following is NOT correct with respect to provisions of Section 56(viib)?,It has been inserted w.e.f. AY 2013-14,It is applicable to a company in which public are substantially interested,Finance Act 2023 omitted the word 'being a resident' w.e.f. 01.04.2024,Finance (No.2) Act 2024 — provisions shall not apply w.e.f. 01.04.2025,1,Income from Other Sources,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Which of the following is NOT correct with respect to provisions of Section 56(viib)?,Detailed legal explanation in English for Income from Other Sources based on Section provisions.,Income from Other Sources के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-47,X transfers house property to A with right to revoke during A's lifetime. Which is correct under Section 61?,Only (i) is correct — it is a revocable transfer,Only (ii) is correct — income is taxable in A's hands,Both (i) & (ii) are correct,Both (i) & (ii) are incorrect,0,Clubbing of Income,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: X transfers house property to A with right to revoke during A's lifetime. Which is correct under Section 61?,Detailed legal explanation in English for Clubbing of Income based on Section provisions.,Clubbing of Income के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-48,Which statement is correct about Cash Credits u/s 68?,Section 68 refers only to cash transactions,Section 68 refers to any money credited regardless of mode of payment,Unexplained cash credits taxed at 60% subject to basic exemption,Both (b) and (c),1,Unexplained Income,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Which statement is correct about Cash Credits u/s 68?,Detailed legal explanation in English for Unexplained Income based on Section provisions.,Unexplained Income के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-49,"Match sections: (i) Sec 69, (ii) Sec 69A, (iii) Sec 69B, (iv) Sec 69C with their provisions:","(i)-a, (ii)-b, (iii)-d, (iv)-c","(i)-c, (ii)-d, (iii)-a, (iv)-b","(i)-c, (ii)-a, (iii)-d, (iv)-b","(i)-b, (ii)-d, (iii)-a, (iv)-c",1,Unexplained Income,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: Match sections: (i) Sec 69, (ii) Sec 69A, (iii) Sec 69B, (iv) Sec 69C with their provisions:",Detailed legal explanation in English for Unexplained Income based on Section provisions.,Unexplained Income के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-50,"When AO establishes unexplained expenditure and assessee fails to explain the source, AO shall:",Disallow such expenditure to be deemed as income,Allow as deduction under any head of income,Disallow any deduction notwithstanding anything in the Act,Both (a) and (c),3,Unexplained Income,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: When AO establishes unexplained expenditure and assessee fails to explain the source, AO shall:",Detailed legal explanation in English for Unexplained Income based on Section provisions.,Unexplained Income के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-51,"Match sections: (i) Sec 74, (ii) Sec 74A, (iii) Sec 75, (iv) Sec 78 with their provisions:","(i)-b, (ii)-d, (iii)-a, (iv)-c","(i)-c, (ii)-d, (iii)-b, (iv)-a","(i)-c, (ii)-a, (iii)-d, (iv)-b","(i)-a, (ii)-b, (iii)-d, (iv)-c",1,Set Off and Carry Forward,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: Match sections: (i) Sec 74, (ii) Sec 74A, (iii) Sec 75, (iv) Sec 78 with their provisions:",Detailed legal explanation in English for Set Off and Carry Forward based on Section provisions.,Set Off and Carry Forward के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-52,What happens in case of change in constitution of a partnership firm due to death or retirement of a partner?,Share of loss attributable to outgoing partner cannot be carried forward by firm,"Restriction applicable only for loss, not for unabsorbed depreciation or scientific research",Both (a) and (b),Neither (a) nor (b),2,Set Off and Carry Forward,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: What happens in case of change in constitution of a partnership firm due to death or retirement of a partner?,Detailed legal explanation in English for Set Off and Carry Forward based on Section provisions.,Set Off and Carry Forward के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-53,"Match: (i) Sec 80A, (ii) Sec 80AB, (iii) Sec 80AC, (iv) Sec 80B with provisions:","(i)-b, (ii)-d, (iii)-a, (iv)-c","(i)-c, (ii)-d, (iii)-b, (iv)-a","(i)-c, (ii)-a, (iii)-d, (iv)-b","(i)-d, (ii)-a, (iii)-b, (iv)-c",3,Deductions,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: Match: (i) Sec 80A, (ii) Sec 80AB, (iii) Sec 80AC, (iv) Sec 80B with provisions:",Detailed legal explanation in English for Deductions based on Section provisions.,Deductions के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-54,"For deduction u/s 80GGB, which condition must be satisfied?",Political party receiving donation must be registered u/s 29A of Representation of People Act,"Donation may be made through demand drafts, cheques, electronic mode or otherwise",Company needs approval from Income Tax department,All of the above,0,Deductions,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: For deduction u/s 80GGB, which condition must be satisfied?",Detailed legal explanation in English for Deductions based on Section provisions.,Deductions के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-55,Section 80-IA deals with:,Deductions from industrial undertakings after a certain date,Deductions from industrial undertakings engaged in infrastructure development,Deductions for undertakings developing Special Economic Zone,Special provision for specified business,1,Deductions,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Section 80-IA deals with:,Detailed legal explanation in English for Deductions based on Section provisions.,Deductions के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-56,"As per Section 69D, repayment of hundi loan otherwise than through account payee cheque or bank draft is treated as:",Allowed as expense if made in good faith,Deemed as income of the assessee in the year of repayment,Taxed at concessional rates if disclosed voluntarily,Not taxable if loan obtained from relative,1,Unexplained Income,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: As per Section 69D, repayment of hundi loan otherwise than through account payee cheque or bank draft is treated as:",Detailed legal explanation in English for Unexplained Income based on Section provisions.,Unexplained Income के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-57,Who is NOT a deemed owner of property for 'Income from House Property'?,Individual transferring property to spouse without adequate consideration,Holder of an impartible estate,Member of co-operative society to whom building is allotted under house building scheme,Person acquiring rights in building by way of lease for a period less than 12 years,3,House Property,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Who is NOT a deemed owner of property for 'Income from House Property'?,Detailed legal explanation in English for House Property based on Section provisions.,House Property के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-58,"Under Section 72, in which circumstance will business loss carry forward NOT be allowed for set off?",Business discontinued and restarted under same ownership,Business continued under same ownership but with change in activity,"Business continued under different owner due to succession, except inheritance",Business restructured and merged with another business,2,Set Off and Carry Forward,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: Under Section 72, in which circumstance will business loss carry forward NOT be allowed for set off?",Detailed legal explanation in English for Set Off and Carry Forward based on Section provisions.,Set Off and Carry Forward के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-59,Which taxpayer is eligible for rebate under Section 87A?,A Hindu Undivided Family (HUF),A partnership firm,An individual resident in India with taxable income below prescribed limit,A non-resident individual earning income in India,2,Tax Rebate,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Which taxpayer is eligible for rebate under Section 87A?,Detailed legal explanation in English for Tax Rebate based on Section provisions.,Tax Rebate के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-60,"As per Section 79, what condition must be satisfied for a closely held company to carry forward and set off losses?",More than 51% of voting power must remain with same shareholders who held shares in year of loss,Company must be engaged in manufacturing business,Company must have declared dividends in preceding year,Company must have been in existence for at least 5 years,0,Set Off and Carry Forward,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: As per Section 79, what condition must be satisfied for a closely held company to carry forward and set off losses?",Detailed legal explanation in English for Set Off and Carry Forward based on Section provisions.,Set Off and Carry Forward के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-61,Which of the following is NOT eligible for deduction under Section 80CCC?,Contribution to LIC's pension plan,Contribution to a private pension fund approved by PFRDA,Contribution to National Pension System (NPS),Contribution to Atal Pension Yojana,3,Deductions,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Which of the following is NOT eligible for deduction under Section 80CCC?,Detailed legal explanation in English for Deductions based on Section provisions.,Deductions के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-62,Relief under Section 89 for arrears of salary is granted based on:,Difference between tax payable with and without arrears spread over relevant years,Fixed deduction of 30% on arrears received,Income level of previous years without any spread-over benefit,Employer's discretion in adjusting taxable income,0,Salaries,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Relief under Section 89 for arrears of salary is granted based on:,Detailed legal explanation in English for Salaries based on Section provisions.,Salaries के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-63,"Mr X had business loss of Rs.50 lakhs, adjusted Rs.25 lakhs against other income. Next FY he has Rs.20 lakhs income from other sources. What is total income?",Rs.5 lakhs,Rs.20 lakhs,Rs.25 lakhs,Rs.30 lakhs,1,Set Off and Carry Forward,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: Mr X had business loss of Rs.50 lakhs, adjusted Rs.25 lakhs against other income. Next FY he has Rs.20 lakhs income from other sources. What is total income?",Detailed legal explanation in English for Set Off and Carry Forward based on Section provisions.,Set Off and Carry Forward के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-64,"Assessee aged 40 years pays Rs.25,000 health insurance, Rs.5,000 preventive check-up, Rs.47,000 for father aged 65. What is deduction u/s 80D?","77,000","25,000","30,000","72,000",3,Deductions,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: Assessee aged 40 years pays Rs.25,000 health insurance, Rs.5,000 preventive check-up, Rs.47,000 for father aged 65. What is deduction u/s 80D?",Detailed legal explanation in English for Deductions based on Section provisions.,Deductions के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-65,"Ms Sugandha aged 65 receives Rs.30,000 from savings account, Rs.20,000 from co-op society, Rs.10,000 from post office. What deduction is available?","Rs.10,000 u/s 80TTA","Rs.60,000 u/s 80TTB","Rs.50,000 u/s 80TTB","Rs.40,000 u/s 80TTB",1,Deductions,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: Ms Sugandha aged 65 receives Rs.30,000 from savings account, Rs.20,000 from co-op society, Rs.10,000 from post office. What deduction is available?",Detailed legal explanation in English for Deductions based on Section provisions.,Deductions के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-66,Disability for Section 80U includes:,Autism,Cerebral palsy,Both (a) and (b),None of the above,2,Deductions,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Disability for Section 80U includes:,Detailed legal explanation in English for Deductions based on Section provisions.,Deductions के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-67,"Under Section 90, Central Government may enter agreement with foreign countries for which purposes?","1, 2","1, 2, 3","1, 2, 4","1, 2, 3, 4",2,Double Taxation Relief,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: Under Section 90, Central Government may enter agreement with foreign countries for which purposes?",Detailed legal explanation in English for Double Taxation Relief based on Section provisions.,Double Taxation Relief के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-68,"Under Section 115BAA, which deduction CANNOT be claimed by a company opting for concessional tax rate?",Depreciation under Section 32,Additional depreciation under Section 32(1)(iia),Expenditure on scientific research under Section 35,Both (b) and (c),3,Corporate Tax,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: Under Section 115BAA, which deduction CANNOT be claimed by a company opting for concessional tax rate?",Detailed legal explanation in English for Corporate Tax based on Section provisions.,Corporate Tax के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-69,"For Indian company engaged in mineral prospecting, deduction u/s 35E is allowed at:",No deduction — entire expenditure is capital expenditure,1/5th of expenditure for 5 years from year of commercial production,1/10th of expenditure for 10 years from year of commercial production,1/20th of expenditure for 20 years from year of commercial production,1,Business Income,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: For Indian company engaged in mineral prospecting, deduction u/s 35E is allowed at:",Detailed legal explanation in English for Business Income based on Section provisions.,Business Income के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-70,Section 115BBJ — 30% tax on online games winnings is charged on:,Gross winnings during the year,Net winnings during the year,Aggregate of absolute amount of net winnings from each game during the year,Gross transaction amount,1,Special Tax Rates,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Section 115BBJ — 30% tax on online games winnings is charged on:,Detailed legal explanation in English for Special Tax Rates based on Section provisions.,Special Tax Rates के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-71,"M/s Z & Co's disallowance u/s 40 for AY 2024-25 based on (i) Rs.5L job work no TDS, (ii) Rs.8L own IT, (iii) Rs.50K cess, (iv) Rs.75K PF not deposited:","Rs. 14,25,000/-","Rs. 10,75,000/-","Rs. 10,00,000/-","Rs. 9,50,000/-",0,Business Income,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: M/s Z & Co's disallowance u/s 40 for AY 2024-25 based on (i) Rs.5L job work no TDS, (ii) Rs.8L own IT, (iii) Rs.50K cess, (iv) Rs.75K PF not deposited:",Detailed legal explanation in English for Business Income based on Section provisions.,Business Income के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-72,"For MAT u/s 115JB, book profit means profit as per P&L account adjusted by which of the following?","1, 2, 5","1, 2, 4, 5","2, 3, 4, 5","1, 3, 4",0,Corporate Tax,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: For MAT u/s 115JB, book profit means profit as per P&L account adjusted by which of the following?",Detailed legal explanation in English for Corporate Tax based on Section provisions.,Corporate Tax के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-73,A resident has income in Algeria on which tax is paid. Under which provision can he seek double taxation avoidance?,Section 90,Section 90A,Section 91,Section 91A,2,Double Taxation Relief,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: A resident has income in Algeria on which tax is paid. Under which provision can he seek double taxation avoidance?,Detailed legal explanation in English for Double Taxation Relief based on Section provisions.,Double Taxation Relief के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-74,Which section provides for rate of taxation for income from cryptocurrency transactions?,115BBH,115BBG,115BBI,115BBJ,0,Special Tax Rates,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Which section provides for rate of taxation for income from cryptocurrency transactions?,Detailed legal explanation in English for Special Tax Rates based on Section provisions.,Special Tax Rates के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-75,"For Section 115BAB, which condition must be fulfilled for new manufacturing domestic company?",Set-up from 01.10.2019 and commenced production before 31.03.2024,Set-up from 01.10.2019 and commenced production before 31.03.2025,Set-up from 01.10.2020 and commenced production before 31.03.2024,Set-up from 01.10.2020 and commenced production before 31.03.2025,1,Corporate Tax,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: For Section 115BAB, which condition must be fulfilled for new manufacturing domestic company?",Detailed legal explanation in English for Corporate Tax based on Section provisions.,Corporate Tax के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-76,Which arrangement does NOT constitute 'impermissible avoidance arrangement' under IT Act?,Creates rights/obligations not ordinarily created between arm's length persons,Causes base erosion and profit shifting through non-arm's length transactions,Results in misuse or abuse of provisions of the Act,Carried out by means not ordinarily employed for bona fide purposes,1,General Anti-Avoidance,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Which arrangement does NOT constitute 'impermissible avoidance arrangement' under IT Act?,Detailed legal explanation in English for General Anti-Avoidance based on Section provisions.,General Anti-Avoidance के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-77,Which category of person is eligible for indexation on transfer of land/building on or after 23rd July 2024 (acquired before 23rd July 2024)?,Only Non-resident individual and Resident individual,"Only Resident individual, HUF and Domestic Company",Only Non-resident individual and Domestic Company,Only Resident individual and Resident HUF,3,Capital Gains,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Which category of person is eligible for indexation on transfer of land/building on or after 23rd July 2024 (acquired before 23rd July 2024)?,Detailed legal explanation in English for Capital Gains based on Section provisions.,पूंजीगत लाभ के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-78,"As per Section 115BBA, rate of tax for non-citizen non-resident sportsman or entertainer is:",25%,30%,35%,20%,3,Special Tax Rates,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: As per Section 115BBA, rate of tax for non-citizen non-resident sportsman or entertainer is:",Detailed legal explanation in English for Special Tax Rates based on Section provisions.,Special Tax Rates के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-79,Which statements are correct in context of Section 115BBE?,Only I — rate is 60%,Both I and II,Only II,Neither I nor II,1,Special Tax Rates,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Which statements are correct in context of Section 115BBE?,Detailed legal explanation in English for Special Tax Rates based on Section provisions.,Special Tax Rates के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-80,Section 115BBJ — 30% tax on online games: on which of the following is this rate charged?,Gross winnings during the year,Net winnings during the year,Aggregate of absolute amount of net winnings from each game during the year,Gross transaction amount,1,Special Tax Rates,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Section 115BBJ — 30% tax on online games: on which of the following is this rate charged?,Detailed legal explanation in English for Special Tax Rates based on Section provisions.,Special Tax Rates के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-81,"Under Section 90 on tax treaty, which is correct regarding claim of relief?",Provisions of Act apply to extent more beneficial to assessee,Chapter X-A applies even if Section 90(2) not beneficial to assessee,Both (a) & (b),None of the above,2,Double Taxation Relief,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: Under Section 90 on tax treaty, which is correct regarding claim of relief?",Detailed legal explanation in English for Double Taxation Relief based on Section provisions.,Double Taxation Relief के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-82,Which section provides concessional tax rate for new domestic manufacturing companies?,115BAA,115BAB,115BBE,115BBDA,1,Corporate Tax,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Which section provides concessional tax rate for new domestic manufacturing companies?,Detailed legal explanation in English for Corporate Tax based on Section provisions.,Corporate Tax के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-83,"As per Section 115QA, additional tax on distributed income on buyback of shares by domestic company is:",10%,20%,22%,30%,1,Corporate Tax,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: As per Section 115QA, additional tax on distributed income on buyback of shares by domestic company is:",Detailed legal explanation in English for Corporate Tax based on Section provisions.,Corporate Tax के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-84,"For Section 92E, 'Specified date' means:",Due date of filing return u/s 139(1),One month prior to due date of filing return u/s 139(1),One month after due date of filing return u/s 139(1),None of the above,1,Transfer Pricing,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: For Section 92E, 'Specified date' means:",Detailed legal explanation in English for Transfer Pricing based on Section provisions.,Transfer Pricing के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-85,Which statement about Section 115BBDA (dividends from domestic companies) is TRUE?,"Dividend income exceeding Rs.10 lakh is taxed at 10% for individuals, HUFs and firms",Dividend income exceeding Rs.5 lakh is taxed at 15%,Dividend income is tax-free for shareholders in all cases,This section applies only to corporate shareholders,0,Special Tax Rates,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Which statement about Section 115BBDA (dividends from domestic companies) is TRUE?,Detailed legal explanation in English for Special Tax Rates based on Section provisions.,Special Tax Rates के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-86,Authority empowered to adjust seized assets against tax liabilities under Section 132B is:,Assessing Officer,DGIT (Inv.),Principal Chief Commissioner of Income Tax,CBDT,0,Search and Seizure,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Authority empowered to adjust seized assets against tax liabilities under Section 132B is:,Detailed legal explanation in English for Search and Seizure based on Section provisions.,Search and Seizure के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-87,"During search, assessee explains cash as advance from friends but fails to submit confirmation. Authorised Officer should:",Accept the explanation,Seize the cash unless proper explanation/proof provided,Refer to ROC,Hand over cash to Enforcement Directorate,1,Search and Seizure,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: During search, assessee explains cash as advance from friends but fails to submit confirmation. Authorised Officer should:",Detailed legal explanation in English for Search and Seizure based on Section provisions.,Search and Seizure के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-88,"As per Section 132(4A), if books/documents/money found in possession during search, what is presumed?",Books/documents/money belong to such person,Contents of books and documents are true,Neither (a) nor (b),Both (a) and (b),3,Search and Seizure,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: As per Section 132(4A), if books/documents/money found in possession during search, what is presumed?",Detailed legal explanation in English for Search and Seizure based on Section provisions.,Search and Seizure के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-89,"As per Section 120(3), Board may have jurisdiction based on:",Territorial area,Person or classes of person,Income or classes of income,All of the above,3,Income Tax Authorities,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: As per Section 120(3), Board may have jurisdiction based on:",Detailed legal explanation in English for Income Tax Authorities based on Section provisions.,Income Tax Authorities के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-90,Pen drive with unaccounted sales data found during search. Assessee claims it belongs to accountant. What should AO consider before making additions?,Ignore data as ownership is denied,Verify authorship and corroborate with other records,Add entire amount without inquiry,Forward to forensic department for prosecution,1,Search and Seizure,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Pen drive with unaccounted sales data found during search. Assessee claims it belongs to accountant. What should AO consider before making additions?,Detailed legal explanation in English for Search and Seizure based on Section provisions.,Search and Seizure के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-91,"Assessee subject to requisition u/s 132A. Requisitioned assets not returned after 120 days, no approval for extended retention. What is legal status?",Valid since assets were under investigation,Invalid without proper approval beyond initial period,Retention is irrelevant once assessment starts,Requisition is not time-bound,1,Search and Seizure,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: Assessee subject to requisition u/s 132A. Requisitioned assets not returned after 120 days, no approval for extended retention. What is legal status?",Detailed legal explanation in English for Search and Seizure based on Section provisions.,Search and Seizure के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-92,The Taxpayer's Charter is contained in which specific section of the IT Act?,116A,117A,118A,119A,3,Income Tax Authorities,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: The Taxpayer's Charter is contained in which specific section of the IT Act?,Detailed legal explanation in English for Income Tax Authorities based on Section provisions.,Income Tax Authorities के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-93,What are the powers of an authorized officer during search and seizure under Section 132?,Enter and search any building or place,Break open locks and search receptacles,Search persons and seize valuable articles,All of the above,3,Search and Seizure,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: What are the powers of an authorized officer during search and seizure under Section 132?,Detailed legal explanation in English for Search and Seizure based on Section provisions.,Search and Seizure के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-94,What is an authorized officer required to do when finding stock-in-trade during a search?,Seize the stock-in-trade,Make a note or inventory of the stock-in-trade,Ignore the stock-in-trade,Return the stock-in-trade to the owner,1,Search and Seizure,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: What is an authorized officer required to do when finding stock-in-trade during a search?,Detailed legal explanation in English for Search and Seizure based on Section provisions.,Search and Seizure के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-95,Which statement is incorrect regarding disclosure of information respecting assessee?,Information u/s 138 can be disclosed only to High Court(s) and Supreme Court,AO must take assessee's consent before disclosing any data,All IT authorities can furnish information to any person at will,All of the above,3,Income Tax Authorities,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Which statement is incorrect regarding disclosure of information respecting assessee?,Detailed legal explanation in English for Income Tax Authorities based on Section provisions.,Income Tax Authorities के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-96,An updated return u/s 139(8A) can be filed even if:,Assessment proceeding is pending,Search u/s 132 has been initiated,Scrutiny Assessment is completed,None of the above,3,Returns,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: An updated return u/s 139(8A) can be filed even if:,Detailed legal explanation in English for Returns based on Section provisions.,Returns के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-97,"With respect to assessment of firms, select the INCORRECT statement:",Assessment made on firm as constituted at time of making assessment,"Where firm is succeeded by another firm, no assessment on predecessor firm","Where business is discontinued or firm dissolved, AO shall assess as if no dissolution took place",Every person who was a partner during previous year shall be jointly and severally liable,1,Assessment,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: With respect to assessment of firms, select the INCORRECT statement:",Detailed legal explanation in English for Assessment based on Section provisions.,Assessment के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-98,"Match: (i) ITR 2, (ii) ITR 3, (iii) ITR 5, (iv) ITR 6:","(i)-a, (ii)-b, (iii)-c, (iv)-d","(i)-b, (ii)-a, (iii)-d, (iv)-c","(i)-b, (ii)-a, (iii)-c, (iv)-d","(i)-a, (ii)-b, (iii)-d, (iv)-c",3,Returns,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: Match: (i) ITR 2, (ii) ITR 3, (iii) ITR 5, (iv) ITR 6:",Detailed legal explanation in English for Returns based on Section provisions.,Returns के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-99,"Match due dates: (i) 31st July, (ii) 30th November, (iii) 31st December, (iv) 31st October:","(i)-a, (ii)-b, (iii)-c, (iv)-d","(i)-b, (ii)-a, (iii)-d, (iv)-c","(i)-b, (ii)-a, (iii)-c, (iv)-d","(i)-a, (ii)-b, (iii)-d, (iv)-c",3,Returns,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: Match due dates: (i) 31st July, (ii) 30th November, (iii) 31st December, (iv) 31st October:",Detailed legal explanation in English for Returns based on Section provisions.,Returns के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-100,Assessment order passed u/s 143(3) dated 15.12.2023. Time limit for rectification is available up to:,31.03.2028,31.03.2027,31.03.2026,31.03.2029,0,Assessment,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Assessment order passed u/s 143(3) dated 15.12.2023. Time limit for rectification is available up to:,Detailed legal explanation in English for Assessment based on Section provisions.,Assessment के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-101,"Match: (i) Sec 143(1), (ii) Sec 143(3), (iii) Sec 144A, (iv) Sec 144C:","(i)-a, (ii)-b, (iii)-c, (iv)-d","(i)-b, (ii)-a, (iii)-d, (iv)-c","(i)-b, (ii)-a, (iii)-c, (iv)-d","(i)-a, (ii)-b, (iii)-d, (iv)-c",3,Assessment,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: Match: (i) Sec 143(1), (ii) Sec 143(3), (iii) Sec 144A, (iv) Sec 144C:",Detailed legal explanation in English for Assessment based on Section provisions.,Assessment के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-102,"Where firm does not comply with Section 184, income of firm shall be assessed:",On estimation,No deduction for interest/salary/bonus/commission to partners shall be allowed,Such interest/salary/bonus/commission shall not be chargeable u/s 28(v),Both (b) and (c),3,Assessment,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: Where firm does not comply with Section 184, income of firm shall be assessed:",Detailed legal explanation in English for Assessment based on Section provisions.,Assessment के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-103,"As per Section 151 (Finance Act 2024), for cases where 3 years or less have elapsed, specified authority for notice u/s 148A/148 is:",Principal CIT/Principal DG IT/CIT/DG IT,Addl CIT/JCIT,Principal CIT/Principal DIT/CIT/DIT,No approval is required,2,Assessment,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: As per Section 151 (Finance Act 2024), for cases where 3 years or less have elapsed, specified authority for notice u/s 148A/148 is:",Detailed legal explanation in English for Assessment based on Section provisions.,Assessment के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-104,"With effect from 01.09.2024, if escaped income is below Rs.50 lakh, time limit for notice u/s 148A for AY 2022-23 is:",31.03.2025,31.03.2026,31.03.2027,31.03.2028,1,Assessment,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: With effect from 01.09.2024, if escaped income is below Rs.50 lakh, time limit for notice u/s 148A for AY 2022-23 is:",Detailed legal explanation in English for Assessment based on Section provisions.,Assessment के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-105,Revised return u/s 139(5) can be furnished:,Before three months prior to end of relevant assessment year or before completion of assessment,Before six months prior to end of relevant assessment year or before completion of assessment,"Before end of relevant assessment year or before completion of assessment, whichever is earlier",Before one year from end of relevant assessment year or before completion of assessment,2,Returns,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Revised return u/s 139(5) can be furnished:,Detailed legal explanation in English for Returns based on Section provisions.,Returns के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-106,"With effect from 01.09.2024, search initiated u/s 132 on or after 1st September 2024 is assessed under:",158BA,147,156A,153A,0,Assessment,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: With effect from 01.09.2024, search initiated u/s 132 on or after 1st September 2024 is assessed under:",Detailed legal explanation in English for Assessment based on Section provisions.,Assessment के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-107,"If assessee has to carry forward loss, return of loss must be submitted:",On or before due date mentioned in Section 139(1),At any time before end of relevant assessment year,At any time before expiry of one year from end of relevant assessment year,At any time before 31st October of relevant assessment year,0,Returns,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: If assessee has to carry forward loss, return of loss must be submitted:",Detailed legal explanation in English for Returns based on Section provisions.,Returns के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-108,"As per Section 163, 'agent' in relation to non-resident includes person in India who:",Is a family member of non-resident,Is employed by or on behalf of the non-resident,Has any business connection with the non-resident,Both (b) and (c),3,Non-Resident Taxation,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: As per Section 163, 'agent' in relation to non-resident includes person in India who:",Detailed legal explanation in English for Non-Resident Taxation based on Section provisions.,Non-Resident Taxation के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-109,"For Section 194-I, which constitutes 'rent'?","1, 3 and 4 are correct","1, 2 and 3 are correct","1, 2 and 4 are correct","1, 2, 3 and 4 are correct",3,TDS,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: For Section 194-I, which constitutes 'rent'?",Detailed legal explanation in English for TDS based on Section provisions.,TDS के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-110,Which statements are correct regarding Section 194N?,"1, 3 and 4 are correct","1, 2 and 4 are correct",1 and 2 are correct,1 and 3 are correct,0,TDS,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Which statements are correct regarding Section 194N?,Detailed legal explanation in English for TDS based on Section provisions.,TDS के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-111,Which statement is true regarding authority of Tax Recovery Officer?,Can attach proceeds of sale of immovable property only,Can recover demand by attachment of spouse's bank account,Cannot attach asset already attached by AO,Can manage commercial properties and utilize rent to recover arrears,3,Recovery,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Which statement is true regarding authority of Tax Recovery Officer?,Detailed legal explanation in English for Recovery based on Section provisions.,Recovery के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-112,Which obligations of deductors with respect to TDS provisions are true?,Only (i) and (ii),Only (iii) and (iv),All of the above,None of the above,0,TDS,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Which obligations of deductors with respect to TDS provisions are true?,Detailed legal explanation in English for TDS based on Section provisions.,TDS के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-113,Which statements are correct about advance tax?,"(i), (ii) and (iv) are correct","(i), (ii) and (iii) are correct","(i), (ii), (iii) and (iv) are correct","(ii), (iii) and (iv) are correct",2,Advance Tax,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Which statements are correct about advance tax?,Detailed legal explanation in English for Advance Tax based on Section provisions.,Advance Tax के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-114,Which does NOT fall under definition of 'work' under Section 194C?,Carriage of goods by mode other than railways,Rendering of consultancy services,Catering,Broadcasting and telecasting,1,TDS,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Which does NOT fall under definition of 'work' under Section 194C?,Detailed legal explanation in English for TDS based on Section provisions.,TDS के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-115,"Under Section 195, primary requirement for payments made to non-residents is:",Exempt from any tax deduction,Deduct tax at source at prescribed rate,Withhold entire payment until prior approval,Obtain special non-resident clearance certificate,1,TDS,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: Under Section 195, primary requirement for payments made to non-residents is:",Detailed legal explanation in English for TDS based on Section provisions.,TDS के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-116,Section 197 provides for:,Exemption from TDS on certain payments,Certificate allowing tax deduction at lower rate,Automatic tax refunds for non-residents,Revision of applicable tax rates,1,TDS,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Section 197 provides for:,Detailed legal explanation in English for TDS based on Section provisions.,TDS के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-117,Section 199 of the Income Tax Act primarily deals with:,Deduction of tax at source on salary income,Settlement procedure for income involving TDS,Determination of tax slabs for non-resident income,Guidelines for calculating taxable profit,1,TDS,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Section 199 of the Income Tax Act primarily deals with:,Detailed legal explanation in English for TDS based on Section provisions.,TDS के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-118,Main subject of Section 200 of the Income Tax Act is:,Methods for computing taxable income,Procedures for payment of tax deducted at source,Criteria for exemption from TDS,Filing of annual income tax returns,1,TDS,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Main subject of Section 200 of the Income Tax Act is:,Detailed legal explanation in English for TDS based on Section provisions.,TDS के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-119,"If deductor fails to remit tax deducted u/s 195 on time, which section prescribes penalties?",Section 201,Section 202,Section 203,Section 204,0,TDS,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: If deductor fails to remit tax deducted u/s 195 on time, which section prescribes penalties?",Detailed legal explanation in English for TDS based on Section provisions.,TDS के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-120,Primary purpose of TCS provisions under Section 206C is to:,Eliminate need for TDS on all transactions,Ensure tax is collected at point of sale of specified goods,Provide automatic tax refunds on all sales,Increase tax rate on high-value transactions,1,TCS,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Primary purpose of TCS provisions under Section 206C is to:,Detailed legal explanation in English for TCS based on Section provisions.,TCS के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-121,Section 218 of the Income Tax Act offers guidelines for:,Calculation of interest on advance tax,Application for refund of TDS,Credit for tax deducted at source,Assessee deemed to be in default,3,Advance Tax,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Section 218 of the Income Tax Act offers guidelines for:,Detailed legal explanation in English for Advance Tax based on Section provisions.,Advance Tax के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-122,"Under Section 209, which component is NOT considered while computing advance tax liability?",Tax deducted at source (TDS),Self-assessment tax paid under Section 140A,Tax collected at source (TCS),Tax refunds from previous years,3,Advance Tax,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: Under Section 209, which component is NOT considered while computing advance tax liability?",Detailed legal explanation in English for Advance Tax based on Section provisions.,Advance Tax के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-123,Which section governs TDS provisions for income in respect of investment in securitization trust?,194LBC,194LBB,194LC,194LD,0,TDS,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Which section governs TDS provisions for income in respect of investment in securitization trust?,Detailed legal explanation in English for TDS based on Section provisions.,TDS के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-124,TDS made u/s 194IA and 194IB shall be paid to Central Government within:,On or before 7th of next month,On or before 15th of next month,Within 30 days from end of month in which deed is made,Cumulatively on or before 30th April of next FY,2,TDS,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: TDS made u/s 194IA and 194IB shall be paid to Central Government within:,Detailed legal explanation in English for TDS based on Section provisions.,TDS के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-125,CBDT's Instruction No.1914 deals with:,Capital Gain from sale of shares of Indian Companies,Set-off or carry forward of losses,Collection or Recovery of arrears,Income of others included in assessee's total income,2,Recovery,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: CBDT's Instruction No.1914 deals with:,Detailed legal explanation in English for Recovery based on Section provisions.,Recovery के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-126,Application for revision u/s 264 must be made within:,Six months from date order was communicated,Two years from date order was communicated,One year from date order was communicated,Nine months from date order was communicated,2,Appeals and Revision,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Application for revision u/s 264 must be made within:,Detailed legal explanation in English for Appeals and Revision based on Section provisions.,Appeals and Revision के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-127,"As per Section 271F, penalty for failure to furnish return of income before end of relevant assessment year is:","Rs. 50,000","Rs. 10,000","Rs. 5,000","Rs. 25,000",0,Penalties,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: As per Section 271F, penalty for failure to furnish return of income before end of relevant assessment year is:",Detailed legal explanation in English for Penalties based on Section provisions.,Penalties के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-128,"As per Section 260A, which statement is INCORRECT?",High Court doesn't have power to formulate substantial question of law by itself,Appeal shall be heard only on question so formulated,Appeal shall lie to High Court if substantial question of law is involved,Appeal can be filed within 120 days from date order is received,0,Appeals and Revision,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: As per Section 260A, which statement is INCORRECT?",Detailed legal explanation in English for Appeals and Revision based on Section provisions.,Appeals and Revision के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-129,"As per Section 282, service of notice may be made by — which option is INCORRECT?",Option (1) — by post or courier approved by Board,Option (2) — under Code of Civil Procedure 1908,Option (3) — in form of electronic record as provided by CBDT,None of the above,3,Notices,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: As per Section 282, service of notice may be made by — which option is INCORRECT?",Detailed legal explanation in English for Notices based on Section provisions.,Notices के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-130,Which section deals with obligation to furnish statement of financial transaction or reportable account?,Section 285BBA,Section 285BA,Section 285BB,None of the Above,1,Reporting,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Which section deals with obligation to furnish statement of financial transaction or reportable account?,Detailed legal explanation in English for Reporting based on Section provisions.,Reporting के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-131,Under which section is penalty imposed for failure to comply with provisions of Section 269SS?,Section 271C,Section 271D,Section 271E,Section 271F,1,Penalties,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Under which section is penalty imposed for failure to comply with provisions of Section 269SS?,Detailed legal explanation in English for Penalties based on Section provisions.,Penalties के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-132,Which statement is INCORRECT?,Time limit for revision u/s 263 by PCIT is 2 years from end of FY in which order was passed,Time limit for revision u/s 264 is 1 year from end of FY in which application was made,Revision u/s 263 can be done only on application from AO,Revision u/s 264 by PCIT can be made on his own motion,2,Appeals and Revision,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Which statement is INCORRECT?,Detailed legal explanation in English for Appeals and Revision based on Section provisions.,Appeals and Revision के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-133,"As per Section 281, on which property of assessee is this section NOT applicable?",Land,Fixed Deposits,Stock-in-trade,Plant and machinery,2,Recovery,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: As per Section 281, on which property of assessee is this section NOT applicable?",Detailed legal explanation in English for Recovery based on Section provisions.,Recovery के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-134,Notice served on a dissolved firm. Which is NOT deemed a valid service?,Summons served on managing partner immediately before dissolution,Summons served on minor partner already a partner before dissolution,Summons served on one of original four partners during constitution,None of the above,3,Notices,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Notice served on a dissolved firm. Which is NOT deemed a valid service?,Detailed legal explanation in English for Notices based on Section provisions.,Notices के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-135,"Under Section 270A, penalty for 'claim of expenditure not substantiated by evidence' is at the rate of:",50% of tax payable on under-reported income,50% of amount of tax sought to be evaded,200% of tax payable on under-reported income,200% of amount of tax sought to be evaded,0,Penalties,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: Under Section 270A, penalty for 'claim of expenditure not substantiated by evidence' is at the rate of:",Detailed legal explanation in English for Penalties based on Section provisions.,Penalties के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-136,"For addition made u/s 68 for AY 2024-25, penalty is levied under which section?",270A,271AAB,271AAC,271AAD,2,Penalties,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: For addition made u/s 68 for AY 2024-25, penalty is levied under which section?",Detailed legal explanation in English for Penalties based on Section provisions.,Penalties के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-137,"Match violations and penalties: 269SS, 269ST, 269T, 269SU with 271DA, 271E, 271DB, 271D:","1-i, 2-ii, 3-iii, 4-iv","1-ii, 2-iv, 3-iii, 4-i","1-iv, 2-i, 3-ii, 4-iii","1-iv, 2-iii, 3-i, 4-ii",2,Penalties,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: Match violations and penalties: 269SS, 269ST, 269T, 269SU with 271DA, 271E, 271DB, 271D:",Detailed legal explanation in English for Penalties based on Section provisions.,Penalties के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-138,"Under Section 271G, penalty for failure to furnish information u/s 92D is:","Rs. 10,000 per transaction","Rs. 25,000 per transaction",1% of the value of the transaction,2% of the value of the transaction,2,Transfer Pricing,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: Under Section 271G, penalty for failure to furnish information u/s 92D is:",Detailed legal explanation in English for Transfer Pricing based on Section provisions.,Transfer Pricing के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-139,"Mr. X repays loan of Rs.2,00,000 in cash to Mr. Y. Which statement is true?",Both X & Y are liable for penalty u/s 271D,X is liable u/s 271D and Y is liable u/s 271E,Only X is liable for penalty u/s 271E,None of the statements are true,2,Penalties,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: Mr. X repays loan of Rs.2,00,000 in cash to Mr. Y. Which statement is true?",Detailed legal explanation in English for Penalties based on Section provisions.,Penalties के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-140,"Penalty for failure to answer questions, sign statements, furnish information, allow inspections is levied under:",272,272A,272AA,272B,1,Penalties,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: Penalty for failure to answer questions, sign statements, furnish information, allow inspections is levied under:",Detailed legal explanation in English for Penalties based on Section provisions.,Penalties के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-141,Time limit for passing assessment order u/s 10 of Black Money Act is:,2 years from end of month,3 years from end of Financial Year,2 years from end of Financial Year,None of the above,0,Black Money Act,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Time limit for passing assessment order u/s 10 of Black Money Act is:,Detailed legal explanation in English for Black Money Act based on Section provisions.,Black Money Act के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-142,Definition of 'undisclosed asset located outside India' under Black Money Act 2015 is:,Asset outside India held in assessee's name with no explanation of source,Financial interest in entity outside India with no explanation of source,Explanation given is unsatisfactory and assessee is beneficial owner of asset outside India,All the above,3,Black Money Act,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Definition of 'undisclosed asset located outside India' under Black Money Act 2015 is:,Detailed legal explanation in English for Black Money Act based on Section provisions.,Black Money Act के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-143,"Match Black Money Act sections: Sec 10, Sec 11, Sec 12, Sec 13 with their provisions:","1-A, 2-B, 3-C, 4-D","1-D, 2-C, 3-B, 4-A","1-C, 2-A, 3-D, 4-B","1-B, 2-D, 3-A, 4-C",1,Black Money Act,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: Match Black Money Act sections: Sec 10, Sec 11, Sec 12, Sec 13 with their provisions:",Detailed legal explanation in English for Black Money Act based on Section provisions.,Black Money Act के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-144,Which statements regarding Black Money Act 2015 are correct?,Both statements (i) & (ii) are correct,Both statements (i) & (ii) are incorrect,Statement (i) is correct but (ii) is incorrect,Statement (i) is incorrect but (ii) is correct,0,Black Money Act,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Which statements regarding Black Money Act 2015 are correct?,Detailed legal explanation in English for Black Money Act based on Section provisions.,Black Money Act के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-145,"Prohibition of Benami Property Transactions Act, 1988 was enacted on recommendations of:",57th Law Commission,Tax Administrative Reforms Commission,130th Law Commission,2nd Administrative Reforms Commission,2,Benami Property,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: Prohibition of Benami Property Transactions Act, 1988 was enacted on recommendations of:",Detailed legal explanation in English for Benami Property based on Section provisions.,बेनामी संपत्ति के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-146,Meaning of 'benami transaction' under PBPT Act is:,"Property transferred to/held by a person, consideration provided by another person",Property held for benefit of the person who provided consideration,Both (a) and (b) are correct,None of the above,2,Benami Property,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Meaning of 'benami transaction' under PBPT Act is:,Detailed legal explanation in English for Benami Property based on Section provisions.,बेनामी संपत्ति के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-147,"Which authority is NOT established under PBPT Act, 1988?",Initiating Officer,Approving Authority,Prosecuting Authority,Adjudicating Authority,2,Benami Property,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: Which authority is NOT established under PBPT Act, 1988?",Detailed legal explanation in English for Benami Property based on Section provisions.,बेनामी संपत्ति के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-148,"Proceedings under PBPT Act, 1988 begins with Show Cause Notice to Benamidar under:",24(1),24(3),24(4),19(1),0,Benami Property,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: Proceedings under PBPT Act, 1988 begins with Show Cause Notice to Benamidar under:",Detailed legal explanation in English for Benami Property based on Section provisions.,बेनामी संपत्ति के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-149,Who is competent authority to sanction prosecution in Benami Cases?,DGIT (Inv.),PDIT (Inv.),Approving Authority,Pr. CCIT (CCA),0,Benami Property,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,Hindi translation for: Who is competent authority to sanction prosecution in Benami Cases?,Detailed legal explanation in English for Benami Property based on Section provisions.,बेनामी संपत्ति के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-150,"If property declared benami, can beneficial owner claim it legally?","Yes, by proving genuine ownership","Yes, by filing a suit in civil court","No, it is confiscated without compensation","Yes, if they pay a penalty",2,Benami Property,hard,18581ccc-a9ac-430e-a96a-7266619cdf98,"Hindi translation for: If property declared benami, can beneficial owner claim it legally?",Detailed legal explanation in English for Benami Property based on Section provisions.,बेनामी संपत्ति के प्रावधानों के आधार पर विस्तृत कानूनी व्याख्या।
-`;
-
-const QB = {};
-
-// ── ITI Paper 1: IT Law & Computation ──
-QB['iti-p1'] = [
-  {q:"Under the Income Tax Act 1961, the previous year always ends on:",opts:["31st March","31st December","31st January","1st April"],ans:0},
-  {q:"Income neither earned in India nor received in India is taxable for:",opts:["Resident & Ordinarily Resident","Non-Resident","Resident but Not Ordinarily Resident","Both (A) and (C)"],ans:3},
-  {q:"Maximum deduction under Section 80C is:",opts:["₹1,00,000","₹1,50,000","₹2,00,000","₹2,50,000"],ans:1},
-  {q:"Agricultural income is:",opts:["Fully taxable","Partially taxable","Exempt but included for rate purposes","Fully exempt"],ans:2},
-  {q:"Which is NOT a head of income under IT Act?",opts:["Salaries","Profits & Gains of Business","Agricultural Income","Capital Gains"],ans:2},
-  {q:"HRA exemption is available under Section:",opts:["10(13A)","10(14)","10(10)","10(15)"],ans:0},
-  {q:"Standard deduction from salary income is:",opts:["₹30,000","₹40,000","₹50,000","₹75,000"],ans:2},
-  {q:"LTCG on listed equity shares (above ₹1 lakh) is taxable at:",opts:["10%","15%","20%","30%"],ans:0},
-  {q:"STCG on listed equity shares is taxed at:",opts:["10%","15%","20%","30%"],ans:1},
-  {q:"Deduction under Section 80D for health insurance (individual below 60) is up to:",opts:["₹15,000","₹20,000","₹25,000","₹50,000"],ans:2},
-  {q:"Income from sub-letting of house property is taxable under:",opts:["House Property","Income from Other Sources","Profits & Gains of Business","Capital Gains"],ans:1},
-  {q:"Surcharge on income tax applies when total income exceeds:",opts:["₹25 lakh","₹50 lakh","₹1 crore","₹2 crore"],ans:1},
-  {q:"Due date for filing ITR (non-audit individuals):",opts:["31st July","31st August","30th September","31st October"],ans:0},
-  {q:"Under Section 44AD, presumptive taxation applies to businesses with turnover up to:",opts:["₹1 crore","₹2 crore","₹3 crore","₹5 crore"],ans:1},
-  {q:"TDS on salary is governed by Section:",opts:["192","194","194A","195"],ans:0},
-  {q:"Wealth Tax was abolished from Assessment Year:",opts:["2014-15","2015-16","2016-17","2013-14"],ans:1},
-  {q:"Section 80GG deduction is for rent paid if assessee does not receive:",opts:["DA","HRA","LTA","Medical Allowance"],ans:1},
-  {q:"Tax rate for domestic companies under Section 115BAA:",opts:["22%","25%","30%","15%"],ans:0},
-  {q:"Gratuity received by a government employee is:",opts:["Fully taxable","Fully exempt","Exempt up to ₹20 lakh","Exempt up to ₹10 lakh"],ans:1},
-  {q:"'Gross Total Income' means income:",opts:["After deductions under Chapter VI-A","Before deductions under Chapter VI-A","After paying tax","After allowing losses"],ans:1},
-  {q:"Under Section 234B, interest is charged for non-payment of:",opts:["TDS","Advance Tax","Self-assessment tax","All of the above"],ans:1},
-  {q:"Which section governs TDS on bank interest?",opts:["194A","194B","194C","194D"],ans:0},
-  {q:"Indexed cost of acquisition is relevant for:",opts:["STCG","LTCG","Both","Neither"],ans:1},
-  {q:"CBDT stands for:",opts:["Central Board of Direct Taxes","Central Board of Departmental Taxes","Central Bureau of Direct Taxes","None of these"],ans:0},
-  {q:"Residential status of a person is determined for each:",opts:["Previous year","Assessment year","Financial year","Both (A) and (C)"],ans:0},
-  {q:"Which is deductible from Profits & Gains of Business?",opts:["Personal expenses","Capital expenditure","Revenue expenditure for business","Domestic expenses"],ans:2},
-  {q:"Income of a minor child is clubbed with the income of:",opts:["Mother always","Father always","Parent with higher income","Both parents equally"],ans:2},
-  {q:"Black Money (Undisclosed Foreign Income) Act enacted in:",opts:["2013","2014","2015","2016"],ans:2},
-  {q:"Section 139(1) refers to:",opts:["Belated return","Revised return","Mandatory return filing","Defective return"],ans:2},
-  {q:"Double taxation relief under Sections 90 & 91 relates to:",opts:["Income taxed twice in India","Income taxed in India and abroad","Income of non-residents","Income of HUF"],ans:1},
-  {q:"Form used by salaried individuals to file ITR:",opts:["ITR-1","ITR-2","ITR-3","ITR-4"],ans:0},
-  {q:"Under Benami Transactions Act, property held in benami can be:",opts:["Confiscated","Taxed at 30%","Both confiscated and taxed","None"],ans:0},
-  {q:"Annual Value of a self-occupied property under House Property is:",opts:["Market rent","Municipal value","NIL","Cost of construction"],ans:2},
-  {q:"'Perquisite' is defined under Section:",opts:["17(1)","17(2)","17(3)","17(4)"],ans:1},
-  {q:"Under Section 80E, deduction is for:",opts:["Home loan interest","Education loan interest","Business loan interest","Personal loan interest"],ans:1},
-  {q:"Depreciation under IT Act is charged on:",opts:["Written Down Value","Straight Line Method","Both (A) and (B)","Market Value"],ans:0},
-  {q:"Advance Tax not required if tax liability is less than:",opts:["₹5,000","₹10,000","₹15,000","₹20,000"],ans:1},
-  {q:"Section 10(10D) provides exemption to:",opts:["Gratuity","Maturity proceeds of life insurance","Leave encashment","Commuted pension"],ans:1},
-  {q:"'Assessment Year' under IT Act means:",opts:["Year in which income is earned","Year following the previous year","Year of tax payment","Same as financial year"],ans:1},
-  {q:"Relief under Section 89 is available for:",opts:["Arrears of salary","Foreign income","Dividend income","Capital gains"],ans:0},
-];
-
-// ── ITI Paper 2: Book Keeping ──
-QB['iti-p2'] = [
-  {q:"The accounting equation is:",opts:["Assets = Liabilities + Capital","Assets = Liabilities - Capital","Capital = Assets + Liabilities","Liabilities = Assets + Capital"],ans:0},
-  {q:"Double entry system means every transaction has:",opts:["Two debits","Two credits","Equal debit and credit","Only one entry"],ans:2},
-  {q:"A Trial Balance is prepared to:",opts:["Find profit","Check arithmetic accuracy","Prepare final accounts","None of these"],ans:1},
-  {q:"Goodwill is a:",opts:["Tangible asset","Fictitious asset","Intangible asset","Current asset"],ans:2},
-  {q:"Which account has a credit balance normally?",opts:["Cash account","Purchase account","Capital account","Expense account"],ans:2},
-  {q:"Depreciation is provided on:",opts:["Current assets","Fictitious assets","Fixed assets","All assets"],ans:2},
-  {q:"Bank Reconciliation Statement reconciles:",opts:["Cash book & pass book","Purchase & sales ledger","Debtors & creditors","None of these"],ans:0},
-  {q:"Outstanding expenses are shown in the Balance Sheet as:",opts:["Asset","Liability","Income","Expense"],ans:1},
-  {q:"Closing stock is valued at:",opts:["Cost price","Market price","Cost or market price whichever is lower","Cost or market price whichever is higher"],ans:2},
-  {q:"A Debit Note is issued when:",opts:["Goods are returned by us","Goods are returned to us","Payment is made","None of these"],ans:0},
-  {q:"Capital Expenditure is one which:",opts:["Recurring in nature","Provides benefit for more than one year","Charged to P&L account","None"],ans:1},
-  {q:"Which book records cash and bank transactions?",opts:["Journal","Cash Book","Ledger","Day Book"],ans:1},
-  {q:"Prepaid expense is a:",opts:["Liability","Income","Asset","Capital"],ans:2},
-  {q:"Reserves are created out of:",opts:["Capital","Profits","Loans","Deposits"],ans:1},
-  {q:"Net Profit = Gross Profit – ______",opts:["Direct expenses","Indirect expenses","Cost of goods sold","Purchases"],ans:1},
-  {q:"Provision for Bad Debts reduces:",opts:["Liability","Capital","Debtors in Balance Sheet","Cash"],ans:2},
-  {q:"The principle of 'conservatism' means:",opts:["Record all profits, ignore losses","Anticipate no profits, provide for losses","Record everything","None"],ans:1},
-  {q:"Purchases Return Book records:",opts:["Goods returned by customers","Goods returned to suppliers","Both","None"],ans:1},
-  {q:"An asset purchased for ₹1,00,000 with 10% depreciation WDV after year 1:",opts:["₹90,000","₹10,000","₹1,10,000","₹95,000"],ans:0},
-  {q:"Fictitious assets are shown on:",opts:["Liability side of B/S","Asset side of B/S","P&L account","None"],ans:1},
-  {q:"Accrued income is a:",opts:["Liability","Asset","Income","Expense"],ans:1},
-  {q:"The sales journal records:",opts:["All sales","Credit sales only","Cash sales only","Returns"],ans:1},
-  {q:"What is a Ledger?",opts:["Book of original entry","Book of final entry","Book of secondary entry","None"],ans:1},
-  {q:"Which of these is a liquid asset?",opts:["Land","Machinery","Cash","Goodwill"],ans:2},
-  {q:"Working Capital = Current Assets – ______",opts:["Fixed Assets","Current Liabilities","Capital","Long-term Loans"],ans:1},
-  {q:"Bills Receivable is a:",opts:["Liability","Current Asset","Fixed Asset","Capital"],ans:1},
-  {q:"Dishonoured cheque is recorded in:",opts:["Cash Book (Dr side)","Cash Book (Cr side)","Journal","None"],ans:1},
-  {q:"Gross Profit = Net Sales – ______",opts:["Net Purchases","Cost of Goods Sold","Expenses","None"],ans:1},
-  {q:"Petty Cash Book is used to record:",opts:["Large cash payments","Small cash payments","Bank transactions","None"],ans:1},
-  {q:"Single Entry System is:",opts:["Complete","Incomplete","More accurate than double entry","Standard"],ans:1},
-  {q:"Carriage inward is charged to:",opts:["Trading Account","P&L Account","Balance Sheet","None"],ans:0},
-  {q:"Interest on capital is:",opts:["Income for business","Expense for business","Credited to Capital A/c","None"],ans:1},
-  {q:"The three-column cash book includes columns for:",opts:["Cash, Bank, Discount","Cash, Credit, Debit","Cash, Sales, Purchases","None"],ans:0},
-  {q:"Sinking Fund is created for:",opts:["Day to day expenses","Replacement of fixed assets","Paying dividends","None"],ans:1},
-  {q:"Contingent liability is:",opts:["Definite liability","Possible liability depending on future events","Past liability","None"],ans:1},
-  {q:"Revenue Expenditure differs from Capital Expenditure in that it:",opts:["Creates assets","Is recurring","Provides future benefit","None"],ans:1},
-  {q:"The purpose of preparing a Balance Sheet is to show:",opts:["Profit or loss","Financial position on a date","Cash flows","All of these"],ans:1},
-  {q:"Which principle requires recording transactions at historical cost?",opts:["Conservatism","Cost principle","Matching","Materiality"],ans:1},
-  {q:"An increase in liability is recorded as:",opts:["Debit","Credit","Either","Neither"],ans:1},
-  {q:"FIFO method of inventory values closing stock at:",opts:["Oldest price","Newest price","Average price","Market price"],ans:1},
-];
-
-// ── ITI Paper 3: Allied Laws ──
-QB['iti-p3'] = [
-  {q:"The Indian Stamp Act was enacted in:",opts:["1899","1909","1882","1872"],ans:0},
-  {q:"The Limitation Act 1963 prescribes the period within which:",opts:["Laws must be enacted","Suits must be filed","Taxes must be paid","None"],ans:1},
-  {q:"CPC stands for:",opts:["Civil Procedure Code","Criminal Procedure Code","Commercial Procedure Code","None"],ans:0},
-  {q:"The Right to Information Act was enacted in:",opts:["2003","2004","2005","2006"],ans:2},
-  {q:"Under the RTI Act, information must be provided within:",opts:["15 days","30 days","45 days","60 days"],ans:1},
-  {q:"The Companies Act currently in force is from:",opts:["1956","1988","2013","2000"],ans:2},
-  {q:"A 'company' under Companies Act 2013 is created by:",opts:["Contract","Registration","Presidential Order","None"],ans:1},
-  {q:"SEBI was established under:",opts:["SEBI Act 1992","Companies Act","RBI Act","None"],ans:0},
-  {q:"Foreign Exchange Management Act (FEMA) was enacted in:",opts:["1999","2000","2001","1998"],ans:0},
-  {q:"Prevention of Money Laundering Act (PMLA) was enacted in:",opts:["2002","2003","2004","2005"],ans:0},
-  {q:"Benami Transactions Prohibition Act originally enacted in:",opts:["1988","1990","1992","1994"],ans:0},
-  {q:"The Indian Contract Act was enacted in:",opts:["1872","1882","1899","1908"],ans:0},
-  {q:"A contract made by a minor is:",opts:["Valid","Void","Voidable","Enforceable"],ans:1},
-  {q:"'Consideration' in a contract means:",opts:["Something in return","A condition","A clause","None"],ans:0},
-  {q:"Hindu Undivided Family (HUF) is governed by:",opts:["Hindu Law","Muslim Law","Companies Act","None"],ans:0},
-  {q:"CGST stands for:",opts:["Central GST","Combined GST","Common GST","None"],ans:0},
-  {q:"GST was implemented in India from:",opts:["1 July 2017","1 April 2017","1 Jan 2018","1 July 2016"],ans:0},
-  {q:"Under GST, the threshold limit for registration (regular taxpayer) is:",opts:["₹10 lakh","₹20 lakh","₹40 lakh","₹50 lakh"],ans:1},
-  {q:"Input Tax Credit (ITC) under GST is available on:",opts:["Personal use","Business use","Both","Neither"],ans:1},
-  {q:"Transfer Pricing provisions are under Section:",opts:["92 to 92F","80 to 85","194 to 196","None"],ans:0},
-  {q:"The Black Money Act 2015 deals with:",opts:["Domestic Black Money","Undisclosed foreign income & assets","Both","None"],ans:1},
-  {q:"Appeals against IT Department orders lie first to:",opts:["High Court","Supreme Court","CIT(Appeals)","ITAT"],ans:2},
-  {q:"ITAT stands for:",opts:["Income Tax Appellate Tribunal","Income Tax Assessment Tribunal","None of these","Income Tax Audit Tribunal"],ans:0},
-  {q:"The Negotiable Instruments Act deals with:",opts:["Cheques, DDs, Promissory Notes","Bonds only","Debentures only","None"],ans:0},
-  {q:"Section 138 of Negotiable Instruments Act deals with:",opts:["Issue of cheque","Dishonour of cheque","Payment of cheque","None"],ans:1},
-  {q:"Under PMLA, attachment of property can be for up to:",opts:["90 days","150 days","180 days","365 days"],ans:2},
-  {q:"Customs Act was enacted in:",opts:["1960","1962","1969","1975"],ans:1},
-  {q:"The Fugitive Economic Offenders Act was enacted in:",opts:["2016","2017","2018","2019"],ans:2},
-  {q:"Minimum Alternate Tax (MAT) is applicable under Section:",opts:["115JAA","115JB","115BAA","None"],ans:1},
-  {q:"GAAR stands for:",opts:["General Anti Avoidance Rules","Government Anti Avoidance Rules","General Assessment Avoidance Rules","None"],ans:0},
-  {q:"Equalisation Levy was introduced in:",opts:["2014","2015","2016","2017"],ans:2},
-  {q:"The Prevention of Corruption Act was enacted in:",opts:["1988","1990","1992","1994"],ans:0},
-  {q:"CBI stands for:",opts:["Central Bureau of Investigation","Central Banking Institute","None","Central Bureau of Income Tax"],ans:0},
-  {q:"An 'offence' under IPC is tried in:",opts:["Civil Court","Criminal Court","Revenue Court","None"],ans:1},
-  {q:"Limitation period for income tax refund claim is:",opts:["1 year","2 years","3 years","4 years"],ans:0},
-  {q:"The Insolvency and Bankruptcy Code was enacted in:",opts:["2014","2015","2016","2017"],ans:2},
-  {q:"GSTIN has how many digits?",opts:["10","12","15","18"],ans:2},
-  {q:"Under RTI, the first appellate authority must decide within:",opts:["15 days","30 days","45 days","60 days"],ans:1},
-  {q:"The Indian Evidence Act was enacted in:",opts:["1872","1882","1899","1908"],ans:0},
-  {q:"Lok Adalat is a form of:",opts:["Criminal court","Alternate Dispute Resolution","Appellate court","None"],ans:1},
-];
-
-// ── ITI Paper 4: Office Procedure ──
-QB['iti-p4'] = [
-  {q:"The Conduct Rules for Central Government employees are called:",opts:["CCS (Conduct) Rules 1964","Government Conduct Rules 1972","Service Rules 1960","None"],ans:0},
-  {q:"A 'charge sheet' in departmental proceedings is formally called:",opts:["Memorandum","Complaint","Show Cause Notice","Statement of Imputation"],ans:3},
-  {q:"CCS (CCA) Rules 1965 deals with:",opts:["Pay revision","Classification, Control & Appeal","Leave rules","Service conditions"],ans:1},
-  {q:"A 'minor penalty' under CCS(CCA) Rules includes:",opts:["Dismissal","Removal","Censure","Compulsory retirement"],ans:2},
-  {q:"Leave encashment for Central Govt employees on retirement allows EL up to:",opts:["120 days","180 days","240 days","300 days"],ans:2},
-  {q:"GPF stands for:",opts:["General Provident Fund","Government Pension Fund","Group Provident Fund","None"],ans:0},
-  {q:"NPS was introduced for Central Govt employees joining from:",opts:["1 Jan 2003","1 Jan 2004","1 April 2004","1 Jan 2005"],ans:0},
-  {q:"A Circular is issued for:",opts:["Communicating instructions to subordinates","Filing case","Writing to ministries","None"],ans:0},
-  {q:"A Demi-Official letter (D.O.) is written in:",opts:["First person","Second person","Third person","None"],ans:0},
-  {q:"'Noting' in an office file refers to:",opts:["Recording facts, referring rules and making recommendations","Signing a document","Filing correspondence","None"],ans:0},
-  {q:"CVC stands for:",opts:["Central Vigilance Commission","Central Verification Committee","Central Vigilance Council","None"],ans:0},
-  {q:"The official language of Union of India as per the Constitution is:",opts:["English","Hindi","Both","Sanskrit"],ans:1},
-  {q:"The Official Languages Act was enacted in:",opts:["1960","1963","1967","1970"],ans:1},
-  {q:"A Memorandum is sent to:",opts:["Ministers","Subordinate offices and officials","Public","None"],ans:1},
-  {q:"Superscription on an envelope for official correspondence should include:",opts:["Sender's address","File number and year","Both","None"],ans:2},
-  {q:"RTI Act applies to:",opts:["Only Central Govt","Only State Govt","Both Central & State Govts","Private bodies only"],ans:2},
-  {q:"Lokpal Bill was passed in:",opts:["2011","2012","2013","2014"],ans:2},
-  {q:"'FR' and 'SR' in government service stand for:",opts:["Finance Rules & Service Rules","Fundamental Rules & Supplementary Rules","None","Financial Rules & Service Regulations"],ans:1},
-  {q:"Annual Confidential Report (ACR/APAR) is written by:",opts:["Employee himself","Immediate supervisor/Reporting officer","Department head only","None"],ans:1},
-  {q:"Parliament of India consists of:",opts:["Lok Sabha only","Rajya Sabha only","Both Houses and the President","Both Houses only"],ans:2},
-  {q:"A 'resolution' in government means:",opts:["A decision communicated to the public","A draft bill","A court order","None"],ans:0},
-  {q:"DPC stands for:",opts:["Departmental Promotion Committee","Direct Promotion Committee","Departmental Pay Committee","None"],ans:0},
-  {q:"The right of appeal in departmental proceedings is given under:",opts:["Rule 23 of CCS(CCA)","Rule 24","Rule 25","Rule 27"],ans:0},
-  {q:"CCS Leave Rules 1972 govern leave for:",opts:["State govt employees","Central govt employees","Both","None"],ans:1},
-  {q:"Medical reimbursement for Central Govt employees is governed by:",opts:["CGHS Rules","Medical Treatment Rules 1944","Both","None"],ans:0},
-  {q:"CGHS stands for:",opts:["Central Govt Health Scheme","Combined Govt Health Scheme","None","Central Govt Healthcare System"],ans:0},
-  {q:"Which type of leave is earned on the basis of duty days?",opts:["Casual Leave","Earned Leave","Half Pay Leave","Extraordinary Leave"],ans:1},
-  {q:"Maximum CL (Casual Leave) for Central Govt employees per year:",opts:["10 days","12 days","8 days","15 days"],ans:1},
-  {q:"The process of examining a file and writing remarks is called:",opts:["Noting","Drafting","Recording","Filing"],ans:0},
-  {q:"'Recording' a file means:",opts:["Writing on a file","Closing a file after action is complete","None","Filing correspondence"],ans:1},
-  {q:"A 'press note' is issued by:",opts:["Individual officers","Government to media","Police","None"],ans:1},
-  {q:"The Vigilance Commissioner is appointed by:",opts:["President of India","Prime Minister","Cabinet","Governor"],ans:0},
-  {q:"Which is the most formal type of official communication?",opts:["D.O. Letter","Office Order","Notification","Circular"],ans:2},
-  {q:"Section 3 of Official Secrets Act 1923 deals with:",opts:["Espionage","Wrongful communication of official secrets","Sabotage","None"],ans:1},
-  {q:"The first signatory on a noting sheet is usually the:",opts:["Senior-most officer","Junior-most officer dealing with the case","Section officer","Director"],ans:1},
-  {q:"A Government order having the force of law is called:",opts:["Notification","Office order","Resolution","Circular"],ans:0},
-  {q:"Seniority in service is determined by:",opts:["Date of birth","Date of joining","Merit","All of the above"],ans:1},
-  {q:"Which article of the Constitution deals with service matters of civil servants?",opts:["Article 309","Article 310","Article 311","All of these"],ans:3},
-  {q:"GFR stands for:",opts:["General Finance Rules","General Financial Rules","General Fiscal Rules","None"],ans:1},
-  {q:"The Finance Ministry issues which type of document for expenditure control?",opts:["Office Order","Circular","Memorandum","Expenditure Sanction"],ans:3},
-];
-
-// ── ITO Paper 1: IT Law + Cases (same as ITI P1 but harder — reuse + extend) ──
-QB['ito-p1'] = [...QB['iti-p1']]; // same base, extended via series randomization
-
-// ── ITO Paper 2: Advanced Accountancy ──
-QB['ito-p2'] = [
-  {q:"The AS-1 deals with:",opts:["Valuation of inventories","Disclosure of accounting policies","Cash flow statements","None"],ans:1},
-  {q:"AS-3 deals with:",opts:["Depreciation","Cash flow statements","Contingencies","Investments"],ans:1},
-  {q:"AS-9 deals with:",opts:["Revenue recognition","Fixed assets","Inventories","None"],ans:0},
-  {q:"Under the Companies Act 2013, financial statements must be prepared on:",opts:["Cash basis","Accrual basis","Either","None"],ans:1},
-  {q:"Deferred Tax Asset arises when:",opts:["Book profit > Taxable profit","Taxable profit > Book profit","Both are equal","None"],ans:1},
-  {q:"Goodwill on consolidation is:",opts:["Excess of purchase consideration over net assets","Discount on acquisition","Both","None"],ans:0},
-  {q:"EPS stands for:",opts:["Earnings Per Share","Equity Per Share","Estimated Profit per Share","None"],ans:0},
-  {q:"Diluted EPS accounts for:",opts:["Only basic shares","Potential shares from options/convertibles","Preference shares","None"],ans:1},
-  {q:"Under AS-22 (Deferred Tax), timing differences relate to:",opts:["Permanent differences","Temporary differences","Both","None"],ans:1},
-  {q:"Foreign currency transactions are governed by:",opts:["AS-11","AS-12","AS-13","AS-15"],ans:0},
-  {q:"AS-15 deals with:",opts:["Borrowing costs","Employee benefits","Cash flow","None"],ans:1},
-  {q:"AS-28 deals with:",opts:["Earnings per share","Impairment of assets","Leases","None"],ans:1},
-  {q:"A holding company owns more than ____% of voting shares in a subsidiary:",opts:["25%","50%","75%","100%"],ans:1},
-  {q:"Consolidated Balance Sheet eliminates:",opts:["Intra-group transactions","Third-party transactions","Both","None"],ans:0},
-  {q:"Pre-acquisition profit of a subsidiary belongs to:",opts:["Minority interest","Capital reserve or Goodwill","Revenue reserve","None"],ans:1},
-  {q:"Share Premium (Securities Premium) can be used for:",opts:["Dividend payment","Issue of bonus shares","Repayment of loans","None"],ans:1},
-  {q:"Statutory reserves under Companies Act are those created under:",opts:["SEBI directions","Statutory mandate","Board resolution","None"],ans:1},
-  {q:"Capital Redemption Reserve is created when:",opts:["Preference shares are redeemed without fresh issue","A company is formed","None","Loans are converted"],ans:0},
-  {q:"Company's profit before tax is ₹10 lakh. Tax rate 30%. Net profit is:",opts:["₹7,00,000","₹3,00,000","₹6,00,000","₹8,00,000"],ans:0},
-  {q:"Under SLM, ₹1,20,000 asset with 10 year life has annual depreciation of:",opts:["₹10,000","₹12,000","₹15,000","₹8,000"],ans:1},
-  {q:"EBITDA stands for:",opts:["Earnings Before Interest, Tax, Depreciation & Amortisation","Equity Based Internal Tax Deduction Account","None","Either A or B"],ans:0},
-  {q:"Preference shareholders have priority over equity shareholders in:",opts:["Voting","Dividend","Both Dividend & Capital Repayment","None"],ans:2},
-  {q:"Ratio analysis is used for:",opts:["Preparing final accounts","Analysing financial performance","Recording transactions","None"],ans:1},
-  {q:"Debt-Equity Ratio = Total Debt ÷ ______",opts:["Gross Assets","Shareholders' Equity","Net Assets","None"],ans:1},
-  {q:"Quick Ratio excludes:",opts:["Debtors","Cash","Inventory","Prepaid expenses"],ans:2},
-  {q:"Return on Capital Employed = EBIT ÷ ______",opts:["Equity","Capital Employed","Revenue","None"],ans:1},
-  {q:"Inventory Turnover = Cost of Goods Sold ÷ ______",opts:["Net Sales","Average Inventory","Gross Profit","None"],ans:1},
-  {q:"Forfeiture of shares reduces:",opts:["Share Capital","Reserves","Liabilities","None"],ans:0},
-  {q:"Bonus shares are issued from:",opts:["General Reserve / Securities Premium","Profits","Both","None"],ans:2},
-  {q:"A rights issue is offered to:",opts:["New investors","Existing shareholders","Debenture holders","None"],ans:1},
-  {q:"Under AS-7, Construction Contracts are accounted using:",opts:["Completed Contract Method","Percentage of Completion Method","Both","Either"],ans:1},
-  {q:"AS-19 deals with:",opts:["Leases","Borrowing costs","Investments","None"],ans:0},
-  {q:"Finance Lease transfers:",opts:["Ownership risk and rewards","Only ownership","Only rewards","None"],ans:0},
-  {q:"Operating Lease is:",opts:["On the lessee's Balance Sheet","Off the lessee's Balance Sheet","Both","None"],ans:1},
-  {q:"Intangible assets under AS-26 are amortised over their:",opts:["Statutory life","Useful economic life not exceeding 10 years","20 years","None"],ans:1},
-  {q:"Research costs under AS-26 are:",opts:["Capitalised","Expensed as incurred","Deferred","None"],ans:1},
-  {q:"Development costs can be capitalised if:",opts:["Certain criteria are met","Always","Never","None"],ans:0},
-  {q:"Brand value created internally is:",opts:["Recognised as intangible asset","Not recognised","Always capitalised","None"],ans:1},
-  {q:"Under AS-26, the carrying amount of intangible asset = Cost – ______",opts:["Depreciation","Amortisation","Both","None"],ans:1},
-  {q:"A contingent liability is:",opts:["Always recorded in books","Disclosed in notes if probable","Never disclosed","None"],ans:1},
-];
-
-// ── ITO Paper 3: Allied Laws (same bank as ITI P3) ──
-QB['ito-p3'] = [...QB['iti-p3']];
-
-// ── ITI P2,P3 reuse for ITO P2,P3 with different seeds ──
-
-// ── MS Papers (Subjective) ──
-
-QB['ms-p1'] = [
-  {q:"Write a précis of the following passage in about one-third of the original, giving it a suitable title. (Model text: A well-known economist once remarked that the greatest challenge of the 21st century is not technology but the equitable distribution of its benefits. Nations that invest in skilling their workforce, strengthening social safety nets, and ensuring data privacy will be better positioned to harness technology for inclusive growth. The digital divide is not merely a connectivity issue; it is a governance challenge that demands coordinated international action.)", marks:15, hint:"Your précis should be approximately 70–80 words. Retain the key ideas: equitable distribution, workforce skilling, safety nets, data privacy, digital divide, and international cooperation."},
-  {q:"Draft an official office order to be issued by the Commissioner of Income Tax, Chennai, granting two days of additional casual leave to all staff on account of a public event.", marks:10, hint:"An office order is formal. Use subject line, F.No., date, issuing authority, body, and signature block."},
-  {q:"Write a paragraph of about 100 words on the importance of Swachh Bharat Mission for government offices.", marks:10, hint:"Focus on cleanliness, productivity, public image, hygiene, and the government's role as a role model."},
-  {q:"Write a letter from a taxpayer to the Income Tax Officer requesting correction of a name error in PAN records.", marks:10, hint:"Include: sender's PAN, address, nature of error, request for correction, supporting documents."},
-  {q:"Expand the following abbreviations as used in Income Tax parlance: (a) ITR (b) TDS (c) CBDT (d) AY (e) PAN", marks:5, hint:"All five should be expanded correctly and in full."},
-];
-
-QB['ms-p2'] = [
-  {q:"What is a 'file' in government office parlance? Describe the components of an official file and the procedure for creation, maintenance, and closing of files.", marks:15, hint:"Discuss: file cover, noting portion, correspondence portion, index, numbering; creation on receipt of a dak; annual closing; transfer to record room."},
-  {q:"Explain the procedure for disposal of 'Immediate' and 'Most Immediate' dak in a government office.", marks:10, hint:"Immediate: same day. Most Immediate: highest priority, deal first. Note escalation, responsibility of section officer, marking on dak."},
-  {q:"What is a 'Draft'? Describe the process of drafting and vetting of draft letters in a Central Government office.", marks:10, hint:"Draft = proposed version of communication. Drafted by dealing hand, checked by SO, vetted by senior if needed."},
-  {q:"Differentiate between a 'Notification' and an 'Office Order'. Give one example of each.", marks:10, hint:"Notification: has legal effect, published in Official Gazette, e.g., tax rate changes. Office Order: internal, for staff, e.g., transfer orders."},
-  {q:"Write a note on the role of 'Desk Officer System' in improving efficiency in Central Government offices.", marks:5, hint:"Desk officer holds charge of specific subjects; no multiple handling; reduces file movement; faster decisions."},
-];
-
-QB['ms-p3'] = [
-  {q:"Describe the procedure for handling a complaint of corruption against an income tax official. What is the role of the Vigilance Officer in this process?", marks:15, hint:"Complaint receipt, preliminary inquiry, reference to CVC/CBI if needed, departmental proceedings; Vigilance Officer's role: initial scrutiny, liaison with CVC."},
-  {q:"What is an 'Annual Property Return'? What are the obligations of a Central Government employee under the CCS (Conduct) Rules regarding property?", marks:10, hint:"APR filed each year by 31 January; declarations required for movable/immovable assets above threshold; consequences of non-disclosure."},
-  {q:"Explain the powers of an Income Tax Officer to conduct a survey under Section 133A of the Income Tax Act.", marks:10, hint:"Survey: enter premises during business hours; examine books, verify stocks; cannot seize; statements may be recorded; not applicable to residential premises."},
-  {q:"What is TAN? Who needs to obtain TAN and what are the consequences of failure to obtain TAN?", marks:10, hint:"Tax Deduction and Collection Account Number; required by all persons liable to deduct TDS/TCS; ₹10,000 penalty for failure under Section 272BB."},
-  {q:"Write a short note on the Faceless Assessment Scheme introduced by the Income Tax Department.", marks:5, hint:"Introduced in 2020; no physical interface; cases randomly assigned; team-based assessment; reduces corruption; e-notices; responses online."},
-];
-
-QB['ms-p4'] = [
-  {q:"Explain the concept of 'Deemed Dividend' under Section 2(22) of the Income Tax Act. What are the different clauses under which deemed dividend arises?", marks:15, hint:"Clauses (a) to (e): accumulated profits distributed on liquidation; loans to substantial shareholders; distributions of assets; release of company's liability; payments under agreements. Only to extent of accumulated profits."},
-  {q:"What is 'Set Off' and 'Carry Forward' of losses under the Income Tax Act? Explain with reference to losses under different heads of income.", marks:10, hint:"Set off: same year, same head/other heads (as allowed). Carry forward: future years. Specifics: Business loss CF 8 yrs; Capital loss CF 8 yrs; House property loss CF 8 yrs; Speculative loss CF 4 yrs only against speculative profit."},
-  {q:"Write an explanatory note on the Assessment procedure under Section 143(1), 143(2), and 143(3) of the Income Tax Act.", marks:10, hint:"143(1): Summary assessment, intimation. 143(2): Notice for scrutiny (within 3/6 months). 143(3): Scrutiny assessment after hearing."},
-  {q:"What is the significance of 'Permanent Establishment' in Double Taxation Avoidance Agreements (DTAA)? Explain with an example.", marks:10, hint:"PE = fixed place of business; tests: place of management, branch, office, factory, workshop; if PE exists, source country can tax business profits attributable to PE."},
-  {q:"A taxpayer received a notice under Section 148 for reassessment. Describe the process and the taxpayer's rights under this provision.", marks:5, hint:"148 notice: reason to believe income escaped; taxpayer can object; file return; reasons for reopening must be furnished; time limits apply."},
-];
-
-// ═══════════════════════════════════════════════════════════
 // SERIES CONFIG
 // ═══════════════════════════════════════════════════════════
 
 // ═══════════════════════════════════════════════════════════
 // SUPABASE CONFIG  ⚠️  FILL THESE IN — required for DB questions
 // Get from: Supabase Dashboard → Settings → API
-// Without credentials the engine falls back to the small local bank.
+// All questions are loaded exclusively from Supabase.
 // ═══════════════════════════════════════════════════════════
 const SUPABASE_URL  = 'https://fgsnpinwwpzjjroytkov.supabase.co';   // e.g. 'https://abcxyz.supabase.co'
 const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZnc25waW53d3B6ampyb3l0a292Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyMDM2NzIsImV4cCI6MjA4OTc3OTY3Mn0._PcBUCAEWjrkQBj7y0rf3pwJo8cDb6or9CJ35IeQAdI';   // anon/public key
 
 // ── EXAM UUID MAP ───────────────────────────────────────────
-// Maps each bank key → the exam_id UUID in your Supabase exams table.
-// Copy the UUID from Supabase Table Editor → exams → id column.
+// NOTE: exam_id filtering is no longer used — the new table schema
+// (iti_paper1_questions) stores all questions without an exam_id column.
+// Questions are fetched by table name only and shuffled per test-card seed.
+// Kept here for reference / future multi-exam tables.
 // ───────────────────────────────────────────────────────────
 const EXAM_UUID = {
-  'iti-p1': '18581ccc-a9ac-430e-a96a-7266619cdf98',  // confirmed from DB
+  'iti-p1': '18581ccc-a9ac-430e-a96a-7266619cdf98',  // kept for reference
   // Add more when you upload more exam question sets, e.g.:
   // 'iti-p2': 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
   // 'ito-p1': 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
@@ -1388,121 +969,72 @@ window.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('btn-start-test').className='btn-start blue';
   }
 
-  // ── Build questions from LOCAL bank first ──
-  const bankKey = META.subjBank || META.bank;
-  const localBank = QB[bankKey] || QB[META.bank] || [];
-  // Shuffle local bank with seed and cap to META.qs — used as fallback if Supabase returns nothing
-  QUESTIONS = shuffleWithSeed(localBank, META.seed).slice(0, META.qs);
+  // ── Fetch questions from Supabase ──
+  QUESTIONS = [];
+  const startBtn = document.getElementById('btn-start-test');
+  const origLabel = startBtn.textContent;
+  startBtn.disabled = true;
+  startBtn.textContent = 'Loading questions…';
+  try {
+    const sbHeaders = {
+      'apikey': SUPABASE_ANON,
+      'Authorization': 'Bearer ' + SUPABASE_ANON,
+      'Content-Type': 'application/json',
+    };
+    const tableName = (SUPABASE_TABLE[META.bank] || SUPABASE_TABLE[META.subjBank]) || 'questions';
+    console.info('test-engine: querying table=' + tableName);
 
-  // ── Try Supabase override if configured ──
-  // Fetches ALL questions for the exam by exam_id, then shuffles with the
-  // test-card seed and slices to META.qs — so each test card gets a unique
-  // deterministic subset of the full question pool (e.g. 150 of 150).
-  // Fallback: tries test_id column if exam_id returns nothing.
-  const examUuid = EXAM_UUID[META.bank] || EXAM_UUID[META.subjBank] || null;
-  const testId   = id;   // the URL ?id= value, e.g. 'iti-p1-pyq25'
-
-  if(SUPABASE_URL && SUPABASE_URL !== 'YOUR_SUPABASE_URL' && SUPABASE_ANON){
-    const startBtn = document.getElementById('btn-start-test');
-    const origLabel = startBtn.textContent;
-    startBtn.disabled = true;
-    startBtn.textContent = 'Loading questions\u2026';
-    try {
-      const sbHeaders = {
-        'apikey': SUPABASE_ANON,
-        'Authorization': 'Bearer ' + SUPABASE_ANON,
-        'Content-Type': 'application/json',
-      };
-
-      let rows = [];
-
-      // Resolve the correct table for this bank (e.g. 'iti_paper1_questions')
-      const tableName = (SUPABASE_TABLE && (SUPABASE_TABLE[META.bank] || SUPABASE_TABLE[META.subjBank])) || 'questions';
-      console.info('test-engine: querying table=' + tableName);
-
-      // ── Fetch questions filtered by exam_id ──────────────────────────
-      if(examUuid){
-        const url = `${SUPABASE_URL}/rest/v1/${tableName}`
-          + `?exam_id=eq.${encodeURIComponent(examUuid)}`
-          + `&order=q_number.asc`
-          + `&limit=2000`;
-        const res = await fetch(url, { headers: sbHeaders });
-        const resText = await res.text();
-        if(res.ok){
-          const data = JSON.parse(resText);
-          if(Array.isArray(data) && data.length > 0){
-            rows = data;
-            console.info('test-engine: SUCCESS - ' + data.length + ' questions loaded from ' + tableName);
-          } else {
-            console.warn('test-engine: 0 rows returned. Raw:', resText.slice(0,200));
-            console.warn('LIKELY FIX: Run in Supabase SQL Editor:');
-            console.warn('  CREATE POLICY "anon read" ON ' + tableName + ' FOR SELECT TO anon USING (true);');
-          }
-        } else {
-          console.error('test-engine: HTTP ' + res.status + ' error. Body:', resText.slice(0,300));
-        }
-      } else {
-        console.warn('test-engine: No UUID in EXAM_UUID for bank=' + META.bank);
-      }
-      // No unfiltered fallback — avoids dumping all questions
-
-      if(rows.length > 0){
-        // Map all fields including bilingual content
-        const dbQuestions = rows.map(r => ({
-          q:       r.question_text,
-          opts:    [r.option_a, r.option_b, r.option_c, r.option_d],
-          ans:     Number(r.correct_option),  // ensure numeric 0-3
+    const url = `${SUPABASE_URL}/rest/v1/${tableName}?order=id.asc&limit=2000`;
+    const res = await fetch(url, { headers: sbHeaders });
+    const resText = await res.text();
+    if(res.ok){
+      const data = JSON.parse(resText);
+      if(Array.isArray(data) && data.length > 0){
+        console.info('test-engine: ' + data.length + ' questions loaded from ' + tableName);
+        const ansMap = { A:0, B:1, C:2, D:3 };
+        const dbQuestions = data.map(r => ({
+          q:       r.question_en,
+          opts:    [r.opt_a_en, r.opt_b_en, r.opt_c_en, r.opt_d_en],
+          ans:     ansMap[(r.correct_answer||'').toString().trim().toUpperCase()] ?? 0,
           marks:   r.marks  || null,
           hint:    r.hint   || null,
-          // Bilingual fields
-          q_hi:    r.question_hindi || '',
-          opts_hi: (r.option_a_hindi || r.option_b_hindi || r.option_c_hindi || r.option_d_hindi)
-                    ? [r.option_a_hindi||'', r.option_b_hindi||'', r.option_c_hindi||'', r.option_d_hindi||'']
+          q_hi:    r.question_hi || '',
+          opts_hi: (r.opt_a_hi || r.opt_b_hi || r.opt_c_hi || r.opt_d_hi)
+                    ? [r.opt_a_hi||'', r.opt_b_hi||'', r.opt_c_hi||'', r.opt_d_hi||'']
                     : null,
-          exp_en:  r.explanation_english || '',
-          exp_hi:  r.explanation_hindi   || '',
+          exp_en:  r.explanation_en || '',
+          exp_hi:  r.explanation_hi || '',
           topic:   r.topic || '',
         }));
-        // Shuffle the full pool with this card's seed, then take META.qs questions.
-        // Each series card (pyq25, s01, s02…) gets a different but repeatable subset.
-        // Shuffle then SLICE to exactly META.qs so all Supabase questions load correctly
         QUESTIONS = shuffleWithSeed(dbQuestions, META.seed).slice(0, META.qs);
-        console.info('test-engine: using ' + QUESTIONS.length + ' of ' + dbQuestions.length + ' questions (seed=' + META.seed + ', target=' + META.qs + ')');
+        console.info('test-engine: using ' + QUESTIONS.length + ' of ' + dbQuestions.length + ' questions (seed=' + META.seed + ')');
+      } else {
+        console.warn('test-engine: 0 rows returned. Raw:', resText.slice(0,200));
+        console.warn('LIKELY FIX: Run in Supabase SQL Editor:');
+        console.warn('  ALTER TABLE ' + tableName + ' ENABLE ROW LEVEL SECURITY;');
+        console.warn('  CREATE POLICY "anon read" ON ' + tableName + ' FOR SELECT TO anon USING (true);');
       }
-      // else: keep local bank questions already set above
-    } catch(e){
-      console.warn('Supabase fetch failed, using local bank:', e.message);
-    } finally {
-      // TOTAL must be set HERE — after the async fetch completes — not outside the block
-      TOTAL = QUESTIONS.length;
-      if(TOTAL === 0){
-        alert('No questions available for this test yet. Coming soon!');
-        history.back();
-        return;
-      }
-      answers = new Array(TOTAL).fill(-1);
-      visited = new Array(TOTAL).fill(false);
-      marked  = new Array(TOTAL).fill(false);
-
-      startBtn.disabled = false;
-      startBtn.textContent = origLabel;
-      document.getElementById('agree-box').dispatchEvent(new Event('change'));
-      const qCountCell = document.querySelector('#inst-details-grid .detail-cell .detail-val');
-      if(qCountCell) qCountCell.textContent = QUESTIONS.length;
+    } else {
+      console.error('test-engine: HTTP ' + res.status + ' error. Body:', resText.slice(0,300));
     }
-    return; // prevent duplicate init below
+  } catch(e){
+    console.error('test-engine: Supabase fetch failed:', e.message);
+  } finally {
+    TOTAL = QUESTIONS.length;
+    if(TOTAL === 0){
+      alert('No questions available for this test yet. Please check back soon!');
+      history.back();
+      return;
+    }
+    answers = new Array(TOTAL).fill(-1);
+    visited = new Array(TOTAL).fill(false);
+    marked  = new Array(TOTAL).fill(false);
+    startBtn.disabled = false;
+    startBtn.textContent = origLabel;
+    document.getElementById('agree-box').dispatchEvent(new Event('change'));
+    const qCountCell = document.querySelector('#inst-details-grid .detail-cell .detail-val');
+    if(qCountCell) qCountCell.textContent = QUESTIONS.length;
   }
-
-  // Supabase not configured — finalise with local bank immediately
-  TOTAL = QUESTIONS.length;
-  if(TOTAL === 0){
-    alert('No questions available for this test yet. Coming soon!');
-    history.back();
-    return;
-  }
-  answers = new Array(TOTAL).fill(-1);
-  visited = new Array(TOTAL).fill(false);
-  marked  = new Array(TOTAL).fill(false);
 });
 
 // ═══════════════════════════════════════════════════════════
@@ -1555,64 +1087,6 @@ function escHtml(str) {
     .replace(/"/g,'&quot;');
 }
 
-// ═══════════════════════════════════════════════════════════
-// CSV LOADER — loads bilingual CSV and enriches QB
-// Call loadBilingualCSV(csvText, bankKey) after fetching CSV
-// ═══════════════════════════════════════════════════════════
-function parseCSV(text) {
-  const lines = text.split('\n');
-  if (!lines.length) return [];
-  const headers = lines[0].split(',').map(h => h.replace(/^"|"$/g,'').trim());
-  const rows = [];
-  for (let i = 1; i < lines.length; i++) {
-    const line = lines[i].trim();
-    if (!line) continue;
-    // CSV-safe split handling quoted commas
-    const vals = [];
-    let cur = '', inQ = false;
-    for (let c = 0; c < line.length; c++) {
-      if (line[c] === '"') { inQ = !inQ; }
-      else if (line[c] === ',' && !inQ) { vals.push(cur); cur = ''; }
-      else cur += line[c];
-    }
-    vals.push(cur);
-    const row = {};
-    headers.forEach((h, j) => { row[h] = (vals[j] || '').replace(/^"|"$/g,'').trim(); });
-    rows.push(row);
-  }
-  return rows;
-}
-
-function loadBilingualCSV(csvText, bankKey) {
-  const rows = parseCSV(csvText);
-  if (!rows.length) return;
-  // Map q_number → row for quick lookup
-  const byNum = {};
-  rows.forEach(r => { byNum[r.q_number] = r; });
-  // Enrich existing QB
-  if (QB[bankKey]) {
-    QB[bankKey].forEach((q, idx) => {
-      const row = byNum[String(idx + 1)];
-      if (row) {
-        q.q_hi = row.question_hindi || '';
-        // Hindi options — CSV doesn't have separate cols; use eng for now
-        q.opts_hi = null;
-        q.exp_en  = row.explanation_english || '';
-        q.exp_hi  = row.explanation_hindi || '';
-        q.topic   = row.topic || '';
-      }
-    });
-  }
-}
-
-// ── Auto-load bundled CSV if available ──
-// The CSV is embedded as a JS variable below (injected at build time)
-// so it works without any server / Supabase.
-(function() {
-  if (typeof BILINGUAL_CSV_ITI_P1 !== 'undefined') {
-    loadBilingualCSV(BILINGUAL_CSV_ITI_P1, 'iti-p1');
-  }
-})();
 
 
 function getUser(){ try{ return JSON.parse(localStorage.getItem('t11_user')||'{}'); }catch(e){ return {}; } }
