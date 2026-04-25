@@ -1007,8 +1007,8 @@ window.addEventListener('DOMContentLoaded', async () => {
           exp_hi:  r.explanation_hi || '',
           topic:   r.topic || '',
         }));
-        QUESTIONS = shuffleWithSeed(dbQuestions, META.seed).slice(0, META.qs);
-        console.info('test-engine: using ' + QUESTIONS.length + ' of ' + dbQuestions.length + ' questions (seed=' + META.seed + ')');
+        QUESTIONS = dbQuestions.slice(0, META.qs);
+        console.info('test-engine: loaded ' + QUESTIONS.length + ' questions in original order');
       } else {
         console.warn('test-engine: 0 rows returned. Raw:', resText.slice(0,200));
         console.warn('LIKELY FIX: Run in Supabase SQL Editor:');
