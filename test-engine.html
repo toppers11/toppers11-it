@@ -991,6 +991,8 @@ window.addEventListener('DOMContentLoaded', async () => {
     if(res.ok){
       const data = JSON.parse(resText);
       if(Array.isArray(data) && data.length > 0){
+        // Sort by id as integer (in case id column is TEXT type in Supabase)
+        data.sort((a, b) => parseInt(a.id) - parseInt(b.id));
         console.info('test-engine: ' + data.length + ' questions loaded from ' + tableName);
         const ansMap = { A:0, B:1, C:2, D:3 };
         const dbQuestions = data.map(r => ({
