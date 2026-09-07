@@ -150,7 +150,8 @@ body{-webkit-user-select:none;-moz-user-select:none;user-select:none;}
 .opt-text{line-height:1.55;font-size:.88rem;}
 
 .q-nav{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:1.2rem;}
-.q-nav-row2{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:.5rem;}
+.q-nav-row2{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.4rem;margin-top:.5rem;}
+.q-nav-row2 .q-btn{padding:.55rem .3rem;font-size:.7rem;}
 .q-btn{padding:.55rem .5rem;border-radius:8px;border:1.5px solid var(--bdr);background:#fff;font-family:'Open Sans',sans-serif;font-size:.78rem;font-weight:700;color:var(--ink);cursor:pointer;transition:all .15s;text-align:center;width:100%;}
 .q-btn:hover{border-color:var(--t3);color:var(--t1);}
 .q-btn-primary{background:var(--t3);border-color:var(--t3);color:#fff;}
@@ -158,7 +159,18 @@ body{-webkit-user-select:none;-moz-user-select:none;user-select:none;}
 .q-btn-review{background:var(--purple-pale);border-color:var(--purple);color:var(--purple);}
 .q-btn-submit{background:var(--dark);border-color:var(--dark);color:#fff;}
 .q-btn-submit:hover{background:#000;border-color:#000;color:#fff;}
-@media(min-width:480px){.q-nav{display:flex;flex-wrap:wrap;gap:.5rem;}.q-nav-row2{display:none;}.q-btn{width:auto;flex:1;}.q-btn-submit{flex:0;margin-left:auto;}}
+.q-btn-pause{background:var(--amber-pale);border-color:var(--amber);color:var(--amber-dark);}
+.q-btn-pause:hover{background:var(--amber);color:#fff;}
+@media(min-width:480px){.q-nav{display:flex;flex-wrap:wrap;gap:.5rem;}.q-nav-row2{display:none;}.q-btn{width:auto;flex:1;}.q-btn-submit{flex:0;margin-left:auto;}.q-btn-pause{flex:0;}}
+.resume-banner{display:none;align-items:center;justify-content:space-between;gap:.75rem;flex-wrap:wrap;background:var(--amber-pale);border:1.5px solid var(--amber);border-radius:12px;padding:.85rem 1.1rem;margin-bottom:1.25rem;}
+.resume-banner.show{display:flex;}
+.resume-banner-text{font-size:.84rem;color:var(--amber-dark);font-weight:600;line-height:1.5;}
+.resume-banner-text b{color:var(--ink);}
+.resume-banner-btns{display:flex;gap:.5rem;flex-shrink:0;}
+.btn-resume{background:linear-gradient(135deg,var(--t1),var(--t3));color:#fff;font-size:.78rem;font-weight:700;padding:.5rem .95rem;border-radius:8px;border:none;cursor:pointer;white-space:nowrap;}
+.btn-resume-discard{background:#fff;color:var(--muted);font-size:.78rem;font-weight:600;padding:.5rem .8rem;border-radius:8px;border:1.5px solid var(--bdr);cursor:pointer;white-space:nowrap;}
+.pause-modal .modal-box{max-width:320px;}
+.pause-icon{width:52px;height:52px;border-radius:50%;background:var(--amber-pale);display:grid;place-items:center;margin:0 auto .9rem;font-size:1.5rem;}
 
 .palette-toggle-btn{display:flex;align-items:center;justify-content:center;gap:.4rem;width:100%;padding:.6rem;margin-top:1rem;background:#fff;border:1.5px solid var(--bdr);border-radius:10px;font-size:.8rem;font-weight:600;color:var(--muted);cursor:pointer;}
 @media(min-width:769px){.palette-toggle-btn{display:none;}}
@@ -340,6 +352,13 @@ body{-webkit-user-select:none;-moz-user-select:none;user-select:none;}
     </div>
   </div>
   <div class="inst-body">
+    <div class="resume-banner" id="resume-banner">
+      <div class="resume-banner-text" id="resume-banner-text"></div>
+      <div class="resume-banner-btns">
+        <button class="btn-resume-discard" onclick="discardPausedAttempt()">Start Fresh</button>
+        <button class="btn-resume" onclick="resumeFromInstructions()">Resume Paused Test →</button>
+      </div>
+    </div>
     <div class="inst-card">
       <div class="inst-head" id="inst-head-bar">
         <h2 id="inst-title">Loading…</h2>
@@ -443,12 +462,14 @@ body{-webkit-user-select:none;-moz-user-select:none;user-select:none;}
       </div>
       <div class="q-nav-row2">
         <button class="q-btn q-btn-review" onclick="markReview()">★ Review</button>
+        <button class="q-btn q-btn-pause" onclick="pauseTest()">⏸ Pause</button>
         <button class="q-btn q-btn-submit" onclick="showSubmitModal()">Submit</button>
       </div>
       <div class="q-nav" id="q-nav-desktop" style="display:none;">
         <button class="q-btn" onclick="goPrev()">← Previous</button>
         <button class="q-btn q-btn-review" onclick="markReview()">★ Mark for Review</button>
         <button class="q-btn q-btn-primary" onclick="saveNext()">Save &amp; Next →</button>
+        <button class="q-btn q-btn-pause" onclick="pauseTest()">⏸ Pause</button>
         <button class="q-btn q-btn-submit" onclick="showSubmitModal()">Submit</button>
       </div>
       <button class="palette-toggle-btn" onclick="togglePalette()" id="palette-toggle-btn">
@@ -591,6 +612,19 @@ body{-webkit-user-select:none;-moz-user-select:none;user-select:none;}
     <div class="modal-btns">
       <button class="btn-go-back" onclick="closeModal()">Go Back</button>
       <button class="btn-confirm" onclick="submitTest()">Yes, Submit</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAUSE MODAL -->
+<div class="modal-over pause-modal" id="pause-modal" onclick="if(event.target===this)return;">
+  <div class="modal-box">
+    <div class="pause-icon">⏸️</div>
+    <h3>Test Paused</h3>
+    <p>Your progress and remaining time have been saved on this device. You can safely close this tab and resume later from where you left off.</p>
+    <div class="modal-btns">
+      <a class="btn-go-back" id="pause-exit-link" href="#">Exit to Dashboard</a>
+      <button class="btn-confirm" onclick="resumeTest()">Resume Test</button>
     </div>
   </div>
 </div>
@@ -1148,6 +1182,8 @@ let answers=[],visited=[],marked=[];
 let timerInterval;
 let currentSeriesId='';
 let reviewMode=false;
+let pausedState=null;
+let remainingSecs=0,timerBoxId='',timerOnExpire=null;
 let candName='',candMobile='';
 
 window.addEventListener('DOMContentLoaded',async()=>{
@@ -1158,7 +1194,7 @@ window.addEventListener('DOMContentLoaded',async()=>{
   META=SERIES_META[id];document.title=`${META.title} — Toppers11`;
   (function prefillCandidate(){const u=getUser();const nameEl=document.getElementById('cand-name');const mobEl=document.getElementById('cand-mobile');if(u.name)nameEl.value=u.name;if(u.mobile||u.phone)mobEl.value=u.mobile||u.phone;})();
   const dash=DASH_MAP[META.exam]||'income-tax-departmental-exam.html';
-  ['back-link','result-dash-link','res-back-btn','subj-dash-link','subj-back-btn'].forEach(eid=>{const el=document.getElementById(eid);if(el)el.href=dash;});
+  ['back-link','result-dash-link','res-back-btn','subj-dash-link','subj-back-btn','pause-exit-link'].forEach(eid=>{const el=document.getElementById(eid);if(el)el.href=dash;});
   const headBar=document.getElementById('inst-head-bar');headBar.className=`inst-head inst-head-${META.exam}`;
   document.getElementById('inst-title').textContent=META.title;
   document.getElementById('inst-badge').textContent=META.paper;
@@ -1169,7 +1205,23 @@ window.addEventListener('DOMContentLoaded',async()=>{
   if(isSub){document.getElementById('inst-mcq-section').style.display='none';document.getElementById('inst-subj-section').style.display='';document.getElementById('btn-start-test').className='btn-start blue';}
   QUESTIONS=[];const startBtn=document.getElementById('btn-start-test');startBtn.disabled=true;startBtn.textContent='Loading questions…';
   try{const sbH={'apikey':SUPABASE_ANON,'Authorization':'Bearer '+SUPABASE_ANON,'Content-Type':'application/json'};const tbl=SUPABASE_TABLE[id]||'questions';const MCQ_COLS='id,question_en,question_hi,opt_a_en,opt_b_en,opt_c_en,opt_d_en,opt_a_hi,opt_b_hi,opt_c_hi,opt_d_hi,correct_answer';const SUBJ_COLS='id,question_en,question_hi,marks,hint,explanation_en,explanation_hi';const Q_COLS=(META.type==='subjective')?SUBJ_COLS:MCQ_COLS;const res=await fetch(`${SUPABASE_URL}/rest/v1/${tbl}?select=${Q_COLS}&order=id.asc&limit=2000`,{headers:sbH});const txt=await res.text();if(res.ok){const data=JSON.parse(txt);if(Array.isArray(data)&&data.length>0){data.sort((a,b)=>parseInt(a.id)-parseInt(b.id));const aMap={A:0,B:1,C:2,D:3};QUESTIONS=data.slice(0,META.qs).map(r=>({id:r.id,q:r.question_en,opts:[r.opt_a_en,r.opt_b_en,r.opt_c_en,r.opt_d_en],ans:aMap[(r.correct_answer||'').toString().trim().toUpperCase()]??0,q_hi:r.question_hi||'',opts_hi:(r.opt_a_hi||r.opt_b_hi||r.opt_c_hi||r.opt_d_hi)?[r.opt_a_hi||'',r.opt_b_hi||'',r.opt_c_hi||'',r.opt_d_hi||'']:null,topic:'',marks:r.marks||null,hint:r.hint||'',explanation_en:r.explanation_en||'',explanation_hi:r.explanation_hi||''}));}}}catch(e){console.error('Supabase fetch failed:',e.message);}
-  finally{TOTAL=QUESTIONS.length;startBtn.disabled=false;startBtn.textContent='Begin Test →';if(TOTAL===0){const errDiv=document.getElementById('supabase-error-banner');if(errDiv){const tbl=SUPABASE_TABLE[id]||'your_table';errDiv.innerHTML=`<div style="background:#fff0f0;border:1.5px solid #fecaca;border-radius:12px;padding:1rem 1.25rem;margin-bottom:1rem;"><div style="font-weight:700;color:#DC2626;margin-bottom:.4rem;">⚠️ Could not load questions from Supabase</div><div style="font-size:.82rem;color:#7F1D1D;line-height:1.7;">Table <code style="background:#fff;padding:.1rem .35rem;border-radius:4px;border:1px solid #fecaca;">${tbl}</code> returned 0 rows. Check RLS policy.</div></div>`;errDiv.style.display='block';}startBtn.disabled=true;startBtn.textContent='Questions unavailable';return;}answers=new Array(TOTAL).fill(-1);visited=new Array(TOTAL).fill(false);marked=new Array(TOTAL).fill(false);document.getElementById('agree-box').dispatchEvent(new Event('change'));}
+  finally{TOTAL=QUESTIONS.length;startBtn.disabled=false;startBtn.textContent='Begin Test →';if(TOTAL===0){const errDiv=document.getElementById('supabase-error-banner');if(errDiv){const tbl=SUPABASE_TABLE[id]||'your_table';errDiv.innerHTML=`<div style="background:#fff0f0;border:1.5px solid #fecaca;border-radius:12px;padding:1rem 1.25rem;margin-bottom:1rem;"><div style="font-weight:700;color:#DC2626;margin-bottom:.4rem;">⚠️ Could not load questions from Supabase</div><div style="font-size:.82rem;color:#7F1D1D;line-height:1.7;">Table <code style="background:#fff;padding:.1rem .35rem;border-radius:4px;border:1px solid #fecaca;">${tbl}</code> returned 0 rows. Check RLS policy.</div></div>`;errDiv.style.display='block';}startBtn.disabled=true;startBtn.textContent='Questions unavailable';return;}answers=new Array(TOTAL).fill(-1);visited=new Array(TOTAL).fill(false);marked=new Array(TOTAL).fill(false);document.getElementById('agree-box').dispatchEvent(new Event('change'));
+    if(META.type!=='subjective'){
+      try{
+        const raw=localStorage.getItem('t11_paused_'+id);
+        if(raw){
+          const st=JSON.parse(raw);
+          if(st&&Array.isArray(st.answers)&&st.answers.length===TOTAL&&typeof st.remainingSecs==='number'&&st.remainingSecs>0){
+            pausedState=st;
+            const mm=String(Math.floor(st.remainingSecs/60)).padStart(2,'0'),ss=String(st.remainingSecs%60).padStart(2,'0');
+            const ansCount=st.answers.filter(a=>a!==-1).length;
+            document.getElementById('resume-banner-text').innerHTML=`⏸ You have a <b>paused attempt</b> for this test — <b>${ansCount}/${TOTAL}</b> answered, <b>${mm}:${ss}</b> remaining.`;
+            document.getElementById('resume-banner').classList.add('show');
+          }
+        }
+      }catch(e){console.warn('Could not read paused state:',e.message);}
+    }
+  }
   if(reviewMode)await loadStoredReview();
 });
 async function loadStoredReview(){
@@ -1321,6 +1373,109 @@ function formatQ(str){
     }
   }
 
+  /* ── 3f. Assertion (A) / Reason (R) two-part statements ── */
+  if(!/\n/.test(str)){
+    const arM=str.match(/^(.*?)(\bAssertion\s*\([Aa]\)\s*[:.]\s*.*?)(\bReason\s*\([Rr]\)\s*[:.]\s*.*)$/);
+    if(arM){
+      const intro=arM[1].trim();
+      const body=(intro?intro+'\n':'')+arM[2].trim()+'\n'+arM[3].trim();
+      str=body;
+    }
+  }
+
+  /* ── 3g. "Statement I: ... Statement II: ..." labeled statements ── */
+  if(!/\n/.test(str)){
+    const romanMap3={I:1,II:2,III:3,IV:4,V:5,VI:6};
+    const markerRe8=/(^|[\s;])(Statement\s+(I{1,3}|IV|V|VI))\s*[:.]\s*/g;
+    const matches8=[...str.matchAll(markerRe8)];
+    const nums8=matches8.map(m=>romanMap3[m[3]]);
+    let sequential8=nums8.length>=2&&nums8[0]===1;
+    if(sequential8){for(let k=1;k<nums8.length;k++){if(nums8[k]!==nums8[k-1]+1){sequential8=false;break;}}}
+    if(sequential8){
+      let out=str.replace(markerRe8,(m,pre,label)=>'\n'+label+': ');
+      out=out.replace(/;(\s*\n)/g,'.$1');
+      out=out.replace(/^\n/,'');
+      str=out;
+    }
+  }
+
+  /* ── 3h. Inline PARENTHESIZED roman-numeral statements crammed into one paragraph ── */
+  /* e.g. "Regarding X: (i) statement one; (ii) statement two; (iii) ... (iv) ..." */
+  if(!/\n/.test(str)){
+    const romanMap2={i:1,ii:2,iii:3,iv:4,v:5,vi:6,vii:7,viii:8,ix:9,x:10};
+    const markerRe3=/(^|[\s;])\((i{1,3}v?|vi{0,3}|ix|x)\)\s*/gi;
+    const matches3=[...str.matchAll(markerRe3)];
+    const nums3=matches3.map(m=>romanMap2[m[2].toLowerCase()]);
+    let sequential3=nums3.length>=2&&nums3[0]===1;
+    if(sequential3){for(let k=1;k<nums3.length;k++){if(nums3[k]!==nums3[k-1]+1){sequential3=false;break;}}}
+    if(sequential3){
+      let out=str.replace(markerRe3,(m,pre,d)=>'\n('+d.toLowerCase()+') ');
+      out=out.replace(/;(\s*\n)/g,'.$1'); /* tidy trailing semicolons at line breaks */
+      out=out.replace(/^\n/,'');
+      str=out;
+    }
+  }
+
+  /* ── 3i. Inline PARENTHESIZED letter statements: "(a) ... (b) ... (c) ..." ── */
+  if(!/\n/.test(str)){
+    const letterMap={a:1,b:2,c:3,d:4,e:5,f:6};
+    const markerRe4=/(^|[\s;])\(([a-f])\)\s*/gi;
+    const matches4=[...str.matchAll(markerRe4)];
+    const nums4=matches4.map(m=>letterMap[m[2].toLowerCase()]);
+    let sequential4=nums4.length>=2&&nums4[0]===1;
+    if(sequential4){for(let k=1;k<nums4.length;k++){if(nums4[k]!==nums4[k-1]+1){sequential4=false;break;}}}
+    if(sequential4){
+      let out=str.replace(markerRe4,(m,pre,d)=>'\n('+d+') ');
+      out=out.replace(/;(\s*\n)/g,'.$1');
+      out=out.replace(/^\n/,'');
+      str=out;
+    }
+  }
+
+  /* ── 3j. Inline PARENTHESIZED number statements: "(1) ... (2) ... (3) ..." ── */
+  if(!/\n/.test(str)){
+    const markerRe5=/(^|[\s;])\(([1-9])\)\s*/g;
+    const matches5=[...str.matchAll(markerRe5)];
+    const nums5=matches5.map(m=>parseInt(m[2],10));
+    let sequential5=nums5.length>=2&&nums5[0]===1;
+    if(sequential5){for(let k=1;k<nums5.length;k++){if(nums5[k]!==nums5[k-1]+1){sequential5=false;break;}}}
+    if(sequential5){
+      let out=str.replace(markerRe5,(m,pre,d)=>'\n('+d+') ');
+      out=out.replace(/;(\s*\n)/g,'.$1');
+      out=out.replace(/^\n/,'');
+      str=out;
+    }
+  }
+
+  /* ── 3k. Inline number-close-paren statements: "1) ... 2) ... 3) ..." ── */
+  if(!/\n/.test(str)){
+    const markerRe6=/(^|\s)([1-9])\)\s(?=[A-Z'"‘“(\u0900-\u097F])/g;
+    const matches6=[...str.matchAll(markerRe6)];
+    const nums6=matches6.map(m=>parseInt(m[2],10));
+    let sequential6=nums6.length>=2&&nums6[0]===1;
+    if(sequential6){for(let k=1;k<nums6.length;k++){if(nums6[k]!==nums6[k-1]+1){sequential6=false;break;}}}
+    if(sequential6){
+      let out=str.replace(markerRe6,(m,pre,d)=>'\n'+d+') ');
+      out=out.replace(/^\n/,'');
+      str=out;
+    }
+  }
+
+  /* ── 3l. Inline CAPITAL-LETTER statements: "A. ... B. ... C. ..." (min 3 to avoid false positives) ── */
+  if(!/\n/.test(str)){
+    const capMap={A:1,B:2,C:3,D:4,E:5};
+    const markerRe7=/(^|[\s;])([A-E])\.\s(?=[A-Z'"‘“(\u0900-\u097F])/g;
+    const matches7=[...str.matchAll(markerRe7)];
+    const nums7=matches7.map(m=>capMap[m[2]]);
+    let sequential7=nums7.length>=3&&nums7[0]===1;
+    if(sequential7){for(let k=1;k<nums7.length;k++){if(nums7[k]!==nums7[k-1]+1){sequential7=false;break;}}}
+    if(sequential7){
+      let out=str.replace(markerRe7,(m,pre,d)=>'\n'+d+'. ');
+      out=out.replace(/^\n/,'');
+      str=out;
+    }
+  }
+
   /* ── 4. Default plain-text rendering ── */
   return str.split('\n').map(line=>{const t=line.trim();if(t.startsWith('To ')||t.startsWith('को ')||t.startsWith('के नामे '))return'<span class="journal-to">'+escHtml(t)+'</span>';return t===''?'<br>':escHtml(t)+'<br>';}).join('');
 }
@@ -1351,9 +1506,14 @@ function fetchWithTimeoutMock(url,opts,ms){
 }
 
 function validateCandidateInfo(){const nameEl=document.getElementById('cand-name');const mobEl=document.getElementById('cand-mobile');const nameWrap=document.getElementById('cf-name-wrap');const mobWrap=document.getElementById('cf-mobile-wrap');const name=nameEl.value.trim();const mobile=mobEl.value.trim();let ok=true;if(!name){nameWrap.classList.add('has-err');ok=false;}else{nameWrap.classList.remove('has-err');}if(!/^[6-9]\d{9}$/.test(mobile)){mobWrap.classList.add('has-err');ok=false;}else{mobWrap.classList.remove('has-err');}if(ok){try{const u=getUser();u.name=name;u.mobile=mobile;localStorage.setItem('t11_user',JSON.stringify(u));}catch(e){console.warn('Could not save candidate info:',e.message);}candName=name;candMobile=mobile;}return ok;}
-function startTest(){if(!validateCandidateInfo())return;if(META.type==='subjective'){showPage('subj-page');renderSubjective();startTimer(META.mins,'subj-timer-box',submitSubjective);document.getElementById('subj-tp-info').textContent=`${META.paper} — ${TOTAL} Questions`;}else{showPage('test-page');visited[0]=true;document.getElementById('tp-info').textContent=META.paper;document.getElementById('q-paper-tag').textContent=META.paper;renderPalette();renderQuestion();startTimer(META.mins,'timer-box',submitTest);}}
+function startTest(){if(!validateCandidateInfo())return;if(META.type==='subjective'){showPage('subj-page');renderSubjective();startTimer(META.mins,'subj-timer-box',submitSubjective);document.getElementById('subj-tp-info').textContent=`${META.paper} — ${TOTAL} Questions`;}else{showPage('test-page');const resuming=!!pausedState;if(resuming){answers=pausedState.answers;visited=pausedState.visited;marked=pausedState.marked;currentQ=Math.min(pausedState.currentQ,TOTAL-1);}else{visited[0]=true;}document.getElementById('tp-info').textContent=META.paper;document.getElementById('q-paper-tag').textContent=META.paper;renderPalette();renderQuestion();startTimer(META.mins,'timer-box',submitTest,resuming?pausedState.remainingSecs:undefined);if(resuming)showToast('Resumed from where you left off.');pausedState=null;}}
 function showPage(id){document.querySelectorAll('#inst-page,#test-page,#result-page,#subj-page,#subj-result-page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');}
-function startTimer(mins,boxId,onExpire){let secs=mins*60;const box=document.getElementById(boxId);timerInterval=setInterval(()=>{secs--;box.textContent=String(Math.floor(secs/60)).padStart(2,'0')+':'+String(secs%60).padStart(2,'0');if(secs<=300)box.classList.add('warning');if(secs<=0){clearInterval(timerInterval);onExpire();}},1000);}
+function startTimer(mins,boxId,onExpire,startSecs){remainingSecs=(typeof startSecs==='number'&&startSecs>0)?startSecs:mins*60;timerBoxId=boxId;timerOnExpire=onExpire;updateTimerDisplay();timerInterval=setInterval(()=>{remainingSecs--;updateTimerDisplay();if(remainingSecs<=0){clearInterval(timerInterval);onExpire();}},1000);}
+function updateTimerDisplay(){const box=document.getElementById(timerBoxId);if(!box)return;box.textContent=String(Math.floor(remainingSecs/60)).padStart(2,'0')+':'+String(remainingSecs%60).padStart(2,'0');box.classList.toggle('warning',remainingSecs<=300);}
+function pauseTest(){if(!timerInterval)return;clearInterval(timerInterval);timerInterval=null;const state={currentQ,answers,visited,marked,remainingSecs,pausedAt:new Date().toISOString()};try{localStorage.setItem('t11_paused_'+currentSeriesId,JSON.stringify(state));}catch(e){console.warn('Could not save pause state:',e.message);}document.getElementById('pause-modal').classList.add('show');}
+function resumeTest(){document.getElementById('pause-modal').classList.remove('show');if(timerInterval)return;timerInterval=setInterval(()=>{remainingSecs--;updateTimerDisplay();if(remainingSecs<=0){clearInterval(timerInterval);timerOnExpire();}},1000);}
+function resumeFromInstructions(){if(!pausedState)return;document.getElementById('agree-box').checked=true;document.getElementById('btn-start-test').disabled=false;startTest();}
+function discardPausedAttempt(){try{localStorage.removeItem('t11_paused_'+currentSeriesId);}catch(e){console.warn('Could not clear paused state:',e.message);}pausedState=null;const b=document.getElementById('resume-banner');if(b)b.classList.remove('show');showToast('Paused attempt discarded. Starting fresh.');}
 
 function renderQuestion(){const q=QUESTIONS[currentQ];visited[currentQ]=true;document.getElementById('q-num-label').textContent=`Question ${currentQ+1} of ${TOTAL}`;document.getElementById('q-text').innerHTML=`<span class="opt-text-en">${formatQ(q.q)}</span>`+(q.q_hi?`<div class="q-hindi">${formatQ(q.q_hi)}</div>`:'');const letters=['A','B','C','D'];document.getElementById('opts-list').innerHTML=q.opts.map((o,i)=>{const hi=q.opts_hi?q.opts_hi[i]:null;return`<button class="opt-btn${answers[currentQ]===i?' selected':''}" onclick="selectOpt(${i})"><span class="opt-letter">${letters[i]}</span><span class="opt-text"><span class="opt-text-en">${formatQ(o)}</span>${hi?`<span class="opt-text-hi">${formatQ(hi)}</span>`:''}</span></button>`;}).join('');renderPalette();}
 function selectOpt(i){answers[currentQ]=answers[currentQ]===i?-1:i;renderQuestion();}
@@ -1365,7 +1525,7 @@ function jumpTo(i){currentQ=i;visited[i]=true;renderQuestion();}
 function showSubmitModal(){const ans=answers.filter(a=>a!==-1).length;document.getElementById('m-ans').textContent=ans;document.getElementById('m-no').textContent=TOTAL-ans;document.getElementById('m-rev').textContent=marked.filter(Boolean).length;document.getElementById('submit-modal').classList.add('show');}
 function closeModal(){document.getElementById('submit-modal').classList.remove('show');}
 
-async function submitTest(){clearInterval(timerInterval);closeModal();let correct=0,wrong=0,skip=0;QUESTIONS.forEach((q,i)=>{if(answers[i]===-1)skip++;else if(answers[i]===q.ans)correct++;else wrong++;});const marks=correct-(wrong/8),pct=Math.round((marks/TOTAL)*100);const scoreObj={correct,wrong,skip,marks:marks.toFixed(2),pct,total:TOTAL};localStorage.setItem('t11_score_'+currentSeriesId,JSON.stringify(scoreObj));
+async function submitTest(){clearInterval(timerInterval);closeModal();document.getElementById('pause-modal').classList.remove('show');try{localStorage.removeItem('t11_paused_'+currentSeriesId);}catch(e){}let correct=0,wrong=0,skip=0;QUESTIONS.forEach((q,i)=>{if(answers[i]===-1)skip++;else if(answers[i]===q.ans)correct++;else wrong++;});const marks=correct-(wrong/8),pct=Math.round((marks/TOTAL)*100);const scoreObj={correct,wrong,skip,marks:marks.toFixed(2),pct,total:TOTAL};localStorage.setItem('t11_score_'+currentSeriesId,JSON.stringify(scoreObj));
   try{localStorage.setItem('t11_answers_'+currentSeriesId,JSON.stringify(answers));localStorage.setItem('t11_attempt_at_'+currentSeriesId,new Date().toISOString());}catch(e){console.warn('Could not save answer snapshot:',e.message);}
   saveAttemptRemote(scoreObj,answers);
   showMcqResultSummary(scoreObj);showPage('result-page');setResultActionsForLiveSubmit();
